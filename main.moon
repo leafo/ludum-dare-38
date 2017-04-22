@@ -35,9 +35,9 @@ class GameSpace
     g.rotate @rot
 
     g.scale scale, scale
-    g.setColor 255 * scale, 255 * scale, 255 * scale
+    COLOR\push 255 * scale, 255 * scale, 255 * scale
     fn!
-    g.setColor 255,255,255
+    COLOR\pop!
     g.pop!
 
   draw_outline: =>
@@ -82,8 +82,6 @@ class Tunnel
         g.translate (love.math.noise(z) - 0.5) * 40, 0
         @hole\draw -w, -h
 
-    g.setColor 255, 255, 255
-
 class Enemy extends Box
   w: 12
   h: 8
@@ -91,7 +89,7 @@ class Enemy extends Box
   is_enemy: true
 
   new: (x, y) =>
-    super 0, 0 @w, @h
+    super 0, 0, @w, @h
     @move_center x, y
     @z = 2
 
@@ -101,14 +99,24 @@ class Enemy extends Box
 
   draw: (game) =>
     game.space\draw_at_z @z, ->
-      box = Box(0, 0, @w, @h)
-      box\move_center unpack @pos
-      box\draw!
+      COLOR\push 255, 100, 100 if @hit
+      Box.draw @
+      COLOR\pop! if @hit
+
+  -- ensure z is close enough
+  on_hit_by: (bullet) =>
+    return unless bullet.alive
+    return if @hit
+    if math.abs(bullet.z - @z) < 0.4
+      @hit = true
 
 class Player
   aim_depth: 10
   aim_speed: 100
+  scale_cursor: 1
+
   lazy cursor: -> imgfy "images/cursor.png"
+  lazy cursor_center: -> imgfy "images/cursor_center.png"
 
   new: =>
     @aim_pos = Vec2d!
@@ -129,9 +137,14 @@ class Player
     p = sign * math.abs(p)^2
     p * math.pi / 24
 
+  shoot: (game) =>
+    AUDIO\play "shoot"
+    bx, by = unpack @actual_aim
+    game.entities\add Bullet bx, by, 2
+    @scale_cursor = 1 + random_normal!
+
   update: (dt, game) =>
     vec = CONTROLLER\movement_vector(dt) * @aim_speed
-    -- print vec
     @move_aim game.space, unpack vec
 
     px, py = unpack @player_pos
@@ -144,6 +157,9 @@ class Player
       (@player_pos[2] - py) / dt
     )
 
+    if @scale_cursor > 1
+      @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
+
     game.space.rot = @get_rotation!
 
   draw: (game) =>
@@ -151,7 +167,20 @@ class Player
       g.setPointSize 3
       g.points unpack @player_pos
       g.points unpack @actual_aim
-      @cursor\draw unpack @aim_pos - Vec2d(@cursor\width!, @cursor\height!) / 2
+
+      @cursor_center\draw unpack @actual_aim - Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
+
+      g.push!
+      g.translate unpack @aim_pos
+      g.scale @scale_cursor, @scale_cursor
+      @cursor\draw -@cursor\width!/2, -@cursor\height!/2
+      g.pop!
+
+
+    g.setPointSize 1
+    for z=0,3,0.2
+      game.space\draw_at_z z, ->
+        g.points unpack @actual_aim
 
 class Game
   new: =>
@@ -180,7 +209,7 @@ class Game
     @player\draw @
     @space\draw_outline!
 
-    g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
+    -- g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
 
     @viewport\pop!
 
@@ -190,10 +219,21 @@ class Game
     @entities\update dt, @
     @player\update dt, @
 
+    grid = UniformGrid!
+
+    for e in *@entities
+      grid\add e
+
+    for e in *@entities
+      continue if e.is_enemy
+      for other in *grid\get_touching e
+        continue if other.is_bullet
+        if other.on_hit_by
+          other\on_hit_by e
+
     if CONTROLLER\tapped "one"
-      AUDIO\play "shoot"
-      bx, by = unpack @player.actual_aim
-      @entities\add Bullet bx, by, 2
+      @player\shoot @
+
 
 love.load = ->
   fonts = {
