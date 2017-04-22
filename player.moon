@@ -24,7 +24,6 @@ class Bullet extends Box
 
 class Missile extends Box
   lazy sprite: -> imgfy "images/bullet_green.png"
-  lazy lock_on: -> imgfy "images/lock_on.png"
 
   alive: true
   is_bullet: true
@@ -47,10 +46,6 @@ class Missile extends Box
     world.space\draw_at_z @z, ->
       @sprite\draw @x, @y
 
-  draw_hud: (world) =>
-    tx, ty = @target\center!
-    x, y = world.space\project tx, ty, @target.z
-    @lock_on\draw_center x, y
 
   update: (dt) =>
     @seq\update dt
@@ -75,6 +70,7 @@ class Player
 
   lazy cursor: -> imgfy "images/cursor.png"
   lazy cursor_center: -> imgfy "images/cursor_center.png"
+  lazy lock_on_sprite: -> imgfy "images/lock_on.png"
 
   lazy player_sprite: ->
     Spriter "images/player.png", 32, 16
@@ -85,6 +81,9 @@ class Player
     @player_vel = Vec2d!
     @player_z = -0.1
     @hud_z = 0.2
+
+    @locked = {}
+    @seqs = DrawList!
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
@@ -107,20 +106,48 @@ class Player
     world.entities\add Bullet bx, by, @player_z
     @scale_cursor = 1 + random_normal!
 
-  shoot_missile: (world) =>
-    enemy = world\get_closest_enemy @player_z
-    unless enemy
+  check_lock: (world, grid) =>
+    hitbox = Box(0, 0, 10, 10)\move_center unpack @player_pos
+    for e in *grid\get_touching hitbox
+      continue unless e.alive
+      continue unless e.is_enemy
+      continue if @locked[e]
+      AUDIO\play "lock"
+      @locked[e] = true
+
+  shoot_missile: (world, target) =>
+    return unless target and target.alive
+    AUDIO\play "missile"
+    bx, by = unpack @player_pos
+    world.entities\add Missile bx, by, @player_z, target, world
+    @rot_cursor = math.pi
+
+  fire_lock_ons: (world) =>
+    count = 0
+
+    targets = for target in pairs @locked
+      continue unless target.alive
+      count += 1
+      target
+
+    @locked = {}
+
+    if count == 0
       @scale_cursor = 0.5
       AUDIO\play "notarget"
       return
 
-    AUDIO\play "missile"
-
-    bx, by = unpack @player_pos
-    world.entities\add Missile bx, by, @player_z, enemy, world
-    @rot_cursor = math.pi
+    @seqs\add Sequence ->
+      for target in *targets
+        continue if target.z <= @player_z
+        @shoot_missile world, target
+        wait 0.1
 
   update: (dt, world) =>
+    @locking = false
+
+    @seqs\update dt
+
     vec = CONTROLLER\movement_vector dt
     vec = Vec2d world.space\unproject_rot unpack vec
 
@@ -146,6 +173,7 @@ class Player
     world.space.rot = @get_rotation!
     world.space.ytilt = -(@player_pos[2] / world.viewport.h) * 2
     world.space.xtilt = -(@player_pos[1] / world.viewport.w)
+
 
   draw_hud: (world) =>
     space = world.space
@@ -182,6 +210,12 @@ class Player
     @cursor\draw_center!
     g.pop!
 
+    -- draw lock ons
+    for target in pairs @locked
+      continue unless target.alive
+      tx, ty = target\center!
+      x, y = world.space\project tx, ty, target.z
+      @lock_on_sprite\draw_center x, y
 
   draw: (world) =>
     -- the under hud

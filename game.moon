@@ -86,7 +86,12 @@ class Game
       @player\shoot @
 
     if CONTROLLER\tapped "two"
-      @player\shoot_missile @
+      @player\fire_lock_ons @
+
+    if CONTROLLER\is_down "two"
+      @player.locking = true
+      @player\check_lock @, grid
+
 
   get_closest_enemy: (z) =>
     enemies = [e for e in *@entities when e.alive and e.is_enemy and e.z >= z]

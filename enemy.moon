@@ -15,7 +15,7 @@ class Enemy extends Box
 
   update: (dt, world) =>
     @z -= dt * world.space.scroll_speed / 3
-    not @hit
+    not @hit and @z > -1
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
