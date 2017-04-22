@@ -1,8 +1,6 @@
 {graphics: g} = love
 
 class ZParticle extends Particle
-  lazy sprite: -> imgfy "images/spark.png"
-  alive: true
   new: (world, @z, ...)=>
     @dz = -world.space.scroll_speed + (random_normal! - 0.5)
     super ...
@@ -13,15 +11,42 @@ class ZParticle extends Particle
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
-      @sprite\draw @x - @sprite\width! / 2, @y - @sprite\height! / 2
+      g.setPointSize 3
+      g.points @x, @y
+
+class Spark extends ImageParticle
+  ad_left: 0.05
+  lazy sprite: -> imgfy "images/spark.png"
+
+  new: (world, @z, x, y) =>
+    @dz = -world.space.scroll_speed + (random_normal! - 0.5)
+    super x, y,
+      Vec2d(0, 1)\random_heading(60) * -rand(200, 300),
+      Vec2d(0, 800)
+
+    @dscale = rand 0.6, 1.1
+    @dspin = rand -4, 4
+
+  update: (dt, ...) =>
+    @z += @dz * dt
+    super dt, ...
+
+  draw: (world) =>
+    world.space\draw_at_z @z, ->
+      super!
+
+class Smoke extends ImageParticle
+  lazy sprite: -> imgfy "images/spark.png"
+
 
 class Explosion extends Emitter
+  duration: 0.2
+
   new: (world, @z, x, y) =>
     super world, x, y
 
   make_particle: (x, y) =>
-    ZParticle @world, @z, x, y,
-      Vec2d(0, 1)\random_heading(30) * -100, Vec2d(0, 200)
+    Spark @world, @z, x, y
 
 class Enemy extends Box
   w: 12
