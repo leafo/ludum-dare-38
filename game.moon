@@ -7,6 +7,8 @@ import Tunnel from require "tunnel"
 
 import Anchor, HList, Label from require "lovekit.ui"
 
+import Wave from require "wave"
+
 class Game
   new: =>
     @viewport = EffectViewport {
@@ -21,13 +23,10 @@ class Game
     @entities = DrawList!
     @particles = DrawList!
 
-    @seq = Sequence ->
-      while true
-        @entities\add Enemy @, @space.aim_box\random_point!
-        wait 1
+    @wave = Wave @
 
     @scene = {
-      "seq", "space", "tunnel", "player", "entities", "particles", "ui"
+      "wave", "space", "tunnel", "player", "entities", "particles", "ui"
     }
 
     @ui = HList {
