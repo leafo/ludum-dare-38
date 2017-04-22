@@ -9,17 +9,16 @@ class Bullet extends Box
   alive: true
   is_bullet: true
 
-  new: (x, y, @speed) =>
+  new: (x, y, @z, @speed) =>
     super 0, 0, @sprite\width!, @sprite\height!
     @move_center x, y
-    @z = -0.5
 
   update: (dt) =>
     @z += dt * @speed
     @z < 3
 
-  draw: (game) =>
-    game.space\draw_at_z @z, ->
+  draw: (world) =>
+    world.space\draw_at_z @z, ->
       @sprite\draw @x, @y
 
 class Player
@@ -30,11 +29,15 @@ class Player
   lazy cursor: -> imgfy "images/cursor.png"
   lazy cursor_center: -> imgfy "images/cursor_center.png"
 
+  lazy player_sprite: ->
+    Spriter "images/player.png", 32, 16
+
   new: =>
     @aim_pos = Vec2d!
-    @actual_aim = Vec2d!
     @player_pos = Vec2d!
     @player_vel = Vec2d!
+    @player_z = -0.1
+    @hud_z = 0.2
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
@@ -51,22 +54,21 @@ class Player
     p = sign * math.abs(p)^2
     p * math.pi / 24
 
-  shoot: (game) =>
+  shoot: (world) =>
     AUDIO\play "shoot"
-    bx, by = unpack @actual_aim
-    game.entities\add Bullet bx, by, 2
+    bx, by = unpack @player_pos
+    world.entities\add Bullet bx, by, @player_z, 2
     @scale_cursor = 1 + random_normal!
 
-  update: (dt, game) =>
+  update: (dt, world) =>
     vec = CONTROLLER\movement_vector dt
     vec *= @aim_speed
 
-    @move_aim game.space, unpack vec
+    @move_aim world.space, unpack vec
 
     px, py = unpack @player_pos
 
-    approach_vector @actual_aim, @aim_pos, dt
-    approach_vector @player_pos, @aim_pos, dt / 2
+    approach_vector @player_pos, @aim_pos, dt
 
     @player_vel = Vec2d(
       (@player_pos[1] - px) / dt
@@ -76,16 +78,29 @@ class Player
     if @scale_cursor > 1
       @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
 
-    game.space.rot = @get_rotation!
-    game.space.ytilt = -(@player_pos[2] / game.viewport.h) * 2
-    game.space.xtilt = -(@player_pos[1] / game.viewport.w)
+    world.space.rot = @get_rotation!
+    world.space.ytilt = -(@player_pos[2] / world.viewport.h) * 2
+    world.space.xtilt = -(@player_pos[1] / world.viewport.w)
 
-  draw: (game) =>
-    cp = @actual_aim - Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
+  draw_hud: (world) =>
+    space = world.space
+    offset = space.offset
 
-    game.space\draw_at_z 0, ->
+    t = offset - math.floor offset
+
+    pt = pop_in(t, 2.0) / 4
+    space\draw_at_z pt, ->
+      COLOR\pusha (1 - t) * 255
+      space.aim_box\outline!
+      COLOR\pop!
+
+    cp = @player_pos -
+      Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
+
+    space\draw_at_z 0, ->
+      space.aim_box\outline!
+
       @cursor_center\draw unpack cp
-
       g.push!
       g.translate unpack @aim_pos
       g.scale @scale_cursor, @scale_cursor
@@ -93,9 +108,21 @@ class Player
       g.pop!
 
 
+  draw: (world) =>
+    -- the under hud
     g.setPointSize 1
     for z=0.2,3,0.2
-      game.space\draw_at_z z, ->
-        g.points unpack @actual_aim
+      world.space\draw_at_z z, ->
+        g.points unpack @player_pos
+
+    for frame=2,0,-1
+      world.space\draw_at_z frame * 0.05 + @player_z, ->
+        g.push!
+        g.translate unpack @player_pos
+        g.rotate @get_rotation! * 2
+        @player_sprite\draw frame, -16, -8
+        g.pop!
+
+    @draw_hud world
 
 {:Player, :Bullet}

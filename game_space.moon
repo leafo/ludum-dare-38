@@ -58,16 +58,4 @@ class GameSpace
     COLOR\pop!
     g.pop!
 
-  draw_outline: =>
-    t = @offset - math.floor @offset
-
-    pt = pop_in(t, 2.0) / 4
-    @draw_at_z pt, ->
-      COLOR\pusha (1 - t) * 255
-      @aim_box\outline!
-      COLOR\pop!
-
-    @draw_at_z 0, ->
-      @aim_box\outline!
-
 { :GameSpace }

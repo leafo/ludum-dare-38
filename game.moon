@@ -57,8 +57,6 @@ class Game
     g.setBlendMode "alpha"
 
     @player\draw @
-    @space\draw_outline!
-
     @ui\draw!
 
     @viewport\pop!
