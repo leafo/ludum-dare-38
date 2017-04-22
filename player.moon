@@ -107,7 +107,7 @@ class Player
     @scale_cursor = 1 + random_normal!
 
   check_lock: (world, grid) =>
-    hitbox = Box(0, 0, 10, 10)\move_center unpack @player_pos
+    hitbox = Box(0, 0, 20, 20)\move_center unpack @player_pos
     for e in *grid\get_touching hitbox
       continue unless e.alive
       continue unless e.is_enemy
@@ -144,7 +144,7 @@ class Player
         wait 0.1
 
   update: (dt, world) =>
-    @locking = false
+    @locking = CONTROLLER\is_down "two"
 
     @seqs\update dt
 
@@ -164,11 +164,15 @@ class Player
       (@player_pos[2] - py) / dt
     )
 
-    if @scale_cursor != 1
-      @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
+    cursor_size = if @locking then 1.2 else 1
 
-    if @rot_cursor > 0
-      @rot_cursor = smooth_approach @rot_cursor, 0, dt * 6
+    if @scale_cursor != cursor_size
+      @scale_cursor = smooth_approach @scale_cursor, cursor_size, dt * 2
+
+    target_rot = if @locking then -math.pi / 2 else 0
+
+    if @rot_cursor != target_rot
+      @rot_cursor = smooth_approach @rot_cursor, target_rot, dt * 6
 
     world.space.rot = @get_rotation!
     world.space.ytilt = -(@player_pos[2] / world.viewport.h) * 2
@@ -201,11 +205,8 @@ class Player
     g.push!
     g.translate cx, cy
 
-    if @scale_cursor != 1
-      g.scale @scale_cursor, @scale_cursor
-
-    if @rot_cursor > 0
-      g.rotate @rot_cursor
+    g.scale @scale_cursor, @scale_cursor
+    g.rotate @rot_cursor
 
     @cursor\draw_center!
     g.pop!
