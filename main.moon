@@ -8,8 +8,6 @@ load_font = (img, chars)->
   font_image = imgfy img
   g.newImageFont font_image.tex, chars
 
-
-
 approach_vector = (start, stop, dt) ->
   for i=1,2
     start[i] = smooth_approach start[i], stop[i], dt * 5
@@ -20,7 +18,40 @@ class GameSpace
       GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
 
   scale_factor: (z) =>
-    math.min 2, 1 / z
+    math.min 3, 1 / z
+
+  draw_at_z: (z, fn) =>
+    g.push!
+    scale = @scale_factor z
+    g.translate @aim_box\center!
+
+    g.scale scale, scale
+    g.setColor 255 * scale, 255 * scale, 255 * scale
+    fn!
+    g.setColor 255,255,255
+    g.pop!
+
+
+class Bullet
+  lazy sprite: -> imgfy "images/bullet.png"
+  alive: true
+
+  new: (x, y, @speed) =>
+    @pos = Vec2d x, y
+    @z = 0.5
+
+  update: (dt) =>
+    @z += dt
+    @z < 3
+
+  draw: (game) =>
+    w = @sprite\width! / 2
+    h = @sprite\height! / 2
+
+    game.space\draw_at_z @z, ->
+      g.translate 0, 0
+      print @pos[1], @pos[2]
+      @sprite\draw -w, -h
 
 class Tunnel
   lazy hole: -> imgfy "images/hole.png"
@@ -38,16 +69,9 @@ class Tunnel
 
     for z=10,0,-0.5
       z -= @offset
-      g.push!
-      scale = @space\scale_factor z
-      g.translate @space.aim_box\center!
-
-      g.translate love.math.noise(z) * 10, 0
-
-      g.scale scale, scale
-      g.setColor 255 * scale, 255 * scale, 255 * scale
-      @hole\draw -w, -h
-      g.pop!
+      @space\draw_at_z z, ->
+        g.translate (love.math.noise(z) - 0.5) * 40, 0
+        @hole\draw -w, -h
 
     g.setColor 255, 255, 255
 
@@ -67,8 +91,6 @@ class Player
 
   update: (dt, game) =>
     vec = CONTROLLER\movement_vector(dt) * @aim_speed
-    print vec
-
     @move_aim game.space, unpack vec
 
     approach_vector @actual_aim, @aim_pos, dt
@@ -82,7 +104,6 @@ class Player
 
 class Game
   new: =>
-
     @viewport = EffectViewport {
       pixel_scale: true
       scale: GAME_CONFIG.scale
@@ -93,6 +114,7 @@ class Game
     @tunnel = Tunnel @space
 
     @player = Player Vec2d @space.aim_box\center!
+    @entities = DrawList!
 
   draw: =>
     @viewport\apply!
@@ -101,13 +123,18 @@ class Game
     @tunnel\draw!
     
     @space.aim_box\outline!
+    @entities\draw @
     @player\draw @
 
     @viewport\pop!
 
   update: (dt) =>
     @tunnel\update dt
+    @entities\update dt, @
     @player\update dt, @
+
+    if CONTROLLER\tapped "one"
+      @entities\add Bullet @player.aim_pos[1], @player.aim_pos[2], 100
 
 love.load = ->
   fonts = {
