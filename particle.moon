@@ -21,6 +21,8 @@ class ZImageParticle extends ImageParticle
   new: (world, @z, ...) =>
     @dz = -world.space.scroll_speed + (random_normal! - 0.5)
     super ...
+    @w = @sprite\width!
+    @h = @sprite\height!
 
   update: (dt, ...) =>
     @z += @dz * dt
