@@ -16,6 +16,7 @@ class Game
 
     @player = Player!
     @entities = DrawList!
+    @particles = DrawList!
 
     @seq = Sequence ->
       wait 2
@@ -27,6 +28,7 @@ class Game
 
     @tunnel\draw!
     @entities\draw_sorted ((a, b) -> a.z > b.z), @
+    @particles\draw @
 
     @player\draw @
     @space\draw_outline!
@@ -39,6 +41,7 @@ class Game
     @seq\update dt
     @tunnel\update dt
     @entities\update dt, @
+    @particles\update dt, @
     @player\update dt, @
 
     grid = UniformGrid!
@@ -51,7 +54,7 @@ class Game
       for other in *grid\get_touching e
         continue if other.is_bullet
         if other.on_hit_by
-          other\on_hit_by e
+          other\on_hit_by e, @
 
     if CONTROLLER\tapped "one"
       @player\shoot @
