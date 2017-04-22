@@ -1,8 +1,11 @@
 
-.PHONY: watch build
+.PHONY: watch build lint
 
-build: 
+build:
 	moonc .
 
 watch:
 	moonc -w .
+
+lint:
+	moonc -l *.moon
