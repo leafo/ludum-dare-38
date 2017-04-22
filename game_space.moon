@@ -9,6 +9,7 @@ class GameSpace
     @aim_box\move_center 0, 0
 
     @rot = 0
+    @world_rot = 0
     @ytilt = 0
     @xtilt = 0
 
@@ -25,7 +26,6 @@ class GameSpace
 
   -- project a single point, this should be synchronized with drawz
   project: (x, y, z) =>
-    print "projecting", x, y, z
     scale = @scale_factor z
 
     vw = @viewport.w / 2
@@ -49,7 +49,11 @@ class GameSpace
       0
     )
 
-    unpack (Vec2d(x,y) * scale + shake + adjust)\rotate(@rot) + Vec2d(vw, vh) + tilt
+    unpack (Vec2d(x,y) * scale + shake + adjust)\rotate(@rot + @world_rot) + Vec2d(vw, vh) + tilt
+
+  -- unproject screen rotation for input
+  unproject_rot: (x,y) =>
+    unpack Vec2d(x,y)\rotate -(@rot + @world_rot)
 
   draw_at_z: (z, fn) =>
     if z <= -1
@@ -65,7 +69,7 @@ class GameSpace
 
     g.translate vw, vh
 
-    g.rotate @rot
+    g.rotate @rot + @world_rot
 
     yadjust = vh - vh * scale
     xadjust = vw - vw * scale

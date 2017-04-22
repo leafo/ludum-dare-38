@@ -62,6 +62,8 @@ class Player
 
   update: (dt, world) =>
     vec = CONTROLLER\movement_vector dt
+    vec = Vec2d world.space\unproject_rot unpack vec
+
     vec *= @aim_speed
 
     @move_aim world.space, unpack vec
@@ -122,11 +124,17 @@ class Player
     t = love.timer.getTime!
     px, py = 2 * math.cos(3 + t*1.1), 2 * math.sin(t)
 
+    frame_depth = {
+      [0]: 0.05
+      [1]: 0.09
+      [2]: 0.10
+    }
+
     for frame=2,0,-1
-      world.space\draw_at_z frame * 0.05 + @player_z, ->
+      world.space\draw_at_z frame_depth[frame] + @player_z, ->
         g.push!
         g.translate unpack @player_pos
-        g.rotate @get_rotation! * 2
+        g.rotate @get_rotation! * 2 - world.space.world_rot
         @player_sprite\draw frame, -16 + px, -8 + py
         g.pop!
 
