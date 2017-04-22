@@ -10,9 +10,6 @@ load_font = (img, chars)->
 
 import Game from require "game"
 
-for k,v in pairs require "lovekit.init"
-  print k
-
 love.load = ->
   fonts = {
     default: load_font "images/font.png",
