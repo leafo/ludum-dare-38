@@ -86,6 +86,9 @@ class Player
     AUDIO\play "missile"
     -- bx, by = unpack @player_pos
     -- world.entities\add Bullet bx, by, @player_z
+    enemy = world\get_closest_enemy @player_z
+    print "got", enemy
+
     @rot_cursor = math.pi
 
   update: (dt, world) =>

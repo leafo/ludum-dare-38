@@ -83,4 +83,9 @@ class Game
     if CONTROLLER\tapped "two"
       @player\shoot_missile @
 
+  get_closest_enemy: (z) =>
+    enemies = [e for e in *@entities when e.alive and e.is_enemy and e.z >= z]
+    table.sort enemies, (a, b) -> a.z < b.z
+    enemies[1]
+
 {:Game}
