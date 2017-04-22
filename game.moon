@@ -39,7 +39,6 @@ class Game
     y -= @viewport.h / 2
 
     import Explosion from require "particle"
-    print x, y
     @particles\add Explosion @, 1, x, y
 
   draw: =>
@@ -54,7 +53,6 @@ class Game
     @player\draw @
     @space\draw_outline!
 
-    -- g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
     @ui\draw!
 
     @viewport\pop!

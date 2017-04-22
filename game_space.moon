@@ -13,7 +13,8 @@ class GameSpace
 
   scale_factor: (z) =>
     -- z of 0 is screen depth
-    math.min 20, 1 / (z + 1)
+    b = 1
+    math.min 20, b / (z + b)
 
   draw_at_z: (z, fn) =>
     if z <= -1
