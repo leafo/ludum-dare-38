@@ -1,8 +1,11 @@
+{graphics: g} = love
 
 import Player from require "player"
 import Enemy from require "enemy"
 import GameSpace from require "game_space"
 import Tunnel from require "tunnel"
+
+import Anchor, HList, Label from require "lovekit.ui"
 
 class Game
   new: =>
@@ -23,6 +26,13 @@ class Game
       @entities\add Enemy @space.aim_box\random_point!
       again!
 
+    @ui = HList {
+      x: 2, y: 2
+      Label -> "score: 0"
+      Box 0, 0, 3,8
+      Label -> "sphincter status: neutral"
+    }
+
   draw: =>
     @viewport\apply!
 
@@ -34,6 +44,7 @@ class Game
     @space\draw_outline!
 
     -- g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
+    @ui\draw!
 
     @viewport\pop!
 
@@ -43,6 +54,7 @@ class Game
     @entities\update dt, @
     @particles\update dt, @
     @player\update dt, @
+    @ui\update dt
 
     grid = UniformGrid!
 

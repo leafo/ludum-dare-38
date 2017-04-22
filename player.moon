@@ -82,8 +82,7 @@ class Player
   draw: (game) =>
     game.space\draw_at_z 0, ->
       g.setPointSize 3
-      g.points unpack @player_pos
-      g.points unpack @actual_aim
+      -- g.points unpack @player_pos
 
       @cursor_center\draw unpack @actual_aim - Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
 

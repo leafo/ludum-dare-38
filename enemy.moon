@@ -46,7 +46,7 @@ class Enemy extends Box
   on_hit_by: (bullet, world) =>
     return unless bullet.alive
     return if @hit
-    if math.abs(bullet.z - @z) < 0.4
+    if math.abs(bullet.z - @z) < 0.2
       @explode world
       bullet.alive = false
       @hit = true
