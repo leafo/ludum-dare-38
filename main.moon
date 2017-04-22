@@ -18,6 +18,8 @@ class GameSpace
     @aim_box = Box 0, 0, @viewport.w * 0.75, @viewport.h * 0.75
     @aim_box\move_center 0, 0
 
+    @rot = 0
+
   scale_factor: (z) =>
     -- z of 0 is screen depth
     math.min 3, 1 / (z + 1)
@@ -26,6 +28,8 @@ class GameSpace
     g.push!
     scale = @scale_factor z
     g.translate @viewport.w / 2, @viewport.h / 2
+
+    g.rotate @rot
 
     g.scale scale, scale
     g.setColor 255 * scale, 255 * scale, 255 * scale
@@ -87,18 +91,37 @@ class Player
     @aim_pos = Vec2d!
     @actual_aim = Vec2d!
     @player_pos = Vec2d!
+    @player_vel = Vec2d!
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
     @aim_pos = space.aim_box\clamp_vector @aim_pos
+
+  get_rotation: =>
+    unless @player_vel
+      return 0
+
+    p = math.max(math.min(@player_vel[1], 50), -50) / 50
+    sign = p == 0 and 1 or p / math.abs(p)
+    p = sign * math.abs(p)^2
+    p * math.pi / 24
 
   update: (dt, game) =>
     vec = CONTROLLER\movement_vector(dt) * @aim_speed
     -- print vec
     @move_aim game.space, unpack vec
 
+    px, py = unpack @player_pos
+
     approach_vector @actual_aim, @aim_pos, dt
     approach_vector @player_pos, @aim_pos, dt / 2
+
+    @player_vel = Vec2d(
+      (@player_pos[1] - px) / dt
+      (@player_pos[2] - py) / dt
+    )
+
+    game.space.rot = @get_rotation!
 
   draw: (game) =>
     game.space\draw_at_z 0, ->
@@ -124,7 +147,8 @@ class Game
     @viewport\apply!
 
     @tunnel\draw!
-    @entities\draw @
+    @entities\draw_sorted ((a, b) -> a.z > b.z), @
+
     @player\draw @
     @space\draw_outline!
 
