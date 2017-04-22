@@ -9,14 +9,38 @@ load_font = (img, chars)->
   g.newImageFont font_image.tex, chars
 
 
+
+approach_vector = (start, stop, dt) ->
+  for i=1,2
+    start[i] = smooth_approach start[i], stop[i], dt * 5
+
 class GameSpace
   new: =>
     @aim_box = Box 0, 0,
       GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
 
-approach_vector = (start, stop, dt) ->
-  for i=1,2
-    start[i] = smooth_approach start[i], stop[i], dt * 5
+  scale_factor: (z) =>
+    math.max 0.1, (10 - z) / 10
+
+class Tunnel
+  lazy hole: -> imgfy "images/hole.png"
+
+  new: (@space) =>
+
+  draw: =>
+    w = @hole\width! / 2
+    h = @hole\height! / 2
+
+    for z=0,10
+      print "drawing hole"
+      g.push!
+      scale = @space\scale_factor z
+      g.scale scale, scale
+      g.setColor 255 * scale, 255 * scale, 255 * scale
+      @hole\draw -w, -h
+      g.pop!
+
+    g.setColor 255, 255, 255
 
 class Player
   aim_depth: 10
@@ -49,6 +73,7 @@ class Game
   new: =>
     @player = Player!
     @space = GameSpace!
+    @tunnel = Tunnel @space
 
     @viewport = EffectViewport {
       pixel_scale: true
@@ -58,6 +83,8 @@ class Game
   draw: =>
     @viewport\apply!
     g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
+
+    @tunnel\draw!
     
     @space.aim_box\outline!
     @player\draw @
@@ -67,7 +94,6 @@ class Game
   update: (dt) =>
     @space.aim_box\move_center @viewport\center!
     @player\update dt, @
-
 
 love.load = ->
   fonts = {
