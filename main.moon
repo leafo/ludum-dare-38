@@ -22,9 +22,12 @@ class GameSpace
 
   scale_factor: (z) =>
     -- z of 0 is screen depth
-    math.min 3, 1 / (z + 1)
+    math.min 20, 1 / (z + 1)
 
   draw_at_z: (z, fn) =>
+    if z <= -1
+      return
+
     g.push!
     scale = @scale_factor z
     g.translate @viewport.w / 2, @viewport.h / 2
@@ -41,12 +44,14 @@ class GameSpace
     @draw_at_z 0, ->
       @aim_box\outline!
 
-class Bullet
+class Bullet extends Box
   lazy sprite: -> imgfy "images/bullet.png"
   alive: true
+  is_bullet: true
 
   new: (x, y, @speed) =>
-    @pos = Vec2d x, y
+    super 0, 0, @sprite\width!, @sprite\height!
+    @move_center x, y
     @z = -0.5
 
   update: (dt) =>
@@ -54,11 +59,8 @@ class Bullet
     @z < 3
 
   draw: (game) =>
-    w = @sprite\width! / 2
-    h = @sprite\height! / 2
-
     game.space\draw_at_z @z, ->
-      @sprite\draw -w + @pos[1], -h + @pos[2]
+      @sprite\draw @x, @y
 
 class Tunnel
   lazy hole: -> imgfy "images/hole.png"
@@ -81,6 +83,27 @@ class Tunnel
         @hole\draw -w, -h
 
     g.setColor 255, 255, 255
+
+class Enemy extends Box
+  w: 12
+  h: 8
+  alive: true
+  is_enemy: true
+
+  new: (x, y) =>
+    super 0, 0 @w, @h
+    @move_center x, y
+    @z = 2
+
+  update: (dt) =>
+    @z -= dt
+    true
+
+  draw: (game) =>
+    game.space\draw_at_z @z, ->
+      box = Box(0, 0, @w, @h)
+      box\move_center unpack @pos
+      box\draw!
 
 class Player
   aim_depth: 10
@@ -143,6 +166,11 @@ class Game
     @player = Player!
     @entities = DrawList!
 
+    @seq = Sequence ->
+      wait 2
+      @entities\add Enemy @space.aim_box\random_point!
+      again!
+
   draw: =>
     @viewport\apply!
 
@@ -157,11 +185,13 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
+    @seq\update dt
     @tunnel\update dt
     @entities\update dt, @
     @player\update dt, @
 
     if CONTROLLER\tapped "one"
+      AUDIO\play "shoot"
       bx, by = unpack @player.actual_aim
       @entities\add Bullet bx, by, 2
 
@@ -178,4 +208,11 @@ love.load = ->
   export DISPATCHER = Dispatcher -> Game!
 
   DISPATCHER\bind love
+
+  export AUDIO = Audio "sound"
+
+  AUDIO\preload {
+    "shoot"
+  }
+
 
