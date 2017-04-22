@@ -7,6 +7,7 @@ export GAME_CONFIG = {
     confirm: { "x", " ", joystick: {1,3,5} }
     cancel: { "c", joystick: 2 }
 
+
     quit: { "escape" }
 
     one: { "x", joystick: {1, 3, 5} }
@@ -16,6 +17,8 @@ export GAME_CONFIG = {
     down: "down"
     left: "left"
     right: "right"
+
+    pause: "p"
   }
 }
 

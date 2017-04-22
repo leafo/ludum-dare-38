@@ -67,6 +67,11 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
+    if CONTROLLER\downed "pause"
+      @paused = not @paused
+
+    return if @paused
+
     for item in *@scene
       @[item]\update dt, @
 
@@ -90,7 +95,6 @@ class Game
 
     if CONTROLLER\downed "two"
       AUDIO\play "locking"
-
 
     if CONTROLLER\is_down "two"
       @player.locking = true
