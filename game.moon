@@ -33,12 +33,23 @@ class Game
       Label -> "sphincter status: neutral"
     }
 
+  mousepressed: (x, y) =>
+    x, y = @viewport\unproject x, y
+    x -= @viewport.w / 2
+    y -= @viewport.h / 2
+
+    import Explosion from require "particle"
+    print x, y
+    @particles\add Explosion @, 1, x, y
+
   draw: =>
     @viewport\apply!
 
     @tunnel\draw!
     @entities\draw_sorted ((a, b) -> a.z > b.z), @
+    g.setBlendMode "add"
     @particles\draw @
+    g.setBlendMode "alpha"
 
     @player\draw @
     @space\draw_outline!
