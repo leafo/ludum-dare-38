@@ -8,8 +8,9 @@ class Bullet extends Box
   lazy sprite: -> imgfy "images/bullet.png"
   alive: true
   is_bullet: true
+  speed: 2
 
-  new: (x, y, @z, @speed) =>
+  new: (x, y, @z) =>
     super 0, 0, @sprite\width!, @sprite\height!
     @move_center x, y
 
@@ -21,10 +22,30 @@ class Bullet extends Box
     world.space\draw_at_z @z, ->
       @sprite\draw @x, @y
 
+class Missile
+  lazy sprite: -> imgfy "images/bullet_green.png"
+  alive: true
+  is_bullet: true
+  speed: 3
+
+  new: (x,y, @z, @target) =>
+    super 0, 0, @sprite\width!, @sprite\height!
+    @move_center x, y
+
+  draw: (world) =>
+    world.space\draw_at_z @z, ->
+      @sprite\draw @x, @y
+
+  update: (dt) =>
+    @z += dt * @speed
+    @z < 3
+
+
 class Player
   aim_depth: 10
   aim_speed: 200
   scale_cursor: 1
+  rot_cursor: 0
 
   lazy cursor: -> imgfy "images/cursor.png"
   lazy cursor_center: -> imgfy "images/cursor_center.png"
@@ -57,8 +78,15 @@ class Player
   shoot: (world) =>
     AUDIO\play "shoot"
     bx, by = unpack @player_pos
-    world.entities\add Bullet bx, by, @player_z, 2
+    world.entities\add Bullet bx, by, @player_z
     @scale_cursor = 1 + random_normal!
+
+  shoot_missile: (world) =>
+    print "shoot missile"
+    AUDIO\play "missile"
+    -- bx, by = unpack @player_pos
+    -- world.entities\add Bullet bx, by, @player_z
+    @rot_cursor = math.pi
 
   update: (dt, world) =>
     vec = CONTROLLER\movement_vector dt
@@ -79,6 +107,9 @@ class Player
 
     if @scale_cursor > 1
       @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
+
+    if @rot_cursor > 0
+      @rot_cursor = smooth_approach @rot_cursor, 0, dt * 6
 
     world.space.rot = @get_rotation!
     world.space.ytilt = -(@player_pos[2] / world.viewport.h) * 2
@@ -109,7 +140,13 @@ class Player
 
     g.push!
     g.translate cx, cy
-    g.scale @scale_cursor, @scale_cursor
+
+    if @scale_cursor != 1
+      g.scale @scale_cursor, @scale_cursor
+
+    if @rot_cursor > 0
+      g.rotate @rot_cursor
+
     @cursor\draw_center!
     g.pop!
 

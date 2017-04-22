@@ -80,4 +80,7 @@ class Game
     if CONTROLLER\tapped "one"
       @player\shoot @
 
+    if CONTROLLER\tapped "two"
+      @player\shoot_missile @
+
 {:Game}
