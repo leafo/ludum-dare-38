@@ -20,21 +20,30 @@ class GameSpace
       GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
 
   scale_factor: (z) =>
-    math.max 0.1, (10 - z) / 10
+    math.min 2, 1 / z
 
 class Tunnel
   lazy hole: -> imgfy "images/hole.png"
 
   new: (@space) =>
+    @offset = 0
+
+  update: (dt) =>
+    @offset += dt
+    @offset -= 1 if @offset > 1
 
   draw: =>
     w = @hole\width! / 2
     h = @hole\height! / 2
 
-    for z=0,10
-      print "drawing hole"
+    for z=10,0,-0.5
+      z -= @offset
       g.push!
       scale = @space\scale_factor z
+      g.translate @space.aim_box\center!
+
+      g.translate love.math.noise(z) * 10, 0
+
       g.scale scale, scale
       g.setColor 255 * scale, 255 * scale, 255 * scale
       @hole\draw -w, -h
@@ -47,10 +56,10 @@ class Player
   aim_speed: 100
   lazy cursor: -> imgfy "images/cursor.png"
 
-  new: =>
-    @aim_pos = Vec2d 30, 30
-    @actual_aim = Vec2d 30, 30
-    @player_pos = Vec2d 30, 30
+  new: (center) =>
+    @aim_pos = Vec2d unpack center
+    @actual_aim = Vec2d unpack center
+    @player_pos = Vec2d unpack center
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
@@ -58,6 +67,8 @@ class Player
 
   update: (dt, game) =>
     vec = CONTROLLER\movement_vector(dt) * @aim_speed
+    print vec
+
     @move_aim game.space, unpack vec
 
     approach_vector @actual_aim, @aim_pos, dt
@@ -71,14 +82,17 @@ class Player
 
 class Game
   new: =>
-    @player = Player!
-    @space = GameSpace!
-    @tunnel = Tunnel @space
 
     @viewport = EffectViewport {
       pixel_scale: true
       scale: GAME_CONFIG.scale
     }
+
+    @space = GameSpace!
+    @space.aim_box\move_center @viewport\center!
+    @tunnel = Tunnel @space
+
+    @player = Player Vec2d @space.aim_box\center!
 
   draw: =>
     @viewport\apply!
@@ -92,7 +106,7 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
-    @space.aim_box\move_center @viewport\center!
+    @tunnel\update dt
     @player\update dt, @
 
 love.load = ->
