@@ -15,7 +15,7 @@ class Enemy extends Box
 
   update: (dt, world) =>
     @z -= dt
-    true
+    not @hit
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
