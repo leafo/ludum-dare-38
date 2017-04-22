@@ -3,6 +3,7 @@
 import Explosion, ZImageParticle from require "particle"
 
 class LaserParticle extends ZImageParticle
+  life: 0.5
   ad_left: 0.05
   lazy sprite: -> imgfy "images/enemy_bullet.png"
 
