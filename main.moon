@@ -19,6 +19,7 @@ class GameSpace
     @aim_box\move_center 0, 0
 
     @rot = 0
+    @tilt = 0
 
   scale_factor: (z) =>
     -- z of 0 is screen depth
@@ -34,8 +35,16 @@ class GameSpace
 
     g.rotate @rot
 
+    vh = @viewport.h / 2
+    yadjust = vh - vh * scale
+
+    g.translate 0, yadjust * @tilt
+
     g.scale scale, scale
-    COLOR\push 255 * scale, 255 * scale, 255 * scale
+
+    cscale = math.min 1, scale
+
+    COLOR\push 255 * cscale, 255 * cscale, 255 * cscale
     fn!
     COLOR\pop!
     g.pop!
@@ -112,7 +121,7 @@ class Enemy extends Box
 
 class Player
   aim_depth: 10
-  aim_speed: 100
+  aim_speed: 200
   scale_cursor: 1
 
   lazy cursor: -> imgfy "images/cursor.png"
@@ -132,7 +141,9 @@ class Player
     unless @player_vel
       return 0
 
-    p = math.max(math.min(@player_vel[1], 50), -50) / 50
+    max_rot = 120
+
+    p = math.max(math.min(@player_vel[1], max_rot), -max_rot) / max_rot
     sign = p == 0 and 1 or p / math.abs(p)
     p = sign * math.abs(p)^2
     p * math.pi / 24
@@ -144,7 +155,9 @@ class Player
     @scale_cursor = 1 + random_normal!
 
   update: (dt, game) =>
-    vec = CONTROLLER\movement_vector(dt) * @aim_speed
+    vec = CONTROLLER\movement_vector dt
+    vec *= @aim_speed
+
     @move_aim game.space, unpack vec
 
     px, py = unpack @player_pos
@@ -161,6 +174,7 @@ class Player
       @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
 
     game.space.rot = @get_rotation!
+    game.space.tilt = -(@player_pos[2] / game.viewport.h) * 2
 
   draw: (game) =>
     game.space\draw_at_z 0, ->
