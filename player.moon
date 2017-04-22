@@ -219,7 +219,11 @@ class Player
       continue unless target.alive
       tx, ty = target\center!
       x, y = world.space\project tx, ty, target.z
-      @lock_on_sprite\draw_center x, y
+      g.push!
+      g.translate x, y
+      g.rotate love.timer.getTime!
+      @lock_on_sprite\draw_center!
+      g.pop!
 
   draw: (world) =>
     -- the under hud

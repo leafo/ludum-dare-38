@@ -49,7 +49,6 @@ class EnemyBullet extends Box
       @sprite\draw @x, @y
       g.setBlendMode "alpha"
 
-
 class Enemy extends Box
   w: 12
   h: 8
@@ -78,6 +77,7 @@ class Enemy extends Box
       COLOR\pop! if @hit
 
   explode: (world) =>
+    AUDIO\play "explode"
     world.particles\add Explosion world, @z, @center!
 
   -- ensure z is close enough

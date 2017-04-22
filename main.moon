@@ -27,11 +27,12 @@ love.load = ->
   export AUDIO = Audio "sound"
 
   AUDIO\preload {
-    "shoot"
-    "missile"
-    "notarget"
+    "explode"
     "lock"
     "locking"
+    "missile"
+    "notarget"
+    "shoot"
   }
 
 
