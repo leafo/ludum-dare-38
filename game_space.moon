@@ -32,6 +32,9 @@ class GameSpace
 
     g.push!
     scale = @scale_factor z
+
+    g.translate -@xtilt * 60, 0
+
     g.translate vw, vh
 
     g.rotate @rot
