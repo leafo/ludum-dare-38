@@ -1,7 +1,7 @@
 {graphics: g} = love
 
 class GameSpace
-  scroll_speed: 1
+  scroll_speed: 2
 
   new: (@viewport) =>
     -- center is this box's center
@@ -9,7 +9,14 @@ class GameSpace
     @aim_box\move_center 0, 0
 
     @rot = 0
-    @tilt = 0
+    @ytilt = 0
+    @xtilt = 0
+
+    -- the distance traveled
+    @offset = 0
+
+  update: (dt) =>
+    @offset += dt * @scroll_speed
 
   scale_factor: (z) =>
     -- z of 0 is screen depth
@@ -20,16 +27,24 @@ class GameSpace
     if z <= -1
       return
 
+    vw = @viewport.w / 2
+    vh = @viewport.h / 2
+
     g.push!
     scale = @scale_factor z
-    g.translate @viewport.w / 2, @viewport.h / 2
+    g.translate vw, vh
 
     g.rotate @rot
 
-    vh = @viewport.h / 2
     yadjust = vh - vh * scale
+    xadjust = vw - vw * scale
 
-    g.translate 0, yadjust * @tilt
+    g.translate xadjust * @xtilt, yadjust * @ytilt
+
+    g.translate(
+      z * 1 * math.cos(3 + @offset * 1.2)
+      z * 2 * math.sin @offset
+    )
 
     g.scale scale, scale
 
@@ -41,6 +56,14 @@ class GameSpace
     g.pop!
 
   draw_outline: =>
+    t = @offset - math.floor @offset
+
+    pt = pop_in(t, 2.0) / 4
+    @draw_at_z pt, ->
+      COLOR\pusha (1 - t) * 255
+      @aim_box\outline!
+      COLOR\pop!
+
     @draw_at_z 0, ->
       @aim_box\outline!
 

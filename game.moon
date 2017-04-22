@@ -22,9 +22,14 @@ class Game
     @particles = DrawList!
 
     @seq = Sequence ->
-      wait 2
-      @entities\add Enemy @space.aim_box\random_point!
-      again!
+      wait 3
+      while true
+        @entities\add Enemy @space.aim_box\random_point!
+        wait 1
+
+    @scene = {
+      "seq", "space", "tunnel", "player", "entities", "particles", "ui"
+    }
 
     @ui = HList {
       x: 2, y: 2
@@ -44,8 +49,9 @@ class Game
   draw: =>
     @viewport\apply!
 
-    @tunnel\draw!
+    @tunnel\draw @
     @entities\draw_sorted ((a, b) -> a.z > b.z), @
+
     g.setBlendMode "add"
     @particles\draw @
     g.setBlendMode "alpha"
@@ -58,12 +64,8 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
-    @seq\update dt
-    @tunnel\update dt
-    @entities\update dt, @
-    @particles\update dt, @
-    @player\update dt, @
-    @ui\update dt
+    for item in *@scene
+      @[item]\update dt, @
 
     grid = UniformGrid!
 

@@ -77,14 +77,14 @@ class Player
       @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
 
     game.space.rot = @get_rotation!
-    game.space.tilt = -(@player_pos[2] / game.viewport.h) * 2
+    game.space.ytilt = -(@player_pos[2] / game.viewport.h) * 2
+    game.space.xtilt = -(@player_pos[1] / game.viewport.w)
 
   draw: (game) =>
-    game.space\draw_at_z 0, ->
-      g.setPointSize 3
-      -- g.points unpack @player_pos
+    cp = @actual_aim - Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
 
-      @cursor_center\draw unpack @actual_aim - Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
+    game.space\draw_at_z 0, ->
+      @cursor_center\draw unpack cp
 
       g.push!
       g.translate unpack @aim_pos
@@ -94,7 +94,7 @@ class Player
 
 
     g.setPointSize 1
-    for z=0,3,0.2
+    for z=0.2,3,0.2
       game.space\draw_at_z z, ->
         g.points unpack @actual_aim
 
