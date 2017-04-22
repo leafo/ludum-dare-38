@@ -13,22 +13,19 @@ approach_vector = (start, stop, dt) ->
     start[i] = smooth_approach start[i], stop[i], dt * 5
 
 class GameSpace
-  new: =>
+  new: (@viewport) =>
     -- center is this box's center
-    @aim_box = Box 0, 0,
-      GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
+    @aim_box = Box 0, 0, @viewport.w * 0.75, @viewport.h * 0.75
+    @aim_box\move_center 0, 0
 
   scale_factor: (z) =>
-    math.min 3, 1 / z
-
-  unproject: (x, y) =>
-    cx, cy = @aim_box\center!
-    x - cx, y - cy
+    -- z of 0 is screen depth
+    math.min 3, 1 / (z + 1)
 
   draw_at_z: (z, fn) =>
     g.push!
     scale = @scale_factor z
-    g.translate @aim_box\center!
+    g.translate @viewport.w / 2, @viewport.h / 2
 
     g.scale scale, scale
     g.setColor 255 * scale, 255 * scale, 255 * scale
@@ -36,6 +33,9 @@ class GameSpace
     g.setColor 255,255,255
     g.pop!
 
+  draw_outline: =>
+    @draw_at_z 0, ->
+      @aim_box\outline!
 
 class Bullet
   lazy sprite: -> imgfy "images/bullet.png"
@@ -43,7 +43,7 @@ class Bullet
 
   new: (x, y, @speed) =>
     @pos = Vec2d x, y
-    @z = 0.5
+    @z = -0.5
 
   update: (dt) =>
     @z += dt * @speed
@@ -54,7 +54,6 @@ class Bullet
     h = @sprite\height! / 2
 
     game.space\draw_at_z @z, ->
-      g.translate 0, 0
       @sprite\draw -w + @pos[1], -h + @pos[2]
 
 class Tunnel
@@ -84,10 +83,10 @@ class Player
   aim_speed: 100
   lazy cursor: -> imgfy "images/cursor.png"
 
-  new: (center) =>
-    @aim_pos = Vec2d unpack center
-    @actual_aim = Vec2d unpack center
-    @player_pos = Vec2d unpack center
+  new: =>
+    @aim_pos = Vec2d!
+    @actual_aim = Vec2d!
+    @player_pos = Vec2d!
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
@@ -95,16 +94,18 @@ class Player
 
   update: (dt, game) =>
     vec = CONTROLLER\movement_vector(dt) * @aim_speed
+    -- print vec
     @move_aim game.space, unpack vec
 
     approach_vector @actual_aim, @aim_pos, dt
     approach_vector @player_pos, @aim_pos, dt / 2
 
   draw: (game) =>
-    g.setPointSize 3
-    g.points unpack @player_pos
-    g.points unpack @actual_aim
-    @cursor\draw unpack @aim_pos - Vec2d(@cursor\width!, @cursor\height!) / 2
+    game.space\draw_at_z 0, ->
+      g.setPointSize 3
+      g.points unpack @player_pos
+      g.points unpack @actual_aim
+      @cursor\draw unpack @aim_pos - Vec2d(@cursor\width!, @cursor\height!) / 2
 
 class Game
   new: =>
@@ -113,21 +114,19 @@ class Game
       scale: GAME_CONFIG.scale
     }
 
-    @space = GameSpace!
-    @space.aim_box\move_center @viewport\center!
+    @space = GameSpace @viewport
     @tunnel = Tunnel @space
 
-    @player = Player Vec2d @space.aim_box\center!
+    @player = Player!
     @entities = DrawList!
 
   draw: =>
     @viewport\apply!
 
     @tunnel\draw!
-    
-    @space.aim_box\outline!
     @entities\draw @
     @player\draw @
+    @space\draw_outline!
 
     g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
 
@@ -139,7 +138,7 @@ class Game
     @player\update dt, @
 
     if CONTROLLER\tapped "one"
-      bx, by = @space\unproject unpack @player.aim_pos
+      bx, by = unpack @player.actual_aim
       @entities\add Bullet bx, by, 2
 
 love.load = ->
