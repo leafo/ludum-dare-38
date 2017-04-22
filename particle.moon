@@ -1,9 +1,11 @@
 {graphics: g} = love
 
 class ZParticle extends Particle
-  new: (world, @z, ...)=>
+  new: (world, @z, x, y)=>
     @dz = -world.space.scroll_speed + (random_normal! - 0.5)
-    super ...
+    super x, y,
+      Vec2d(0, 1)\random_heading(60) * -rand(200, 300),
+      Vec2d(0, 800)
 
   update: (dt, ...) =>
     @z += @dz * dt
@@ -63,9 +65,13 @@ class Explosion extends Emitter
     super world, x, y
 
   make_particle: (x, y) =>
-    pick_one(
-      Spark @world, @z, x, y
-      Smoke @world, @z, x, y
+    cls = pick_one(
+      Spark
+      Smoke
+      ZParticle
     )
+
+    cls @world, @z, x, y
+
 
 {:Explosion, :Spark, :Smoke}
