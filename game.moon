@@ -23,7 +23,7 @@ class Game
 
     @seq = Sequence ->
       while true
-        @entities\add Enemy @space.aim_box\random_point!
+        @entities\add Enemy @, @space.aim_box\random_point!
         wait 1
 
     @scene = {
@@ -87,6 +87,10 @@ class Game
 
     if CONTROLLER\tapped "two"
       @player\fire_lock_ons @
+
+    if CONTROLLER\downed "two"
+      AUDIO\play "locking"
+
 
     if CONTROLLER\is_down "two"
       @player.locking = true

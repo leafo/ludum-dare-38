@@ -31,6 +31,7 @@ love.load = ->
     "missile"
     "notarget"
     "lock"
+    "locking"
   }
 
 

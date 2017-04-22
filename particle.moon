@@ -18,6 +18,10 @@ class ZParticle extends Particle
 
 
 class ZImageParticle extends ImageParticle
+  new: (world, @z, ...) =>
+    @dz = -world.space.scroll_speed + (random_normal! - 0.5)
+    super ...
+
   update: (dt, ...) =>
     @z += @dz * dt
     super dt, ...
@@ -28,13 +32,17 @@ class ZImageParticle extends ImageParticle
 
 class Spark extends ZImageParticle
   ad_left: 0.05
-  lazy sprite: -> imgfy "images/spark.png"
+  lazy sprites: -> {
+    imgfy "images/spark.png"
+    imgfy "images/spark2.png"
+  }
 
-  new: (world, @z, x, y) =>
-    @dz = -world.space.scroll_speed + (random_normal! - 0.5)
-    super x, y,
-      Vec2d(0, 1)\random_heading(60) * -rand(200, 300),
-      Vec2d(0, 800)
+  new: (...) =>
+    @sprite = pick_one unpack @sprites
+    super ...
+
+    @vel = Vec2d(0, 1)\random_heading(60) * -rand(200, 300)
+    @accel = Vec2d(0, 800)
 
     @dscale = rand 0.6, 1.1
     @dspin = rand -4, 4
@@ -46,13 +54,12 @@ class Smoke extends ZImageParticle
     imgfy "images/smoke_2.png"
   }
 
-  new: (world, @z, x, y) =>
+  new: (...) =>
     @sprite = pick_one unpack @sprites
+    super ...
 
-    @dz = -world.space.scroll_speed + (random_normal! - 0.5)
-    super x, y,
-      Vec2d(0, 1)\random_heading(180) * -rand(20, 40),
-      Vec2d(0, 100)
+    @vel = Vec2d(0, 1)\random_heading(180) * -rand(20, 40)
+    @accel = Vec2d(0, 100)
 
     @dscale = rand 0.6, 1.4
     @dspin = rand -1, 1
@@ -74,4 +81,4 @@ class Explosion extends Emitter
     cls @world, @z, x, y
 
 
-{:Explosion, :Spark, :Smoke}
+{:Explosion, :Spark, :Smoke, :ZImageParticle, ZParticle}

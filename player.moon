@@ -89,6 +89,9 @@ class Player
     @aim_pos\move dx, dy
     @aim_pos = space.aim_box\clamp_vector @aim_pos
 
+  center: =>
+    unpack @player_pos
+
   get_rotation: =>
     unless @player_vel
       return 0
