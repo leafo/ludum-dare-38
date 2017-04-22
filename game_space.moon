@@ -1,6 +1,8 @@
 {graphics: g} = love
 
 class GameSpace
+  scroll_speed: 1
+
   new: (@viewport) =>
     -- center is this box's center
     @aim_box = Box 0, 0, @viewport.w * 0.75, @viewport.h * 0.75

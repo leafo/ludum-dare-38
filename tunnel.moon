@@ -8,7 +8,7 @@ class Tunnel
     @offset = 0
 
   update: (dt) =>
-    @offset += dt
+    @offset += dt * @space.scroll_speed
     @offset -= 1 if @offset > 1
 
   draw: =>
