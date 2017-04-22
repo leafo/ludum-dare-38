@@ -14,6 +14,10 @@ class GameSpace
     @aim_box = Box 0, 0,
       GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
 
+approach_vector = (start, stop, dt) ->
+  for i=1,2
+    start[i] = smooth_approach start[i], stop[i], dt * 5
+
 class Player
   aim_depth: 10
   aim_speed: 100
@@ -28,19 +32,28 @@ class Player
     @aim_pos\move dx, dy
     @aim_pos = space.aim_box\clamp_vector @aim_pos
 
-  update: (dt) =>
-    -- move the player towards where we're aiming
+  update: (dt, game) =>
+    vec = CONTROLLER\movement_vector(dt) * @aim_speed
+    @move_aim game.space, unpack vec
+
+    approach_vector @actual_aim, @aim_pos, dt
+    approach_vector @player_pos, @aim_pos, dt / 2
 
   draw: (game) =>
+    g.setPointSize 3
+    g.points unpack @player_pos
+    g.points unpack @actual_aim
     @cursor\draw unpack @aim_pos - Vec2d(@cursor\width!, @cursor\height!) / 2
 
 class Game
-
   new: =>
     @player = Player!
     @space = GameSpace!
 
-    @viewport = EffectViewport scale: GAME_CONFIG.scale
+    @viewport = EffectViewport {
+      pixel_scale: true
+      scale: GAME_CONFIG.scale
+    }
 
   draw: =>
     @viewport\apply!
@@ -52,9 +65,9 @@ class Game
     @viewport\pop!
 
   update: (dt) =>
-    vec = CONTROLLER\movement_vector(dt) * @player.aim_speed
-    @player\move_aim @space, unpack vec
     @space.aim_box\move_center @viewport\center!
+    @player\update dt, @
+
 
 love.load = ->
   fonts = {
