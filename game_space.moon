@@ -23,6 +23,34 @@ class GameSpace
     b = 1
     math.min 20, b / (z + b)
 
+  -- project a single point, this should be synchronized with drawz
+  project: (x, y, z) =>
+    print "projecting", x, y, z
+    scale = @scale_factor z
+
+    vw = @viewport.w / 2
+    vh = @viewport.h / 2
+
+    yadjust = vh - vh * scale
+    xadjust = vw - vw * scale
+
+    shake = Vec2d(
+      z * 1 * math.cos(3 + @offset * 1.2)
+      z * 2 * math.sin @offset
+    )
+
+    adjust = Vec2d(
+      xadjust * @xtilt
+      yadjust * (@ytilt - 0.5)
+    )
+
+    tilt = Vec2d(
+      -@xtilt * 60
+      0
+    )
+
+    unpack (Vec2d(x,y) * scale + shake + adjust)\rotate(@rot) + Vec2d(vw, vh) + tilt
+
   draw_at_z: (z, fn) =>
     if z <= -1
       return
@@ -42,7 +70,7 @@ class GameSpace
     yadjust = vh - vh * scale
     xadjust = vw - vw * scale
 
-    g.translate xadjust * @xtilt, yadjust * @ytilt
+    g.translate xadjust * @xtilt, yadjust * (@ytilt - 0.5)
 
     g.translate(
       z * 1 * math.cos(3 + @offset * 1.2)

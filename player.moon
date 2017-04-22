@@ -89,6 +89,7 @@ class Player
     t = offset - math.floor offset
 
     pt = pop_in(t, 2.0) / 4
+
     space\draw_at_z pt, ->
       COLOR\pusha (1 - t) * 255
       space.aim_box\outline!
@@ -97,30 +98,36 @@ class Player
     cp = @player_pos -
       Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
 
-    space\draw_at_z 0, ->
+    space\draw_at_z @hud_z, ->
       space.aim_box\outline!
-
       @cursor_center\draw unpack cp
-      g.push!
-      g.translate unpack @aim_pos
-      g.scale @scale_cursor, @scale_cursor
-      @cursor\draw -@cursor\width!/2, -@cursor\height!/2
-      g.pop!
+
+    -- draw the cursor unprojected so it's easy to see
+    cx, cy = space\project @aim_pos[1], @aim_pos[2], @hud_z
+
+    g.push!
+    g.translate cx, cy
+    g.scale @scale_cursor, @scale_cursor
+    @cursor\draw_center!
+    g.pop!
 
 
   draw: (world) =>
     -- the under hud
     g.setPointSize 1
-    for z=0.2,3,0.2
+    for z=@hud_z+0.2,3,0.2
       world.space\draw_at_z z, ->
         g.points unpack @player_pos
+
+    t = love.timer.getTime!
+    px, py = 2 * math.cos(3 + t*1.1), 2 * math.sin(t)
 
     for frame=2,0,-1
       world.space\draw_at_z frame * 0.05 + @player_z, ->
         g.push!
         g.translate unpack @player_pos
         g.rotate @get_rotation! * 2
-        @player_sprite\draw frame, -16, -8
+        @player_sprite\draw frame, -16 + px, -8 + py
         g.pop!
 
     @draw_hud world
