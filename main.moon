@@ -46,7 +46,7 @@ class Bullet
     @z = 0.5
 
   update: (dt) =>
-    @z += dt
+    @z += dt * @speed
     @z < 3
 
   draw: (game) =>
@@ -122,13 +122,14 @@ class Game
 
   draw: =>
     @viewport\apply!
-    g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
 
     @tunnel\draw!
     
     @space.aim_box\outline!
     @entities\draw @
     @player\draw @
+
+    g.print "score: 99999, shoot: #{CONTROLLER\is_down "one"}", 5, 3
 
     @viewport\pop!
 
@@ -139,7 +140,7 @@ class Game
 
     if CONTROLLER\tapped "one"
       bx, by = @space\unproject unpack @player.aim_pos
-      @entities\add Bullet bx, by, 200
+      @entities\add Bullet bx, by, 2
 
 love.load = ->
   fonts = {
