@@ -30,17 +30,18 @@ class Missile extends Box
   is_bullet: true
   speed: 1
 
-  new: (x,y, @z, @target) =>
+  new: (x,y, @z, @target, world) =>
     super 0, 0, @sprite\width!, @sprite\height!
     @vel = Vec2d(0, 0)
-    @accel = Vec2d(0, 0)
     @move_center x, y
 
-  update_accel: =>
-    if @z >= @target.z
-      @accel = Vec2d(0,0)
-    else
-      @accel = (Vec2d(@target\center!) - Vec2d(@center!)) * 10
+    import Smoke from require "particle"
+
+    @seq = Sequence ->
+      k = 1
+      while true
+        world.particles\add Smoke world, @z, @center!
+        wait 0.05
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
@@ -52,10 +53,16 @@ class Missile extends Box
     @lock_on\draw_center x, y
 
   update: (dt) =>
-    @update_accel!
-
-    @vel\adjust unpack @accel * dt
+    @seq\update dt
     @move unpack @vel * dt
+
+    x,y = @center!
+    tx, ty = @target\center!
+
+    x = smooth_approach x, tx, dt * 5
+    y = smooth_approach y, ty, dt * 5
+
+    @move_center x, y
 
     @z += dt * @speed
     @z < 3 and @target.alive
@@ -110,7 +117,7 @@ class Player
     AUDIO\play "missile"
 
     bx, by = unpack @player_pos
-    world.entities\add Missile bx, by, @player_z, enemy
+    world.entities\add Missile bx, by, @player_z, enemy, world
     @rot_cursor = math.pi
 
   update: (dt, world) =>

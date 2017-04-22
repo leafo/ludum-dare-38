@@ -32,7 +32,7 @@ class Game
 
     @ui = HList {
       x: 2, y: 2
-      Label -> "score: 0"
+      Label -> "e: #{#@entities}, p: #{#@particles}"
       Box 0, 0, 3,8
       Label -> "sphincter status: neutral"
     }

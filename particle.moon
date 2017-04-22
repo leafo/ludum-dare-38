@@ -39,9 +39,14 @@ class Spark extends ZImageParticle
 
 
 class Smoke extends ZImageParticle
-  lazy sprite: -> imgfy "images/smoke.png"
+  lazy sprites: -> {
+    imgfy "images/smoke.png"
+    imgfy "images/smoke_2.png"
+  }
 
   new: (world, @z, x, y) =>
+    @sprite = pick_one unpack @sprites
+
     @dz = -world.space.scroll_speed + (random_normal! - 0.5)
     super x, y,
       Vec2d(0, 1)\random_heading(180) * -rand(20, 40),
