@@ -14,11 +14,16 @@ approach_vector = (start, stop, dt) ->
 
 class GameSpace
   new: =>
+    -- center is this box's center
     @aim_box = Box 0, 0,
       GAME_CONFIG.viewport_width * 0.75, GAME_CONFIG.viewport_height * 0.75
 
   scale_factor: (z) =>
     math.min 3, 1 / z
+
+  unproject: (x, y) =>
+    cx, cy = @aim_box\center!
+    x - cx, y - cy
 
   draw_at_z: (z, fn) =>
     g.push!
@@ -50,8 +55,7 @@ class Bullet
 
     game.space\draw_at_z @z, ->
       g.translate 0, 0
-      print @pos[1], @pos[2]
-      @sprite\draw -w, -h
+      @sprite\draw -w + @pos[1], -h + @pos[2]
 
 class Tunnel
   lazy hole: -> imgfy "images/hole.png"
@@ -134,7 +138,8 @@ class Game
     @player\update dt, @
 
     if CONTROLLER\tapped "one"
-      @entities\add Bullet @player.aim_pos[1], @player.aim_pos[2], 100
+      bx, by = @space\unproject unpack @player.aim_pos
+      @entities\add Bullet bx, by, 200
 
 love.load = ->
   fonts = {
