@@ -29,6 +29,7 @@ love.load = ->
   AUDIO\preload {
     "shoot"
     "missile"
+    "notarget"
   }
 
 

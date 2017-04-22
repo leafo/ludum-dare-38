@@ -22,24 +22,43 @@ class Bullet extends Box
     world.space\draw_at_z @z, ->
       @sprite\draw @x, @y
 
-class Missile
+class Missile extends Box
   lazy sprite: -> imgfy "images/bullet_green.png"
+  lazy lock_on: -> imgfy "images/lock_on.png"
+
   alive: true
   is_bullet: true
-  speed: 3
+  speed: 1
 
   new: (x,y, @z, @target) =>
     super 0, 0, @sprite\width!, @sprite\height!
+    @vel = Vec2d(0, 0)
+    @accel = Vec2d(0, 0)
     @move_center x, y
+
+  update_accel: =>
+    if @z >= @target.z
+      @accel = Vec2d(0,0)
+    else
+      @accel = (Vec2d(@target\center!) - Vec2d(@center!)) * 10
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
       @sprite\draw @x, @y
 
-  update: (dt) =>
-    @z += dt * @speed
-    @z < 3
+  draw_hud: (world) =>
+    tx, ty = @target\center!
+    x, y = world.space\project tx, ty, @target.z
+    @lock_on\draw_center x, y
 
+  update: (dt) =>
+    @update_accel!
+
+    @vel\adjust unpack @accel * dt
+    @move unpack @vel * dt
+
+    @z += dt * @speed
+    @z < 3 and @target.alive
 
 class Player
   aim_depth: 10
@@ -82,13 +101,16 @@ class Player
     @scale_cursor = 1 + random_normal!
 
   shoot_missile: (world) =>
-    print "shoot missile"
-    AUDIO\play "missile"
-    -- bx, by = unpack @player_pos
-    -- world.entities\add Bullet bx, by, @player_z
     enemy = world\get_closest_enemy @player_z
-    print "got", enemy
+    unless enemy
+      @scale_cursor = 0.5
+      AUDIO\play "notarget"
+      return
 
+    AUDIO\play "missile"
+
+    bx, by = unpack @player_pos
+    world.entities\add Missile bx, by, @player_z, enemy
     @rot_cursor = math.pi
 
   update: (dt, world) =>
@@ -108,7 +130,7 @@ class Player
       (@player_pos[2] - py) / dt
     )
 
-    if @scale_cursor > 1
+    if @scale_cursor != 1
       @scale_cursor = smooth_approach @scale_cursor, 1, dt * 2
 
     if @rot_cursor > 0

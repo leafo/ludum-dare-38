@@ -22,7 +22,6 @@ class Game
     @particles = DrawList!
 
     @seq = Sequence ->
-      wait 3
       while true
         @entities\add Enemy @space.aim_box\random_point!
         wait 1
@@ -57,6 +56,12 @@ class Game
     g.setBlendMode "alpha"
 
     @player\draw @
+    -- draw any hud on entities
+    for e in *@entities
+      continue unless e.alive and e.draw_hud
+      e\draw_hud @
+
+
     @ui\draw!
 
     @viewport\pop!
