@@ -42,6 +42,25 @@ class Game
       "ui"
     }
 
+    lut = imgfy "images/lut-ratro.png"
+    @lut = LutShader lut.tex
+
+  set_wave: (wave_cls) =>
+    @space = GameSpace @viewport
+    @tunnel = Tunnel @space
+
+    @wave = wave_cls @
+    @entities = DrawList!
+
+    -- ensure nothing is locked
+    @player.movement_locked = false
+    @player.bullets_locked = false
+    @player.missiles_locked = false
+
+  on_show: =>
+    AUDIO\play_music "theme"
+
+  create_ui: =>
     @ui = Group {
       Anchor(
         @viewport.w / 2
@@ -81,24 +100,6 @@ class Game
     }
 
 
-    lut = imgfy "images/lut-ratro.png"
-    @lut = LutShader lut.tex
-
-  set_wave: (wave_cls) =>
-    @space = GameSpace @viewport
-    @tunnel = Tunnel @space
-
-    @wave = wave_cls @
-    @entities = DrawList!
-
-    -- ensure nothing is locked
-    @player.movement_locked = false
-    @player.bullets_locked = false
-    @player.missiles_locked = false
-
-  on_show: =>
-    AUDIO\play_music "theme"
-
   -- mousepressed: (x, y) =>
   --   x, y = @viewport\unproject x, y
   --   x -= @viewport.w / 2
@@ -135,7 +136,8 @@ class Game
       continue unless e.alive and e.draw_hud
       e\draw_hud @
 
-    @ui\draw!
+    @ui\draw! if @ui
+
     if @overlay_ui
       @overlay_ui\draw!
 
@@ -148,8 +150,12 @@ class Game
 
     return if @paused
 
+    unless @ui
+      @create_ui!
+
     for item in *@scene
-      @[item]\update dt, @
+      if obj = @[item]
+        obj\update dt, @
 
     if @overlay_ui
       @overlay_ui\update dt

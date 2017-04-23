@@ -35,9 +35,7 @@ class Title
       )
 
       import Game from require "game"
-      import GameOver from require "game_over"
-
-      DISPATCHER\push GameOver!
+      DISPATCHER\push Game!
 
   draw: =>
     @viewport\apply!

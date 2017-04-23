@@ -356,6 +356,8 @@ class Player extends Box
         wait 0.1
 
       wait 1.0
+      import GameOver from require "game_over"
+      DISPATCHER\push GameOver world
 
     AUDIO\play "explode"
 
