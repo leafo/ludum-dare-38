@@ -26,7 +26,9 @@ class GameSpace
   scale_factor: (z) =>
     -- z of 0 is screen depth
     b = 1
-    math.min 20, b / (z + b)
+    -- fater speed stretched out perspective
+    speed_mod = 1 + math.max(0, @scroll_speed - @@scroll_speed) / 8
+    (1 / speed_mod) * math.min 20, b / (z + b)
 
   -- project a single point, this should be synchronized with drawz
   project: (x, y, z) =>
