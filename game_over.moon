@@ -13,7 +13,7 @@ class GameOver
   on_show: =>
     cx, cy = @viewport\center!
     @ui = Anchor cx, cy, Border(
-      with RevealLabel("game over. press shoot to return to title. you score #{@game.score}", 0, 0)
+      with RevealLabel("game over. press shoot to return to title. you score #{math.floor @game.score}", 0, 0)
         \set_max_width 200
 
       padding: 10, background: { 0,0,0,200 }

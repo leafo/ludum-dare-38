@@ -21,7 +21,9 @@ class Game
 
     @space = GameSpace @viewport
     @tunnel = Tunnel @space
+    @display_score = 0
     @score = 0
+    @score_mult = 1
 
     @player = Player!
     @particles = DrawList!
@@ -97,6 +99,24 @@ class Game
         "center"
         "bottom"
       )
+
+      Anchor(
+        0
+        @viewport.h
+        Label -> "x#{"%.1f"\format @score_mult}"
+
+        "left"
+        "bottom"
+      )
+
+      Anchor(
+        @viewport.w
+        @viewport.h
+        Label -> "#{math.floor @display_score}"
+
+        "right"
+        "bottom"
+      )
     }
 
 
@@ -149,6 +169,9 @@ class Game
       @paused = not @paused
 
     return if @paused
+
+    @score_mult = smooth_approach @score_mult, 1, dt / 4
+    @display_score = smooth_approach @display_score, @score, dt
 
     unless @ui
       @create_ui!

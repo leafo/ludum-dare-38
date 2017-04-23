@@ -99,6 +99,9 @@ class Enemy extends Box
     @effects\add BlowOutEffect 0.5, -> @dying = false
     world.particles\add Explosion world, @z, @center!
 
+    world.score += 77 * world.score_mult
+    world.score_mult += 1
+
   -- ensure z is close enough
   on_hit_by: (bullet, world) =>
     return unless bullet.is_bullet
