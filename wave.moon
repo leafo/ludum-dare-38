@@ -16,13 +16,15 @@ class Wave extends Sequence
     super pre, {
       move: (e, x,y,z, t=0.5) ->
         cx, cy = e\center!
+
         tween {
-          x: cx
-          y: cy
-          z: e.z
+          x: x and cx
+          y: y and cy
+          z: z and e.z
         }, t, { :x, :y, :z }, nil, (obj) ->
-          e\move_center obj.x, obj.y
-          e.z = obj.z
+          c2x, c2y = e\center!
+          e\move_center obj.x or c2x, obj.y or c2y
+          e.z = obj.z or e.z
 
       movez: (e, z, t=0.5) ->
         tween e, t, { :z }
