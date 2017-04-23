@@ -5,6 +5,8 @@ class Tunnel
   lazy backgrounds: -> {
     hole: imgfy "images/hole.png"
     fields: imgfy "images/hole2.png"
+    hair: imgfy "images/hair.png"
+    grid: imgfy "images/grid.png"
   }
 
   new: (@space) =>
