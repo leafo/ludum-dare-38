@@ -5,7 +5,7 @@ approach_vector = (start, stop, dt) ->
     start[i] = smooth_approach start[i], stop[i], dt * 5
 
 class Bullet extends Box
-  lazy sprite: -> imgfy "images/bullet.png"
+  lazy sprite: -> imgfy "images/bullet_small.png"
   alive: true
   is_bullet: true
   speed: 2
@@ -81,7 +81,7 @@ class Player
     @player_pos = Vec2d!
     @player_vel = Vec2d!
     @player_z = -0.1
-    @hud_z = 0.2
+    @hud_z = 0.3
 
     @locked = {}
     @seqs = DrawList!
@@ -242,10 +242,10 @@ class Player
     t = t - math.floor(t)
 
     frame_depth = {
-      [0]: 0.09 - smoothstep(0, 1, t) / 10
-      [1]: 0.09
-      [2]: 0.10
-      [3]: 0.12
+      [0]: -0.02 - smoothstep(0, 1, t) / 10
+      [1]: -0.02
+      [2]: 0
+      [3]: 0.02
     }
 
     sw = @player_sprite.cell_w
@@ -253,7 +253,7 @@ class Player
 
 
     for frame=3,0,-1
-      world.space\draw_at_z frame_depth[frame] + @player_z, ->
+      world.space\draw_at_z @player_z + frame_depth[frame], ->
         g.push!
         g.translate unpack @player_pos
         g.rotate @get_rotation! * 2 - world.space.world_rot
