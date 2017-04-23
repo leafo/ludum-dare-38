@@ -60,8 +60,10 @@ class Game
     x -= @viewport.w / 2
     y -= @viewport.h / 2
 
-    import Explosion from require "particle"
-    @particles\add Explosion @, 1, x, y
+    -- import Explosion from require "particle"
+    -- @particles\add Explosion @, 1, x, y
+
+    @player\explode @
 
   -- mousemoved: (x,y) =>
   --   x, y = @viewport\unproject x, y

@@ -264,6 +264,8 @@ class Player extends Box
       g.pop!
 
   draw: (world) =>
+    return if @dead
+
     -- the under hud
     g.setPointSize 1
     for z=@hud_z+0.2,3,0.2
@@ -309,11 +311,37 @@ class Player extends Box
     @draw_hud world
 
   on_hit_by: (bullet, world) =>
+    return if @dying or @dead
+
     if math.abs(@player_z - bullet.z) < 0.1
       bullet.alive = false
       world.viewport\shake!
       @effects\add FlashEffect!
       @effects\add ShakeEffect!
       AUDIO\play "player_hit"
+
+  explode: (world) =>
+    return if @dying or @dead
+
+    @dying = true
+    world.viewport\shake!
+    @effects\add BlowOutEffect 1.0, ->
+      @dead = true
+
+    x, y = @center!
+    @seqs\add Sequence ->
+      for i=1,5
+        import Explosion from require "particle"
+
+        world.particles\add Explosion(
+          world
+          @player_z
+          x + random_normal! * 30
+          y + random_normal! * 10
+        )
+
+        wait 0.2
+
+    AUDIO\play "explode"
 
 {:Player, :Bullet}
