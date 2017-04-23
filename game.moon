@@ -8,6 +8,7 @@ import Tunnel from require "tunnel"
 import Anchor, HList, Label from require "lovekit.ui"
 
 import TestWave from require "wave"
+TutorialWave = require "waves.tutorial"
 
 import LutShader from require "shader"
 
@@ -25,7 +26,8 @@ class Game
     @entities = DrawList!
     @particles = DrawList!
 
-    @wave = TestWave @
+    -- @wave = TestWave @
+    @wave = TutorialWave @
 
     @scene = {
       "viewport"
@@ -56,13 +58,13 @@ class Game
     import Explosion from require "particle"
     @particles\add Explosion @, 1, x, y
 
-  mousemoved: (x,y) =>
-    x, y = @viewport\unproject x, y
-    x -= @viewport.w / 2
-    y -= @viewport.h / 2
+  -- mousemoved: (x,y) =>
+  --   x, y = @viewport\unproject x, y
+  --   x -= @viewport.w / 2
+  --   y -= @viewport.h / 2
 
-    @space.tunnel_dir_x = x
-    @space.tunnel_dir_y = y
+  --   @space.tunnel_dir_x = x
+  --   @space.tunnel_dir_y = y
 
   draw: =>
     @viewport\apply!
@@ -117,17 +119,7 @@ class Game
       continue unless other.alive
       @player\on_hit_by other, @
 
-    if CONTROLLER\tapped "one"
-      @player\shoot @
-
-    if CONTROLLER\tapped "two"
-      @player\fire_lock_ons @
-
-    if CONTROLLER\downed "two"
-      AUDIO\play "locking"
-
-    if CONTROLLER\is_down "two"
-      @player.locking = true
+    if @player.locking
       @player\check_lock @, grid
 
 

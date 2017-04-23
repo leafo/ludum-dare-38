@@ -22,16 +22,24 @@ class Wave extends Sequence
         wait_until ->
           not next @active_enemies
 
-      show_box: (text, done) ->
+      wait_for_player_to_shoot: ->
+        b = @world.player.bullets_fired
+        wait_until -> @world.player.bullets_fired > b
+
+      show_box: (text) ->
         import RevealLabel, Anchor, Border from require "lovekit.ui"
         cx, cy = @world.viewport\center!
 
+        done = false
+
         @world.overlay_ui = Anchor cx, cy, Border(
-          with RevealLabel(text, 0, 0, done)
+          with RevealLabel(text, 0, 0, -> done = true)
             \set_max_width 50
 
           padding: 10, background: { 0,0,0,200 }
         ), "center"
+
+        wait_until -> done
 
       hide_box: ->
         @world.overlay_ui = nil
@@ -42,7 +50,7 @@ class Wave extends Sequence
       @world.entities\add e
       table.insert @active_enemies, e
 
-  -- clear out the enemies arary
+  -- clear out the enemies array
   update: (...) =>
     refresh = false
     for e in *@active_enemies
@@ -70,8 +78,9 @@ class TestWave extends Wave
     w = @world.viewport.w
     h = @world.viewport.h
 
+    import GameSpace from require "game_space"
+
     super ->
-      -- show_box "hell world get ready for good time"
 
       rots = {
         math.pi/4

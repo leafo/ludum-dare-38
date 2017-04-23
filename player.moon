@@ -70,6 +70,10 @@ class Player extends Box
   scale_cursor: 1
   rot_cursor: 0
   time: 0
+  locked: false
+  bullets_fired: 0
+  missiles_fired: 0
+  barrages_fired: 0
 
   w: 25
   h: 8
@@ -109,6 +113,7 @@ class Player extends Box
     p * math.pi / 24
 
   shoot: (world) =>
+    @bullets_fired += 1
     AUDIO\play "shoot"
     bx, by = @center!
     world.entities\add Bullet bx, by, @player_z
@@ -126,10 +131,15 @@ class Player extends Box
 
   shoot_missile: (world, target) =>
     return unless target and target.alive
+    @missiles_fired += 1
     AUDIO\play "missile"
     bx, by = @center!
     world.entities\add Missile bx, by, @player_z, target, world
     @rot_cursor = math.pi
+
+  notarget: =>
+    @scale_cursor = 0.5
+    AUDIO\play "notarget"
 
   fire_lock_ons: (world) =>
     count = 0
@@ -142,9 +152,10 @@ class Player extends Box
     @locked = {}
 
     if count == 0
-      @scale_cursor = 0.5
-      AUDIO\play "notarget"
+      @notarget!
       return
+
+    @barrages_fired += 1
 
     @seqs\add Sequence ->
       for target in *targets
@@ -153,13 +164,31 @@ class Player extends Box
         wait 0.1
 
   update: (dt, world) =>
-    @locking = CONTROLLER\is_down "two"
     @time += dt
+
+    if CONTROLLER\tapped "one"
+      if @bullets_locked
+        @notarget!
+      else
+        @shoot world
+
+    @locking = not @missiles_locked and CONTROLLER\is_down "two"
+
+    if CONTROLLER\downed "two"
+      unless @missiles_locked
+        AUDIO\play "locking"
+
+    if CONTROLLER\tapped "two"
+      @fire_lock_ons world
 
     @seqs\update dt
     @effects\update dt
 
-    vec = CONTROLLER\movement_vector dt
+    vec = if @movement_locked
+      Vec2d!
+    else
+      CONTROLLER\movement_vector dt
+
     vec = Vec2d world.space\unproject_rot unpack vec
 
     vec *= @aim_speed
