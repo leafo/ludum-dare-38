@@ -12,6 +12,7 @@ load_font = (img, chars)->
   g.newImageFont font_image.tex, chars
 
 import Game from require "game"
+import Title from require "title"
 
 love.load = ->
   fonts = {
@@ -23,7 +24,9 @@ love.load = ->
   g.setBackgroundColor 50, 50, 50
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  export DISPATCHER = Dispatcher -> Game!
+  -- export DISPATCHER = Dispatcher -> Game!
+  export DISPATCHER = Dispatcher -> Title!
+  DISPATCHER.default_transition = FadeTransition
 
   DISPATCHER\bind love
 
@@ -38,6 +41,7 @@ love.load = ->
     "shoot"
     "enemy_hit"
     "player_hit"
+    "start"
   }
 
 
