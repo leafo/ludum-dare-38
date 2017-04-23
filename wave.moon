@@ -4,7 +4,16 @@ import Enemy from require "enemy"
 class Wave extends Sequence
   new: (fn) =>
     @active_enemies = {}
-    super fn, {
+    pre = ->
+      if @world.tunnel_alpha != 255
+        tween @world, 0.2, {
+          tunnel_alpha: 255
+        }
+
+      setfenv fn, getfenv!
+      fn!
+
+    super pre, {
       move: (e, x,y,z, t=0.5) ->
         cx, cy = e\center!
         tween {
@@ -149,6 +158,14 @@ class Wave extends Sequence
             error "unknown bank #{vert}"
 
         parallel(a, b)
+
+      change_wave: (wave) ->
+        tween @world, 0.2, {
+          tunnel_alpha: 0
+        }
+
+        @world\set_wave wave
+
     }
 
   enemy: (x, y) =>
@@ -182,12 +199,16 @@ class ForeverWave extends Wave
 class TunnelWave extends Wave
   new: (@world) =>
     super ->
-      while true
-        wait 0.5
-        @world.tunnel\set_bg "hole"
+      wait 0.5
+      @world.tunnel\set_bg "hole"
 
-        wait 0.5
-        @world.tunnel\set_bg "fields"
+      wait 0.5
+      @world.tunnel\set_bg "fields"
+
+
+      print "switching to forever wave"
+      ForeverWave = require "waves.forever"
+      change_wave ForeverWave
 
 class BankWave extends Wave
   new: (@world) =>

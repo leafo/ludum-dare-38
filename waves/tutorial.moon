@@ -4,7 +4,6 @@ import Wave from require "wave"
 class TutorialWave extends Wave
   new: (@world) =>
     super ->
-      import GameSpace from require "game_space"
 
       wait_or_confirm = ->
         wait_for_one(
@@ -116,4 +115,7 @@ class TutorialWave extends Wave
         -> roll "left"
         -> speed 10
       )
+
+      ForeverWave = require "waves.forever"
+      change_wave ForeverWave
 

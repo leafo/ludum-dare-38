@@ -11,6 +11,8 @@ import HBar from require "ui"
 import LutShader from require "shader"
 
 class Game
+  tunnel_alpha: 255
+
   new: =>
     @viewport = EffectViewport {
       pixel_scale: true
@@ -22,15 +24,12 @@ class Game
     @score = 0
 
     @player = Player!
-    @entities = DrawList!
     @particles = DrawList!
 
     import TestWave, TunnelWave, BankWave from require "wave"
     TutorialWave = require "waves.tutorial"
 
-    -- @wave = TestWave @
-    -- @wave = TutorialWave @
-    @wave = TutorialWave @
+    @set_wave TunnelWave
 
     @scene = {
       "viewport"
@@ -83,6 +82,18 @@ class Game
     lut = imgfy "images/lut-ratro.png"
     @lut = LutShader lut.tex
 
+  set_wave: (wave_cls) =>
+    @space = GameSpace @viewport
+    @tunnel = Tunnel @space
+
+    @wave = wave_cls @
+    @entities = DrawList!
+
+    -- ensure nothing is locked
+    @player.movement_locked = false
+    @player.bullets_locked = false
+    @player.missiles_locked = false
+
   on_show: =>
     AUDIO\play_music "theme"
 
@@ -106,7 +117,10 @@ class Game
   draw: =>
     @viewport\apply!
 
+    COLOR\pusha @tunnel_alpha
     @tunnel\draw @
+    COLOR\pop!
+
     @entities\draw_sorted ((a, b) -> a.z > b.z), @
 
     g.setBlendMode "add"
