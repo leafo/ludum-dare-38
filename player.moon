@@ -91,6 +91,7 @@ class Player extends Box
 
     @locked = {}
     @seqs = DrawList!
+    @effects = EffectList @
 
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
@@ -156,6 +157,7 @@ class Player extends Box
     @time += dt
 
     @seqs\update dt
+    @effects\update dt
 
     vec = CONTROLLER\movement_vector dt
     vec = Vec2d world.space\unproject_rot unpack vec
@@ -264,8 +266,10 @@ class Player extends Box
           COLOR\pusha (1 - t) * 255
           g.setBlendMode "add"
 
+        @effects\before!
         @player_sprite\draw frame, -sw + px, -sh + py
         @player_sprite\draw frame, sw + px, -sh + py, 0, -1, 1
+        @effects\after!
 
         if frame == 0
           g.setBlendMode "alpha"
@@ -274,5 +278,13 @@ class Player extends Box
         g.pop!
 
     @draw_hud world
+
+  on_hit_by: (bullet, world) =>
+    if math.abs(@player_z - bullet.z) < 0.1
+      bullet.alive = false
+      world.viewport\shake!
+      @effects\add FlashEffect!
+      @effects\add ShakeEffect!
+      AUDIO\play "player_hit"
 
 {:Player, :Bullet}

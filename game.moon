@@ -96,6 +96,12 @@ class Game
         if other.on_hit_by
           other\on_hit_by e, @
 
+    -- check if player hit
+    for other in *grid\get_touching @player
+      continue unless other.is_enemy_bullet
+      continue unless other.alive
+      @player\on_hit_by other, @
+
     if CONTROLLER\tapped "one"
       @player\shoot @
 

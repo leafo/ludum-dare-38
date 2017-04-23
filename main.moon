@@ -37,6 +37,7 @@ love.load = ->
     "notarget"
     "shoot"
     "enemy_hit"
+    "player_hit"
   }
 
 
