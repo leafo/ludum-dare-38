@@ -28,7 +28,14 @@ class Game
     @wave = TestWave @
 
     @scene = {
-      "wave", "space", "tunnel", "player", "entities", "particles", "ui"
+      "viewport"
+      "wave"
+      "space"
+      "tunnel"
+      "player"
+      "entities"
+      "particles"
+      "ui"
     }
 
     @ui = HList {
@@ -48,6 +55,14 @@ class Game
 
     import Explosion from require "particle"
     @particles\add Explosion @, 1, x, y
+
+  mousemoved: (x,y) =>
+    x, y = @viewport\unproject x, y
+    x -= @viewport.w / 2
+    y -= @viewport.h / 2
+
+    @space.tunnel_dir_x = x
+    @space.tunnel_dir_y = y
 
   draw: =>
     @viewport\apply!

@@ -73,6 +73,14 @@ class TestWave extends Wave
     super ->
       -- show_box "hell world get ready for good time"
 
+      rots = {
+        math.pi/4
+        0
+        -math.pi/4
+        0
+      }
+
+      iter = 0
       while true
         parallel(
           unpack for i=1,4
@@ -93,6 +101,13 @@ class TestWave extends Wave
           e\shoot @world, @world.player
 
         wait_for_enemies!
+
+        -- tween @world.space, 1.0, {
+        --   world_rot: rots[(iter % #rots) + 1]
+        --   tunnel_dir_x: -10
+        -- }
+
+        iter += 1
 
 
 {:Wave, :ForeverWave, :TestWave}

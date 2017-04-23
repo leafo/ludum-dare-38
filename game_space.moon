@@ -13,6 +13,9 @@ class GameSpace
     @ytilt = 0
     @xtilt = 0
 
+    @tunnel_dir_x = 0
+    @tunnel_dir_y = 0
+
     -- the distance traveled
     @offset = 0
 
@@ -35,10 +38,7 @@ class GameSpace
     yadjust = vh - vh * scale
     xadjust = vw - vw * scale
 
-    shake = Vec2d(
-      z * 1 * math.cos(3 + @offset * 1.2)
-      z * 2 * math.sin @offset
-    )
+    bend = Vec2d @tunnel_bend z
 
     adjust = Vec2d(
       xadjust * @xtilt
@@ -50,11 +50,15 @@ class GameSpace
       0
     )
 
-    unpack (Vec2d(x,y) * scale + shake + adjust)\rotate(@rot + @world_rot) + Vec2d(vw, vh) + tilt
+    unpack (Vec2d(x,y) * scale + bend + adjust)\rotate(@rot + @world_rot) + Vec2d(vw, vh) + tilt
 
   -- unproject screen rotation for input
   unproject_rot: (x,y) =>
     unpack Vec2d(x,y)\rotate -(@rot + @world_rot)
+
+  tunnel_bend: (z) =>
+    z * (1 * math.cos(3 + @offset * 1.2) + @tunnel_dir_x),
+    z * (2 * math.sin(@offset) + @tunnel_dir_y)
 
   draw_at_z: (z, fn) =>
     if z <= -1
@@ -77,10 +81,7 @@ class GameSpace
 
     g.translate xadjust * @xtilt, yadjust * (@ytilt - 0.5)
 
-    g.translate(
-      z * 1 * math.cos(3 + @offset * 1.2)
-      z * 2 * math.sin @offset
-    )
+    g.translate @tunnel_bend z
 
     g.scale scale, scale
 
