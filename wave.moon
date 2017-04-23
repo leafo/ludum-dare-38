@@ -55,6 +55,33 @@ class Wave extends Sequence
             scroll_speed: s
           }
 
+      roll: (dir) ->
+        print "rolling", dir
+        rot = @world.space.world_rot
+        switch dir
+          when "normal"
+            tween @world.space, 1.0, {
+              world_rot: 0
+            }
+          when "flip"
+            tween @world.space, 1.0, {
+              world_rot: math.pi
+            }
+          when "left"
+            tween @world.space, 2.0, {
+              world_rot: rot + math.pi*2
+            }
+            -- truncate
+            @world.space.world_rot = rot
+          when "right"
+            tween @world.space, 2.0, {
+              world_rot: rot - math.pi*2
+            }
+            -- truncate
+            @world.space.world_rot = rot
+          else
+            error "unknown rol direction: #{dir}"
+
       enter_bg: (bg) ->
         bx, by = unpack pick_one(
           {nil, "down"}
@@ -167,7 +194,9 @@ class BankWave extends Wave
     super ->
       k = 0
       while true
-        enter_bg  k % 2 == 0 and "hole" or "fields"
+        print "entering bg"
+        enter_bg k % 2 == 0 and "hole" or "fields"
+        roll "flip"
         k += 1
 
 class TestWave extends Wave
