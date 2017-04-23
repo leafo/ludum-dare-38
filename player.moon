@@ -73,7 +73,7 @@ class Player
   lazy lock_on_sprite: -> imgfy "images/lock_on.png"
 
   lazy player_sprite: ->
-    Spriter "images/player.png", 32, 16
+    Spriter "images/player.png", 64, 16
 
   new: =>
     @aim_pos = Vec2d!
@@ -241,12 +241,15 @@ class Player
       [2]: 0.10
     }
 
+    sw = @player_sprite.cell_w / 2
+    sh = @player_sprite.cell_h / 2
+
     for frame=2,0,-1
       world.space\draw_at_z frame_depth[frame] + @player_z, ->
         g.push!
         g.translate unpack @player_pos
         g.rotate @get_rotation! * 2 - world.space.world_rot
-        @player_sprite\draw frame, -16 + px, -8 + py
+        @player_sprite\draw frame, -sw + px, -sh + py
         g.pop!
 
     @draw_hud world
