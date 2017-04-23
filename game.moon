@@ -9,6 +9,8 @@ import Anchor, HList, Label from require "lovekit.ui"
 
 import TestWave from require "wave"
 
+import LutShader from require "shader"
+
 class Game
   new: =>
     @viewport = EffectViewport {
@@ -35,6 +37,9 @@ class Game
       Box 0, 0, 3,8
       Label -> "sphincter status: neutral"
     }
+
+    lut = imgfy "images/lut-ratro.png"
+    @lut = LutShader lut.tex
 
   mousepressed: (x, y) =>
     x, y = @viewport\unproject x, y
@@ -63,7 +68,8 @@ class Game
 
     @ui\draw!
 
-    @viewport\pop!
+    @lut\render ->
+      @viewport\pop!
 
   update: (dt) =>
     if CONTROLLER\downed "pause"

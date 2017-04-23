@@ -2,7 +2,7 @@ export GAME_CONFIG = {
   viewport_width: 220
   viewport_height: 130
 
-  scale: 4
+  scale: 3
   keys: {
     confirm: { "x", " ", joystick: {1,3,5} }
     cancel: { "c", joystick: 2 }

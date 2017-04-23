@@ -68,7 +68,7 @@ class Enemy extends Box
   draw: (world) =>
     world.space\draw_at_z @z, ->
       COLOR\push 255, 100, 100 if @hit
-      Box.draw @
+      Box.draw @, {255, 140, 140}
       COLOR\pop! if @hit
 
   explode: (world) =>
