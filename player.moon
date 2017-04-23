@@ -116,6 +116,7 @@ class Player extends Box
     p * math.pi / 24
 
   shoot: (world) =>
+    return if @dying or @dead
     @bullets_fired += 1
     AUDIO\play "shoot"
     bx, by = @center!
@@ -133,7 +134,9 @@ class Player extends Box
       @locked[e] = true
 
   shoot_missile: (world, target) =>
+    return if @dying or @dead
     return unless target and target.alive
+
     @missiles_fired += 1
     AUDIO\play "missile"
     bx, by = @center!
@@ -317,6 +320,11 @@ class Player extends Box
     return if @dying or @dead
 
     if math.abs(@player_z - bullet.z) < 0.1
+      @health -= bullet.damage
+      if @health <= 0
+        @explode world
+        return
+
       bullet.alive = false
       world.viewport\shake!
       @effects\add FlashEffect!
@@ -333,6 +341,8 @@ class Player extends Box
 
     x, y = @center!
     @seqs\add Sequence ->
+      @movement_locked = true
+
       for i=1,5
         import Explosion from require "particle"
 
@@ -345,9 +355,11 @@ class Player extends Box
 
         wait 0.1
 
+      wait 1.0
+
     AUDIO\play "explode"
 
   health_p: =>
-    @health / @@health
+    math.min 1, math.max 0, @health / @@health
 
 {:Player, :Bullet}

@@ -51,7 +51,9 @@ class Game
             "tight"
           else
             hp = @player\health_p!
-            if hp < 0.2
+            if hp == 0
+              "obliterated"
+            elseif hp < 0.2
               "fatal"
             elseif hp < 0.5
               "critical"

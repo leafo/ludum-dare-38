@@ -15,6 +15,7 @@ class LaserParticle extends ZImageParticle
 class EnemyBullet extends Box
   lazy sprite: -> imgfy "images/enemy_bullet.png"
   is_enemy_bullet: true
+  damage: 1
 
   w: 8
   h: 8
@@ -118,6 +119,8 @@ class Enemy extends Box
 
   shoot: (world, target) =>
     return unless @alive
+    return if target.dying or target.dead
+
     tx, ty = target\center!
     cx, cy = @center!
     world.entities\add EnemyBullet world, cx, cy, @z
