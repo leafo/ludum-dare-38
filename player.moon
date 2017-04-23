@@ -336,11 +336,11 @@ class Player extends Box
         world.particles\add Explosion(
           world
           @player_z
-          x + random_normal! * 30
-          y + random_normal! * 10
+          x + rand(-1,1) * 20
+          y + rand(-1,1) * 4
         )
 
-        wait 0.2
+        wait 0.1
 
     AUDIO\play "explode"
 

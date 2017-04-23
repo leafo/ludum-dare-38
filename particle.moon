@@ -32,6 +32,38 @@ class ZImageParticle extends ImageParticle
     world.space\draw_at_z @z, ->
       super!
 
+class Flame extends ZImageParticle
+  ad_left: 0.05
+  scale: 1
+  spin: 0
+  life: 0.5
+
+  new: (world, @z, @x, @y) =>
+    @dz = 0
+    @vel = Vec2d!
+    @accel = Vec2d!
+
+    @life = @@life
+    @dscale = 2
+    @spin = rand math.pi/4, math.pi/4
+    @dspin = rand -10, 10
+
+  draw: (world) =>
+    world.space\draw_at_z @z, ->
+      box = Box(0, 0, 10, 10)
+      box\move_center 0, 0
+      g.push!
+      g.translate @x, @y
+
+      g.rotate @spin
+      g.scale @scale, @scale
+
+
+      COLOR\pusha ad_curve(@p!, 0, @ad_left, @ad_right) * (@a * 100)
+      box\draw {255, 0, 0}
+      COLOR\pop!
+      g.pop!
+
 class Spark extends ZImageParticle
   ad_left: 0.05
   lazy sprites: -> {
@@ -76,6 +108,10 @@ class Explosion extends Emitter
     super world, x, y
 
   make_particle: (x, y) =>
+    unless @made_first
+      @made_first = true
+      return Flame @world, @z, x, y
+
     cls = pick_one(
       Spark
       Smoke
