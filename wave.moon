@@ -21,6 +21,20 @@ class Wave extends Sequence
       wait_for_enemies: ->
         wait_until ->
           not next @active_enemies
+
+      show_box: (text, done) ->
+        import RevealLabel, Anchor, Border from require "lovekit.ui"
+        cx, cy = @world.viewport\center!
+
+        @world.overlay_ui = Anchor cx, cy, Border(
+          with RevealLabel(text, 0, 0, done)
+            \set_max_width 50
+
+          padding: 10, background: { 0,0,0,200 }
+        ), "center"
+
+      hide_box: ->
+        @world.overlay_ui = nil
     }
 
   enemy: (x, y) =>
@@ -57,6 +71,8 @@ class TestWave extends Wave
     h = @world.viewport.h
 
     super ->
+      show_box "hell world get ready for good time"
+
       while true
         parallel(
           unpack for i=1,4
@@ -67,9 +83,9 @@ class TestWave extends Wave
 
               movez e, 0.8, 1
 
-              -- while true
-              --   wait rand 0.8, 2.2
-              --   e\shoot @world, @world.player
+              while e.alive
+                wait rand 0.8, 2.2
+                e\shoot @world, @world.player
         )
 
         wait_for_enemies!

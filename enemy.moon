@@ -100,6 +100,7 @@ class Enemy extends Box
       @hit = true
 
   shoot: (world, target) =>
+    return unless @alive
     tx, ty = target\center!
     cx, cy = @center!
     world.entities\add EnemyBullet world, cx, cy, @z

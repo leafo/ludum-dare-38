@@ -251,7 +251,6 @@ class Player
     sw = @player_sprite.cell_w
     sh = @player_sprite.cell_h / 2
 
-
     for frame=3,0,-1
       world.space\draw_at_z @player_z + frame_depth[frame], ->
         g.push!

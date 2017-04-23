@@ -66,6 +66,8 @@ class Game
       e\draw_hud @
 
     @ui\draw!
+    if @overlay_ui
+      @overlay_ui\draw!
 
     @lut\render ->
       @viewport\pop!
@@ -78,6 +80,9 @@ class Game
 
     for item in *@scene
       @[item]\update dt, @
+
+    if @overlay_ui
+      @overlay_ui\update dt
 
     grid = UniformGrid!
 
