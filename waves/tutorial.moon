@@ -5,12 +5,6 @@ class TutorialWave extends Wave
   new: (@world) =>
     super ->
 
-      wait_or_confirm = ->
-        wait_for_one(
-          -> wait 3
-          -> wait_until -> CONTROLLER\is_down "one", "two"
-        )
-
       @world.player.movement_locked = true
       @world.player.bullets_locked = true
       @world.player.missiles_locked = true

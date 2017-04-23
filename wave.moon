@@ -166,6 +166,11 @@ class Wave extends Sequence
 
         @world\set_wave wave
 
+      wait_or_confirm: ->
+        wait_for_one(
+          -> wait 3
+          -> wait_until -> CONTROLLER\is_down "one", "two"
+        )
     }
 
   enemy: (x, y) =>
