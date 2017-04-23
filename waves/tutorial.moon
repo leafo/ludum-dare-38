@@ -72,11 +72,7 @@ class TutorialWave extends Wave
 
       wait_for_enemies!
       show_box "nice shooting"
-      wait_for_one(
-        -> wait 3
-        -> wait_for_player_to_shoot!
-      )
-
+      wait_or_confirm!
 
       while true
         @world.player.missiles_locked = false
