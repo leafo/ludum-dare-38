@@ -57,8 +57,7 @@ class GameSpace
     unpack Vec2d(x,y)\rotate -(@rot + @world_rot)
 
   tunnel_bend: (z) =>
-    z * (1 * math.cos(3 + @offset * 1.2) + @tunnel_dir_x),
-    z * (2 * math.sin(@offset) + @tunnel_dir_y)
+    z * (1 * math.cos(3 + @offset * 1.2) + @tunnel_dir_x), z * (2 * math.sin(@offset) + @tunnel_dir_y)
 
   draw_at_z: (z, fn) =>
     if z <= -1
@@ -67,22 +66,17 @@ class GameSpace
     vw = @viewport.w / 2
     vh = @viewport.h / 2
 
-    g.push!
     scale = @scale_factor z
-
-    g.translate -@xtilt * 60, 0
-
-    g.translate vw, vh
-
-    g.rotate @rot + @world_rot
-
     yadjust = vh - vh * scale
     xadjust = vw - vw * scale
 
+
+    g.push!
+    g.translate -@xtilt * 60, 0
+    g.translate vw, vh
+    g.rotate @rot + @world_rot
     g.translate xadjust * @xtilt, yadjust * (@ytilt - 0.5)
-
     g.translate @tunnel_bend z
-
     g.scale scale, scale
 
     cscale = math.min 1, scale
