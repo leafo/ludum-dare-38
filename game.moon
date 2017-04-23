@@ -30,7 +30,7 @@ class Game
 
     -- @wave = TestWave @
     -- @wave = TutorialWave @
-    @wave = BankWave @
+    @wave = TutorialWave @
 
     @scene = {
       "viewport"

@@ -20,10 +20,7 @@ class TutorialWave extends Wave
       wait 1.0
 
       show_box "engaging training"
-
-      tween @world.space, 3.0, {
-        scroll_speed: GameSpace.scroll_speed
-      }
+      speed!
 
       hide_box!
       wait 1.0
@@ -115,4 +112,8 @@ class TutorialWave extends Wave
       show_box "excellent... you're ready"
       wait_or_confirm!
       hide_box!
+      parallel(
+        -> roll "left"
+        -> speed 10
+      )
 
