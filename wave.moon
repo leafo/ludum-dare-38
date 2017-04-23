@@ -66,6 +66,10 @@ class TestWave extends Wave
               wait rand 0.8, 1.2
 
               movez e, 0.8, 1
+
+              -- while true
+              --   wait rand 0.8, 2.2
+              --   e\shoot @world, @world.player
         )
 
         wait_for_enemies!

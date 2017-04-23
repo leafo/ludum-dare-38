@@ -67,13 +67,14 @@ class Player
   aim_speed: 200
   scale_cursor: 1
   rot_cursor: 0
+  time: 0
 
   lazy cursor: -> imgfy "images/cursor.png"
   lazy cursor_center: -> imgfy "images/cursor_center.png"
   lazy lock_on_sprite: -> imgfy "images/lock_on.png"
 
   lazy player_sprite: ->
-    Spriter "images/player.png", 64, 16
+    Spriter "images/player.png", 32, 16
 
   new: =>
     @aim_pos = Vec2d!
@@ -148,6 +149,7 @@ class Player
 
   update: (dt, world) =>
     @locking = CONTROLLER\is_down "two"
+    @time += dt
 
     @seqs\update dt
 
@@ -191,7 +193,7 @@ class Player
     pt = pop_in(t, 2.0) / 4
 
     space\draw_at_z pt, ->
-      COLOR\pusha (1 - t) * 255
+      COLOR\pusha (1 - t) * 128
       space.aim_box\outline!
       COLOR\pop!
 
@@ -199,7 +201,9 @@ class Player
       Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
 
     space\draw_at_z @hud_z, ->
+      COLOR\pusha 128
       space.aim_box\outline!
+      COLOR\pop!
       @cursor_center\draw unpack cp
 
     -- draw the cursor unprojected so it's easy to see
@@ -232,24 +236,39 @@ class Player
       world.space\draw_at_z z, ->
         g.points unpack @player_pos
 
-    t = love.timer.getTime!
-    px, py = 2 * math.cos(3 + t*1.1), 2 * math.sin(t)
+    px, py = 2 * math.cos(3 + @time*1.1), 2 * math.sin(@time)
+
+    t = @time * 3
+    t = t - math.floor(t)
 
     frame_depth = {
-      [0]: 0.05
+      [0]: 0.09 - smoothstep(0, 1, t) / 10
       [1]: 0.09
       [2]: 0.10
+      [3]: 0.12
     }
 
-    sw = @player_sprite.cell_w / 2
+    sw = @player_sprite.cell_w
     sh = @player_sprite.cell_h / 2
 
-    for frame=2,0,-1
+
+    for frame=3,0,-1
       world.space\draw_at_z frame_depth[frame] + @player_z, ->
         g.push!
         g.translate unpack @player_pos
         g.rotate @get_rotation! * 2 - world.space.world_rot
+
+        if frame == 0
+          COLOR\pusha (1 - t) * 255
+          g.setBlendMode "add"
+
         @player_sprite\draw frame, -sw + px, -sh + py
+        @player_sprite\draw frame, sw + px, -sh + py, 0, -1, 1
+
+        if frame == 0
+          g.setBlendMode "alpha"
+          COLOR\pop!
+
         g.pop!
 
     @draw_hud world

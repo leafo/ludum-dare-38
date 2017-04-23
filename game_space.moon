@@ -17,6 +17,7 @@ class GameSpace
     @offset = 0
 
   update: (dt) =>
+    -- @world_rot += dt
     @offset += dt * @scroll_speed
 
   scale_factor: (z) =>

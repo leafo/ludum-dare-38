@@ -65,7 +65,6 @@ class Game
       continue unless e.alive and e.draw_hud
       e\draw_hud @
 
-
     @ui\draw!
 
     @lut\render ->
