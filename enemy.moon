@@ -66,6 +66,9 @@ class Enemy extends Box
     @z = 2
     @effects = EffectList @
 
+  active: =>
+    @alive and not @dying
+
   update: (dt, world) =>
     -- @z -= dt * world.space.scroll_speed / 3
     @seq\update dt if @seq
@@ -100,7 +103,7 @@ class Enemy extends Box
     return unless bullet.is_bullet
     return unless bullet.alive
     return if bullet.target and bullet.target != @
-    return if @dying
+    return unless @active!
 
     if math.abs(bullet.z - @z) < 0.1
       bullet.alive = false

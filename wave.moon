@@ -80,14 +80,19 @@ class TestWave extends Wave
               x = -30 + ((i - 1) * 30)
               e = @enemy x, -20 * math.sin(x)
               wait rand 0.8, 1.2
-
-              movez e, 0.8, 1
-
-              while e.alive
-                wait rand 0.8, 2.2
-                e\shoot @world, @world.player
+              if e\active!
+                movez e, 0.8, 1
         )
 
         wait_for_enemies!
+
+        e = @enemy 0, 0
+
+        while e\active!
+          wait rand 0.8, 1.2
+          e\shoot @world, @world.player
+
+        wait_for_enemies!
+
 
 {:Wave, :ForeverWave, :TestWave}
