@@ -5,8 +5,8 @@ import Enemy from require "enemy"
 import GameSpace from require "game_space"
 import Tunnel from require "tunnel"
 
-import Anchor, HList, Label from require "lovekit.ui"
-
+import Anchor, HList, Label, Group from require "lovekit.ui"
+import HBar from require "ui"
 
 import LutShader from require "shader"
 
@@ -19,6 +19,7 @@ class Game
 
     @space = GameSpace @viewport
     @tunnel = Tunnel @space
+    @score = 0
 
     @player = Player!
     @entities = DrawList!
@@ -42,12 +43,42 @@ class Game
       "ui"
     }
 
-    @ui = HList {
-      x: 2, y: 2
-      Label -> "e: #{#@entities}, p: #{#@particles}"
-      Box 0, 0, 3,8
-      Label -> "sphincter status: neutral"
+    @ui = Group {
+      Anchor(
+        @viewport.w / 2
+        2
+        Label ->
+          status = if @space.scroll_speed > 3
+            "tight"
+          else
+            hp = @player\health_p!
+            if hp < 0.2
+              "fatal"
+            elseif hp < 0.5
+              "critical"
+            elseif hp < 1
+              "damaged"
+            else
+              "neutral"
+
+          "sphincter status: #{status}"
+        "center"
+        "top"
+      )
+      Anchor(
+        @viewport.w / 2
+        @viewport.h - 2
+
+        with HBar!
+          .p = 0
+          .update = (b, dt) ->
+            b.p = smooth_approach b.p, @player\health_p!, dt * 2
+
+        "center"
+        "bottom"
+      )
     }
+
 
     lut = imgfy "images/lut-ratro.png"
     @lut = LutShader lut.tex
@@ -55,15 +86,14 @@ class Game
   on_show: =>
     AUDIO\play_music "theme"
 
-  mousepressed: (x, y) =>
-    x, y = @viewport\unproject x, y
-    x -= @viewport.w / 2
-    y -= @viewport.h / 2
+  -- mousepressed: (x, y) =>
+  --   x, y = @viewport\unproject x, y
+  --   x -= @viewport.w / 2
+  --   y -= @viewport.h / 2
 
-    -- import Explosion from require "particle"
-    -- @particles\add Explosion @, 1, x, y
-
-    @player\explode @
+  --   import Explosion from require "particle"
+  --   @particles\add Explosion @, 1, x, y
+  --   -- @player\explode @
 
   -- mousemoved: (x,y) =>
   --   x, y = @viewport\unproject x, y

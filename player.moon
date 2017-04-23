@@ -74,6 +74,7 @@ class Player extends Box
   bullets_fired: 0
   missiles_fired: 0
   barrages_fired: 0
+  health: 5
 
   w: 25
   h: 8
@@ -92,6 +93,8 @@ class Player extends Box
     @player_vel = Vec2d!
     @player_z = -0.1
     @hud_z = 0.3
+
+    @health = @@health
 
     @locked = {}
     @seqs = DrawList!
@@ -343,5 +346,8 @@ class Player extends Box
         wait 0.1
 
     AUDIO\play "explode"
+
+  health_p: =>
+    @health / @@health
 
 {:Player, :Bullet}
