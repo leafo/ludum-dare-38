@@ -51,6 +51,9 @@ class Game
     lut = imgfy "images/lut-ratro.png"
     @lut = LutShader lut.tex
 
+  on_show: =>
+    AUDIO\play_music "theme"
+
   mousepressed: (x, y) =>
     x, y = @viewport\unproject x, y
     x -= @viewport.w / 2

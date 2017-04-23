@@ -1,7 +1,7 @@
 require "lovekit.all"
 
-if pcall(-> require"inotify")
-  require "lovekit.reloader"
+-- if pcall(-> require"inotify")
+--   require "lovekit.reloader"
 
 {graphics: g} = love
 
@@ -28,9 +28,9 @@ love.load = ->
   export DISPATCHER = Dispatcher -> Title!
   DISPATCHER.default_transition = FadeTransition
 
-  DISPATCHER\bind love
 
   export AUDIO = Audio "sound"
+  AUDIO.play_music = ->
 
   AUDIO\preload {
     "explode"
@@ -44,4 +44,5 @@ love.load = ->
     "start"
   }
 
+  DISPATCHER\bind love
 
