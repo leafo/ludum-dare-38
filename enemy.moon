@@ -54,6 +54,8 @@ class Enemy extends Box
   h: 8
   alive: true
   is_enemy: true
+  lazy sprite: ->
+    Spriter "images/enemy_sprites.png", 16
 
   new: (world, x, y) =>
     super 0, 0, @w, @h
@@ -65,11 +67,21 @@ class Enemy extends Box
     @seq\update dt if @seq
     not @hit and @z > -1
 
+
+  draw_sprite_cell: (frame) =>
+    sw = @sprite.cell_w
+    sh = @sprite.cell_h / 2
+
+    g.push!
+    g.translate @center!
+
+    @sprite\draw frame, -sw, -sh
+    @sprite\draw frame, sw, -sh, 0, -1, 1
+    g.pop!
+
   draw: (world) =>
     world.space\draw_at_z @z, ->
-      COLOR\push 255, 100, 100 if @hit
-      Box.draw @, {255, 140, 140}
-      COLOR\pop! if @hit
+      @draw_sprite_cell 1
 
   explode: (world) =>
     AUDIO\play "explode"
