@@ -64,12 +64,15 @@ class Missile extends Box
     @z += dt * @speed
     @z < 3 and @target.alive
 
-class Player
+class Player extends Box
   aim_depth: 10
   aim_speed: 200
   scale_cursor: 1
   rot_cursor: 0
   time: 0
+
+  w: 25
+  h: 8
 
   lazy cursor: -> imgfy "images/cursor.png"
   lazy cursor_center: -> imgfy "images/cursor_center.png"
@@ -79,8 +82,9 @@ class Player
     Spriter "images/player.png", 32, 16
 
   new: =>
+    super!
     @aim_pos = Vec2d!
-    @player_pos = Vec2d!
+    @move_center 0, 0
     @player_vel = Vec2d!
     @player_z = -0.1
     @hud_z = 0.3
@@ -91,9 +95,6 @@ class Player
   move_aim: (space, dx, dy) =>
     @aim_pos\move dx, dy
     @aim_pos = space.aim_box\clamp_vector @aim_pos
-
-  center: =>
-    unpack @player_pos
 
   get_rotation: =>
     unless @player_vel
@@ -108,12 +109,13 @@ class Player
 
   shoot: (world) =>
     AUDIO\play "shoot"
-    bx, by = unpack @player_pos
+    bx, by = @center!
     world.entities\add Bullet bx, by, @player_z
     @scale_cursor = 1 + random_normal!
 
   check_lock: (world, grid) =>
-    hitbox = Box(0, 0, 20, 20)\move_center unpack @player_pos
+    hitbox = Box(0, 0, 20, 20)\move_center @center!
+
     for e in *grid\get_touching hitbox
       continue unless e.alive
       continue unless e.is_enemy
@@ -124,7 +126,7 @@ class Player
   shoot_missile: (world, target) =>
     return unless target and target.alive
     AUDIO\play "missile"
-    bx, by = unpack @player_pos
+    bx, by = @center!
     world.entities\add Missile bx, by, @player_z, target, world
     @rot_cursor = math.pi
 
@@ -162,13 +164,16 @@ class Player
 
     @move_aim world.space, unpack vec
 
-    px, py = unpack @player_pos
+    px, py = @center!
 
-    approach_vector @player_pos, @aim_pos, dt
+    px2 = smooth_approach px, @aim_pos[1], dt * 5
+    py2 = smooth_approach py, @aim_pos[2], dt * 5
+
+    @move_center px2, py2
 
     @player_vel = Vec2d(
-      (@player_pos[1] - px) / dt
-      (@player_pos[2] - py) / dt
+      (px2 - px) / dt
+      (py2 - py) / dt
     )
 
     cursor_size = if @locking then 1.2 else 1
@@ -182,9 +187,8 @@ class Player
       @rot_cursor = smooth_approach @rot_cursor, target_rot, dt * 6
 
     world.space.rot = @get_rotation!
-    world.space.ytilt = -(@player_pos[2] / world.viewport.h) * 2
-    world.space.xtilt = -(@player_pos[1] / world.viewport.w)
-
+    world.space.xtilt = -(px2 / world.viewport.w)
+    world.space.ytilt = -(py2 / world.viewport.h) * 2
 
   draw_hud: (world) =>
     space = world.space
@@ -199,14 +203,11 @@ class Player
       space.aim_box\outline!
       COLOR\pop!
 
-    cp = @player_pos -
-      Vec2d(@cursor_center\width!, @cursor_center\height!) / 2
-
     space\draw_at_z @hud_z, ->
       COLOR\pusha 128
       space.aim_box\outline!
       COLOR\pop!
-      @cursor_center\draw unpack cp
+      @cursor_center\draw_center @center!
 
     -- draw the cursor unprojected so it's easy to see
     cx, cy = space\project @aim_pos[1], @aim_pos[2], @hud_z
@@ -236,7 +237,7 @@ class Player
     g.setPointSize 1
     for z=@hud_z+0.2,3,0.2
       world.space\draw_at_z z, ->
-        g.points unpack @player_pos
+        g.points @center!
 
     px, py = 2 * math.cos(3 + @time*1.1), 2 * math.sin(@time)
 
@@ -256,7 +257,7 @@ class Player
     for frame=3,0,-1
       world.space\draw_at_z @player_z + frame_depth[frame], ->
         g.push!
-        g.translate unpack @player_pos
+        g.translate @center!
         g.rotate @get_rotation! * 2 - world.space.world_rot
 
         if frame == 0
