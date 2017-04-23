@@ -57,7 +57,10 @@ class GameSpace
     unpack Vec2d(x,y)\rotate -(@rot + @world_rot)
 
   tunnel_bend: (z) =>
-    z * (1 * math.cos(3 + @offset * 1.2) + @tunnel_dir_x), z * (2 * math.sin(@offset) + @tunnel_dir_y)
+    wobble_x = math.cos(3 + @offset * 1.2)
+    wobble_y = 2 * math.sin(@offset)
+
+    z * (wobble_x + @tunnel_dir_x), z * (wobble_y + @tunnel_dir_y)
 
   draw_at_z: (z, fn) =>
     if z <= -1

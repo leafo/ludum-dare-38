@@ -43,6 +43,85 @@ class Wave extends Sequence
 
       hide_box: ->
         @world.overlay_ui = nil
+
+      speed: (s, t=3.0) ->
+        import GameSpace from require "game_space"
+        s or= GameSpace.scroll_speed
+
+        if t == 0
+          @world.space.scroll_speed = s
+        else
+          tween @world.space, t, {
+            scroll_speed: s
+          }
+
+      enter_bg: (bg) ->
+        bx, by = unpack pick_one(
+          {nil, "down"}
+          {"left", "up"}
+          {"right", "up"}
+        )
+
+        parallel(
+          -> bank bx, by
+          -> speed 10
+          ->
+            wait 0.1
+            @world.tunnel\set_bg bg
+        )
+
+        parallel(
+          -> speed nil, 1.0
+          -> bank "center", "center"
+        )
+
+        wait 1.0
+
+      bank: (horiz, vert, speed=1) ->
+        t = 1 / speed
+
+        a = switch horiz
+          when "left"
+            -> tween @world.space, t, {
+              world_rot: math.pi / 4
+              tunnel_dir_x: -10
+            }
+
+          when "right"
+            -> tween @world.space, t, {
+              world_rot: -math.pi / 4
+              tunnel_dir_x: 10
+            }
+          when "center"
+            -> tween @world.space, t, {
+              world_rot: 0
+              tunnel_dir_x: 0
+            }
+          when nil
+            nil -- no change
+          else
+            error "unknown bank #{horiz}"
+
+        b = switch vert
+          when "up"
+            -> tween @world.space, t, {
+              tunnel_dir_y: -15
+            }
+
+          when "down"
+            -> tween @world.space, t, {
+              tunnel_dir_y: 15
+            }
+          when "center"
+            -> tween @world.space, t, {
+              tunnel_dir_y: 0
+            }
+          when nil
+            nil -- no change
+          else
+            error "unknown bank #{vert}"
+
+        parallel(a, b)
     }
 
   enemy: (x, y) =>
@@ -82,6 +161,14 @@ class TunnelWave extends Wave
 
         wait 0.5
         @world.tunnel\set_bg "fields"
+
+class BankWave extends Wave
+  new: (@world) =>
+    super ->
+      k = 0
+      while true
+        enter_bg  k % 2 == 0 and "hole" or "fields"
+        k += 1
 
 class TestWave extends Wave
   new: (@world) =>
@@ -130,4 +217,4 @@ class TestWave extends Wave
         iter += 1
 
 
-{:Wave, :ForeverWave, :TestWave, :TunnelWave}
+{:Wave, :ForeverWave, :TestWave, :TunnelWave, :BankWave}

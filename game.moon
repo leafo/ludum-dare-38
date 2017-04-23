@@ -7,8 +7,6 @@ import Tunnel from require "tunnel"
 
 import Anchor, HList, Label from require "lovekit.ui"
 
-import TestWave, TunnelWave from require "wave"
-TutorialWave = require "waves.tutorial"
 
 import LutShader from require "shader"
 
@@ -26,9 +24,12 @@ class Game
     @entities = DrawList!
     @particles = DrawList!
 
+    import TestWave, TunnelWave, BankWave from require "wave"
+    TutorialWave = require "waves.tutorial"
+
     -- @wave = TestWave @
     -- @wave = TutorialWave @
-    @wave = TunnelWave @
+    @wave = BankWave @
 
     @scene = {
       "viewport"
