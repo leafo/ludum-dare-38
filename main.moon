@@ -36,6 +36,7 @@ love.load = ->
     "missile"
     "notarget"
     "shoot"
+    "enemy_hit"
   }
 
 

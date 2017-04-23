@@ -71,7 +71,7 @@ class TestWave extends Wave
     h = @world.viewport.h
 
     super ->
-      show_box "hell world get ready for good time"
+      -- show_box "hell world get ready for good time"
 
       while true
         parallel(

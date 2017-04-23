@@ -54,6 +54,9 @@ class Enemy extends Box
   h: 8
   alive: true
   is_enemy: true
+
+  health: 3
+
   lazy sprite: ->
     Spriter "images/enemy_sprites.png", 16
 
@@ -61,12 +64,13 @@ class Enemy extends Box
     super 0, 0, @w, @h
     @move_center x, y
     @z = 2
+    @effects = EffectList @
 
   update: (dt, world) =>
     -- @z -= dt * world.space.scroll_speed / 3
     @seq\update dt if @seq
-    not @hit and @z > -1
-
+    @effects\update dt
+    @dying or (@z > -1 and @health > 0)
 
   draw_sprite_cell: (frame) =>
     sw = @sprite.cell_w
@@ -81,23 +85,33 @@ class Enemy extends Box
 
   draw: (world) =>
     world.space\draw_at_z @z, ->
+      @effects\before!
       @draw_sprite_cell 1
+      @effects\after!
 
   explode: (world) =>
+    @dying = true
     AUDIO\play "explode"
+    @effects\add BlowOutEffect 0.5, -> @dying = false
     world.particles\add Explosion world, @z, @center!
 
   -- ensure z is close enough
   on_hit_by: (bullet, world) =>
     return unless bullet.is_bullet
     return unless bullet.alive
-    return if @hit
     return if bullet.target and bullet.target != @
+    return if @dying
 
     if math.abs(bullet.z - @z) < 0.1
-      @explode world
       bullet.alive = false
-      @hit = true
+      @health -= (bullet.damage or 1)
+
+      if @health <= 0
+        @explode world
+      else
+        AUDIO\play "enemy_hit"
+        @effects\add FlashEffect!
+        @effects\add ShakeEffect!
 
   shoot: (world, target) =>
     return unless @alive

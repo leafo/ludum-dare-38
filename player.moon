@@ -9,6 +9,7 @@ class Bullet extends Box
   alive: true
   is_bullet: true
   speed: 2
+  damage: 1
 
   new: (x, y, @z) =>
     super 0, 0, @sprite\width!, @sprite\height!
@@ -28,6 +29,7 @@ class Missile extends Box
   alive: true
   is_bullet: true
   speed: 1
+  damage: 4
 
   new: (x,y, @z, @target, world) =>
     super 0, 0, @sprite\width!, @sprite\height!
