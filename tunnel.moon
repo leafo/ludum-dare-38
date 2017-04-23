@@ -2,7 +2,7 @@
 {graphics: g} = love
 
 class Tunnel
-  lazy hole: -> imgfy "images/hole.png"
+  lazy hole: -> imgfy "images/hole2.png"
 
   new: (@space) =>
 

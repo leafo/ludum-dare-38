@@ -60,13 +60,8 @@ class Enemy extends Box
     @move_center x, y
     @z = 2
 
-    @seq = Sequence ->
-      wait 1.0
-      @shoot world, world.player
-      @seq = nil
-
   update: (dt, world) =>
-    @z -= dt * world.space.scroll_speed / 3
+    -- @z -= dt * world.space.scroll_speed / 3
     @seq\update dt if @seq
     not @hit and @z > -1
 

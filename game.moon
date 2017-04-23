@@ -7,7 +7,7 @@ import Tunnel from require "tunnel"
 
 import Anchor, HList, Label from require "lovekit.ui"
 
-import Wave from require "wave"
+import TestWave from require "wave"
 
 class Game
   new: =>
@@ -23,7 +23,7 @@ class Game
     @entities = DrawList!
     @particles = DrawList!
 
-    @wave = Wave @
+    @wave = TestWave @
 
     @scene = {
       "wave", "space", "tunnel", "player", "entities", "particles", "ui"

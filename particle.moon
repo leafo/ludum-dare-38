@@ -51,6 +51,8 @@ class Spark extends ZImageParticle
 
 
 class Smoke extends ZImageParticle
+  life: 0.5
+
   lazy sprites: -> {
     imgfy "images/smoke.png"
     imgfy "images/smoke_2.png"
