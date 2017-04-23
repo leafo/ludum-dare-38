@@ -72,6 +72,17 @@ class ForeverWave extends Wave
         @enemy space.aim_box\random_point!
         wait 1
 
+
+class TunnelWave extends Wave
+  new: (@world) =>
+    super ->
+      while true
+        wait 0.5
+        @world.tunnel\set_bg "hole"
+
+        wait 0.5
+        @world.tunnel\set_bg "fields"
+
 class TestWave extends Wave
   new: (@world) =>
     space = @world.space
@@ -119,4 +130,4 @@ class TestWave extends Wave
         iter += 1
 
 
-{:Wave, :ForeverWave, :TestWave}
+{:Wave, :ForeverWave, :TestWave, :TunnelWave}
