@@ -4,7 +4,7 @@ import Wave from require "wave"
 class TutorialWave extends Wave
   new: (@world) =>
     super ->
-      DID_TUTORIAL = true
+      export DID_TUTORIAL = true
       unless AUDIO.current_music == "title"
         AUDIO\play_music "title"
 
