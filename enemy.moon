@@ -55,6 +55,8 @@ class Enemy extends Box
   h: 8
   alive: true
   is_enemy: true
+  has_shield: false
+  sprite_frame: 1
 
   health: 3
 
@@ -66,11 +68,13 @@ class Enemy extends Box
     @move_center x, y
     @z = 2
     @effects = EffectList @
+    @time = 0
 
   active: =>
     @alive and not @dying
 
   update: (dt, world) =>
+    @time += dt
     -- @z -= dt * world.space.scroll_speed / 3
     @seq\update dt if @seq
     @effects\update dt
@@ -90,8 +94,24 @@ class Enemy extends Box
   draw: (world) =>
     world.space\draw_at_z @z, ->
       @effects\before!
-      @draw_sprite_cell 1
+      @draw_sprite_cell @sprite_frame
       @effects\after!
+
+      if @has_shield
+        x, y = @center!
+        g.setBlendMode "add"
+
+        g.push!
+        g.translate @center!
+
+        g.scale 1 + math.abs math.sin @time * 3
+        g.rotate @time * 2
+
+        @sprite\draw "0,32,16,32", -16, -16
+        @sprite\draw "0,32,16,32", 16, -16, 0, -1, 1
+
+        g.pop!
+        g.setBlendMode "alpha"
 
   explode: (world) =>
     @dying = true
@@ -111,14 +131,18 @@ class Enemy extends Box
 
     if math.abs(bullet.z - @z) < 0.1
       bullet.alive = false
-      @health -= (bullet.damage or 1)
-
-      if @health <= 0
-        @explode world
+      if @has_shield
+        @has_shield = false
+        AUDIO\play "lose_shield"
       else
-        AUDIO\play "enemy_hit"
-        @effects\add FlashEffect!
-        @effects\add ShakeEffect!
+        @health -= (bullet.damage or 1)
+
+        if @health <= 0
+          @explode world
+        else
+          AUDIO\play "enemy_hit"
+          @effects\add FlashEffect!
+          @effects\add ShakeEffect!
 
   shoot: (world, target) =>
     return unless @alive
@@ -128,4 +152,18 @@ class Enemy extends Box
     cx, cy = @center!
     world.entities\add EnemyBullet world, cx, cy, @z
 
-{:Enemy, :EnemyBullet}
+
+class EnemyShield extends Enemy
+  has_shield: true
+
+class EvilEnemy extends Enemy
+  health: 6
+  sprite_frame: 0
+  has_shield: false
+
+class EvilEnemyShield extends Enemy
+  health: 6
+  sprite_frame: 0
+  has_shield: false
+
+{:Enemy, :EnemyBullet, :EnemyShield, :EvilEnemy, :EvilEnemyShield}

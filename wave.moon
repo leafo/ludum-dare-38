@@ -1,5 +1,4 @@
 
-import Enemy from require "enemy"
 
 class Wave extends Sequence
   new: (fn) =>
@@ -176,7 +175,32 @@ class Wave extends Sequence
     }
 
   enemy: (x, y) =>
-    with e = Enemy @world, x, y
+    difficulty = @difficulty or 1
+
+    import Enemy, EnemyShield, EvilEnemy, EvilEnemyShield from require "enemy"
+
+
+    difficulties = {
+      [1]: {
+        [Enemy]: 1
+      }
+      [3]: {
+        [EnemyShield]: 1
+        [Enemy]: 2
+      }
+      [4]: {
+        [EvilEnemy]: 1
+        [Enemy]: 1
+      }
+    }
+
+    enemy_type = Enemy
+    for d=difficulty,1,-1
+      if probs = difficulties[d]
+        enemy_type = pick_dist probs
+        break
+
+    with e = enemy_type @world, x, y
       @world.entities\add e
       table.insert @active_enemies, e
 

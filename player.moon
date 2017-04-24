@@ -129,6 +129,8 @@ class Player extends Box
     for e in *grid\get_touching hitbox
       continue unless e.alive
       continue unless e.is_enemy
+      continue if e.has_shield
+
       continue if @locked[e]
       AUDIO\play "lock"
       @locked[e] = true

@@ -2,7 +2,7 @@ import Wave from require "wave"
 
 class ForeverWave extends Wave
   new: (@world) =>
-    difficulty = 1
+    @difficulty = 4
 
     super ->
       @current_bg = "fields"
@@ -58,14 +58,14 @@ class ForeverWave extends Wave
                 movez e, 0.8, 1
 
               while e\active!
-                if chance 0.25 * difficulty
+                if chance 0.25 * @difficulty
                   wait rand 0.8, 1.2
                   e\shoot @world, @world.player
 
                 wait rand 2.0, 2.5
         )
 
-      random = (count=difficulty)->
+      random = (count=@difficulty)->
         parallel unpack for i=1,count
           ->
             wait rand 0.4, 0.8
@@ -78,7 +78,7 @@ class ForeverWave extends Wave
               action = pick_dist {
                 nothing: 5
                 move: 1
-                shoot: 1 * difficulty
+                shoot: 1 * @difficulty
               }
 
               switch action
@@ -90,14 +90,16 @@ class ForeverWave extends Wave
 
       -- intro!
       while true
-        for i=1,math.min 5, difficulty
+        print "Starting difficulty", @difficulty
+        -- spinner!
+        for i=1, 1 + math.min 5, math.floor @difficulty / 2
           random!
 
         opts = {
           hole: 1
           fields: 1
           hair: 1
-          grid: difficulty > 2 and 1
+          grid: @difficulty > 2 and 1
         }
 
         opts[@current_bg] = nil
@@ -106,5 +108,5 @@ class ForeverWave extends Wave
 
         enter_bg next_bg
         @current_bg = next_bg
-        difficulty += 1
+        @difficulty += 1
 
