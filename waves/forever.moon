@@ -2,7 +2,7 @@ import Wave from require "wave"
 
 class ForeverWave extends Wave
   new: (@world) =>
-    @difficulty = 4
+    @difficulty = 1
 
     super ->
       @current_bg = "fields"
@@ -65,7 +65,7 @@ class ForeverWave extends Wave
                 wait rand 2.0, 2.5
         )
 
-      random = (count=@difficulty)->
+      random = (count)->
         parallel unpack for i=1,count
           ->
             wait rand 0.4, 0.8
@@ -91,9 +91,24 @@ class ForeverWave extends Wave
       -- intro!
       while true
         print "Starting difficulty", @difficulty
-        -- spinner!
+        local flipped = false
+
         for i=1, 1 + math.min 5, math.floor @difficulty / 2
-          random!
+          if flipped
+            roll "normal"
+            flipped = false
+          else
+            flipped = chance 0.3
+            if flipped
+              roll "flip"
+            else
+              if i > 1 and chance 0.3
+                roll pick_one "left", "right"
+
+          random math.min @difficulty, 8
+
+        if flipped
+          roll "normal"
 
         opts = {
           hole: 1
@@ -109,4 +124,5 @@ class ForeverWave extends Wave
         enter_bg next_bg
         @current_bg = next_bg
         @difficulty += 1
+
 

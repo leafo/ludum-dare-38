@@ -192,6 +192,22 @@ class Wave extends Sequence
         [EvilEnemy]: 1
         [Enemy]: 1
       }
+      [5]: {
+        [EvilEnemy]: 1
+        [EnemyShield]: 1
+        [Enemy]: 1
+      }
+      [6]: {
+        [EvilEnemy]: 1
+        [EnemyShield]: 1
+        [Enemy]: 1
+      }
+      [7]: {
+        [EvilEnemy]: 1
+        [EnemyShield]: 1
+        [Enemy]: 1
+        [EvilEnemyShield]: 1
+      }
     }
 
     enemy_type = Enemy

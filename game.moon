@@ -30,8 +30,9 @@ class Game
 
     import TestWave, TunnelWave, BankWave from require "wave"
     TutorialWave = require "waves.tutorial"
+    ForeverWave = require "waves.forever"
 
-    @set_wave TunnelWave
+    @set_wave ForeverWave
 
     @scene = {
       "viewport"

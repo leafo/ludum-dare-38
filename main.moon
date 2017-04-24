@@ -24,13 +24,11 @@ love.load = ->
   g.setBackgroundColor 50, 50, 50
 
   export CONTROLLER = Controller GAME_CONFIG.keys, "auto"
-  -- export DISPATCHER = Dispatcher -> Game!
-  export DISPATCHER = Dispatcher -> Title!
+  export DISPATCHER = Dispatcher -> Game!
+  -- export DISPATCHER = Dispatcher -> Title!
   DISPATCHER.default_transition = FadeTransition
 
-
   export AUDIO = Audio "sound"
-  AUDIO.play_music = ->
 
   AUDIO\preload {
     "explode"
