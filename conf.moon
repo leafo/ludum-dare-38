@@ -18,7 +18,7 @@ export GAME_CONFIG = {
     left: "left"
     right: "right"
 
-    pause: "p"
+    pause: { "p", joystick: 8 }
   }
 }
 
