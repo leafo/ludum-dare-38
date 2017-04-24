@@ -4,6 +4,9 @@ import Wave from require "wave"
 class TutorialWave extends Wave
   new: (@world) =>
     super ->
+      DID_TUTORIAL = true
+      unless AUDIO.current_music == "title"
+        AUDIO\play_music "title"
 
       @world.player.movement_locked = true
       @world.player.bullets_locked = true

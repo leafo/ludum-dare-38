@@ -32,7 +32,10 @@ class Game
     TutorialWave = require "waves.tutorial"
     ForeverWave = require "waves.forever"
 
-    @set_wave ForeverWave
+    if DID_TUTORIAL
+      @set_wave FOREVER_WAVE
+    else
+      @set_wave TutorialWave
 
     @scene = {
       "viewport"
@@ -59,9 +62,6 @@ class Game
     @player.movement_locked = false
     @player.bullets_locked = false
     @player.missiles_locked = false
-
-  on_show: =>
-    AUDIO\play_music "theme"
 
   create_ui: =>
     @ui = Group {

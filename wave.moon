@@ -66,7 +66,6 @@ class Wave extends Sequence
           }
 
       roll: (dir) ->
-        print "rolling", dir
         rot = @world.space.world_rot
         switch dir
           when "normal"
@@ -252,8 +251,6 @@ class TunnelWave extends Wave
       wait 0.5
       @world.tunnel\set_bg "fields"
 
-
-      print "switching to forever wave"
       ForeverWave = require "waves.forever"
       change_wave ForeverWave
 
@@ -262,7 +259,6 @@ class BankWave extends Wave
     super ->
       k = 0
       while true
-        print "entering bg"
         enter_bg k % 2 == 0 and "hole" or "fields"
         roll "flip"
         k += 1

@@ -6,6 +6,7 @@ class ForeverWave extends Wave
 
     super ->
       @current_bg = "fields"
+      AUDIO\play_music "theme"
 
       intro = ->
         show_box "entering intestine"
@@ -88,10 +89,10 @@ class ForeverWave extends Wave
                   wait rand 0.8, 1.2
                   e\shoot @world, @world.player
 
-      -- intro!
+      intro!
       while true
         print "Starting difficulty", @difficulty
-        local flipped = false
+        flipped = false
 
         for i=1, 1 + math.min 5, math.floor @difficulty / 2
           if flipped

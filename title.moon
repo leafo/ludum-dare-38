@@ -29,10 +29,7 @@ class Title
       wait 0.5
       wait_until -> CONTROLLER\downed "one"
       AUDIO\play "start"
-      parallel(
-        AUDIO\fade_music!
-        -> tween @, 1.0, ui_alpha: 0
-      )
+      tween @, 1.0, ui_alpha: 0
 
       import Game from require "game"
       DISPATCHER\push Game!
