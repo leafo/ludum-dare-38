@@ -1,10 +1,13 @@
 
 import Wave from require "wave"
 
+complete_tutorial = ->
+  export DID_TUTORIAL = true
+
 class TutorialWave extends Wave
   new: (@world) =>
     super ->
-      export DID_TUTORIAL = true
+      complete_tutorial!
       unless AUDIO.current_music == "title"
         AUDIO\play_music "title"
 
