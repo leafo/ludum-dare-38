@@ -33,7 +33,7 @@ class Game
     ForeverWave = require "waves.forever"
 
     if DID_TUTORIAL
-      @set_wave FOREVER_WAVE
+      @set_wave ForeverWave
     else
       @set_wave TutorialWave
 
