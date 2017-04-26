@@ -3,7 +3,8 @@
 
 A game created in 48 hours for Ludum Dare 38 with the theme a small world
 
-<https://leafo.itch.io/depth-gun>
+<https://leafo.itch.io/depth-gun>  
+<https://ldjam.com/events/ludum-dare/38/sphincter-quest>
 
 ![](https://img.itch.zone/aW1hZ2UvMTM2NzI2LzYyOTU1OS5naWY=/x150/x0%2Bu0R.gif)
 
