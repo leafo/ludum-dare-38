@@ -1,0 +1,604 @@
+!_TAG_FILE_FORMAT	2	/extended format/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	leaf corcoran	/leafot@gmail.com/
+!_TAG_PROGRAM_NAME	MoonTags	//
+!_TAG_PROGRAM_URL	https://github.com/leafo/moonscript	/GitHub repository/
+!_TAG_PROGRAM_VERSION	0.0.1	//
+
+Anchor	./lovekit/ui.moon	/^class Anchor extends Box$/;"	c	language:moon
+AnimatedLabel	./lovekit/ui.moon	/^class AnimatedLabel extends Label$/;"	c	language:moon
+AnimatedTile	./lovekit/tilemap.moon	/^class AnimatedTile extends Box$/;"	c	language:moon
+Animator	./lovekit/spriter.moon	/^class Animator$/;"	c	language:moon
+Audio	./lovekit/audio.moon	/^class Audio$/;"	c	language:moon
+BankWave	./wave.moon	/^class BankWave extends Wave$/;"	c	language:moon
+BaseList	./lovekit/ui.moon	/^class BaseList extends Box$/;"	c	language:moon
+Bin	./lovekit/ui.moon	/^class Bin extends Box$/;"	c	language:moon
+BlinkingLabel	./lovekit/ui.moon	/^class BlinkingLabel extends Label$/;"	c	language:moon
+BlowOutEffect	./lovekit/effects.moon	/^class BlowOutEffect extends Sequence$/;"	c	language:moon
+Border	./lovekit/ui.moon	/^class Border extends Box$/;"	c	language:moon
+Box	./lovekit/geometry.moon	/^class Box$/;"	c	language:moon
+BoxSelector	./lovekit/geometry.moon	/^class BoxSelector extends Selector$/;"	c	language:moon
+Bullet	./player.moon	/^class Bullet extends Box$/;"	c	language:moon
+CatmullRomPath	./lovekit/paths.moon	/^class CatmullRomPath$/;"	c	language:moon
+CenterAnchor	./lovekit/ui.moon	/^class CenterAnchor extends Anchor$/;"	c	language:moon
+ColorEffect	./lovekit/effects.moon	/^class ColorEffect extends Sequence$/;"	c	language:moon
+ColorStack	./lovekit/color.moon	/^class ColorStack$/;"	c	language:moon
+Controller	./lovekit/input.moon	/^class Controller$/;"	c	language:moon
+Counter	./lovekit/profile.moon	/^class Counter$/;"	c	language:moon
+Dispatcher	./lovekit/state.moon	/^class Dispatcher$/;"	c	language:moon
+DrawList	./lovekit/lists.moon	/^class DrawList$/;"	c	language:moon
+Effect	./lovekit/effects.moon	/^class Effect$/;"	c	language:moon
+EffectList	./lovekit/lists.moon	/^class EffectList$/;"	c	language:moon
+EffectViewport	./lovekit/viewport.moon	/^class EffectViewport extends Viewport$/;"	c	language:moon
+Emitter	./lovekit/particles.moon	/^class Emitter extends Sequence$/;"	c	language:moon
+Enemy	./enemy.moon	/^class Enemy extends Box$/;"	c	language:moon
+EnemyBullet	./enemy.moon	/^class EnemyBullet extends Box$/;"	c	language:moon
+EnemyShield	./enemy.moon	/^class EnemyShield extends Enemy$/;"	c	language:moon
+Entity	./lovekit/entity.moon	/^class Entity extends Box$/;"	c	language:moon
+EntityList	./lovekit/lists.moon	/^class EntityList$/;"	c	language:moon
+EvilEnemy	./enemy.moon	/^class EvilEnemy extends Enemy$/;"	c	language:moon
+EvilEnemyShield	./enemy.moon	/^class EvilEnemyShield extends Enemy$/;"	c	language:moon
+Explosion	./particle.moon	/^class Explosion extends Emitter$/;"	c	language:moon
+FadeInEffect	./lovekit/effects.moon	/^class FadeInEffect extends Effect$/;"	c	language:moon
+FadeOutEffect	./lovekit/effects.moon	/^class FadeOutEffect extends Effect$/;"	c	language:moon
+FadeTransition	./lovekit/state.moon	/^class FadeTransition extends Sequence$/;"	c	language:moon
+Flame	./particle.moon	/^class Flame extends ZImageParticle$/;"	c	language:moon
+FlashEffect	./lovekit/effects.moon	/^class FlashEffect extends ColorEffect$/;"	c	language:moon
+ForeverEmitter	./lovekit/particles.moon	/^class ForeverEmitter extends Emitter$/;"	c	language:moon
+ForeverWave	./wave.moon	/^class ForeverWave extends Wave$/;"	c	language:moon
+ForeverWave	./waves/forever.moon	/^class ForeverWave extends Wave$/;"	c	language:moon
+Frame	./lovekit/ui.moon	/^class Frame extends Box$/;"	c	language:moon
+FullScreenShader	./lovekit/shaders.moon	/^class FullScreenShader$/;"	c	language:moon
+Game	./game.moon	/^class Game$/;"	c	language:moon
+GameOver	./game_over.moon	/^class GameOver$/;"	c	language:moon
+GameSpace	./game_space.moon	/^class GameSpace$/;"	c	language:moon
+Group	./lovekit/ui.moon	/^class Group extends Box$/;"	c	language:moon
+HBar	./ui.moon	/^class HBar extends Box$/;"	c	language:moon
+HList	./lovekit/ui.moon	/^class HList extends BaseList$/;"	c	language:moon
+HasEffects	./lovekit/mixins.moon	/^class HasEffects$/;"	c	language:moon
+HasParticles	./lovekit/mixins.moon	/^class HasParticles$/;"	c	language:moon
+Image	./lovekit/image.moon	/^class Image$/;"	c	language:moon
+ImageParticle	./lovekit/particles.moon	/^class ImageParticle extends Particle$/;"	c	language:moon
+ImpulseSet	./lovekit/lists.moon	/^class ImpulseSet$/;"	c	language:moon
+KeyRepeat	./lovekit/mixins.moon	/^class KeyRepeat$/;"	c	language:moon
+Label	./lovekit/ui.moon	/^class Label extends Box$/;"	c	language:moon
+LaserParticle	./enemy.moon	/^class LaserParticle extends ZImageParticle$/;"	c	language:moon
+List	./lovekit/lists.moon	/^class List$/;"	c	language:moon
+LutShader	./shader.moon	/^class LutShader$/;"	c	language:moon
+Missile	./player.moon	/^class Missile extends Box$/;"	c	language:moon
+Particle	./lovekit/particles.moon	/^class Particle$/;"	c	language:moon
+PathWalker	./lovekit/paths.moon	/^class PathWalker$/;"	c	language:moon
+PixelParticle	./lovekit/particles.moon	/^class PixelParticle extends Particle$/;"	c	language:moon
+PlatformEntity	./lovekit/entity.moon	/^class PlatformEntity extends Entity$/;"	c	language:moon
+Player	./player.moon	/^class Player extends Box$/;"	c	language:moon
+PopinEffect	./lovekit/effects.moon	/^class PopinEffect extends ScaleEffect$/;"	c	language:moon
+ReuseList	./lovekit/lists.moon	/^class ReuseList$/;"	c	language:moon
+RevealLabel	./lovekit/ui.moon	/^class RevealLabel extends Label$/;"	c	language:moon
+ScaleEffect	./lovekit/effects.moon	/^class ScaleEffect extends Sequence$/;"	c	language:moon
+ScreenSnap	./lovekit/screen_snap.moon	/^class ScreenSnap$/;"	c	language:moon
+Selector	./lovekit/geometry.moon	/^class Selector$/;"	c	language:moon
+Sequence	./lovekit/sequence.moon	/^class Sequence$/;"	c	language:moon
+Sequenced	./lovekit/mixins.moon	/^class Sequenced$/;"	c	language:moon
+Set	./lovekit/lists.moon	/^Set = (items) ->/;"	f	language:moon
+SetList	./lovekit/geometry.moon	/^class SetList$/;"	c	language:moon
+ShakeEffect	./lovekit/effects.moon	/^class ShakeEffect extends Effect$/;"	c	language:moon
+SlopeTopTile	./lovekit/tilemap.moon	/^class SlopeTopTile extends Box$/;"	c	language:moon
+Smoke	./particle.moon	/^class Smoke extends ZImageParticle$/;"	c	language:moon
+Spark	./particle.moon	/^class Spark extends ZImageParticle$/;"	c	language:moon
+Spriter	./lovekit/spriter.moon	/^class Spriter$/;"	c	language:moon
+StateAnim	./lovekit/spriter.moon	/^class StateAnim$/;"	c	language:moon
+TestWave	./wave.moon	/^class TestWave extends Wave$/;"	c	language:moon
+TextEmitter	./lovekit/particles.moon	/^class TextEmitter extends Emitter$/;"	c	language:moon
+TextParticle	./lovekit/particles.moon	/^class TextParticle extends Particle$/;"	c	language:moon
+Tile	./lovekit/tilemap.moon	/^class Tile extends Box$/;"	c	language:moon
+TileMap	./lovekit/tilemap.moon	/^class TileMap$/;"	c	language:moon
+TiledBackground	./lovekit/viewport.moon	/^class TiledBackground$/;"	c	language:moon
+Title	./title.moon	/^class Title$/;"	c	language:moon
+Transition	./lovekit/state.moon	/^class Transition$/;"	c	language:moon
+Tunnel	./tunnel.moon	/^class Tunnel$/;"	c	language:moon
+TunnelWave	./wave.moon	/^class TunnelWave extends Wave$/;"	c	language:moon
+TutorialWave	./waves/tutorial.moon	/^class TutorialWave extends Wave$/;"	c	language:moon
+UniformGrid	./lovekit/geometry.moon	/^class UniformGrid$/;"	c	language:moon
+VList	./lovekit/ui.moon	/^class VList extends BaseList$/;"	c	language:moon
+Vec2d	./lovekit/geometry.moon	/^class Vec2d$/;"	c	language:moon
+VectorSelector	./lovekit/geometry.moon	/^class VectorSelector extends Selector$/;"	c	language:moon
+Viewport	./lovekit/viewport.moon	/^class Viewport extends Box$/;"	c	language:moon
+Wave	./wave.moon	/^class Wave extends Sequence$/;"	c	language:moon
+ZImageParticle	./particle.moon	/^class ZImageParticle extends ImageParticle$/;"	c	language:moon
+ZParticle	./particle.moon	/^class ZParticle extends Particle$/;"	c	language:moon
+__add	./lovekit/geometry.moon	/^  __add: (other) =>/;"	f	language:moon class:Vec2d
+__sub	./lovekit/geometry.moon	/^  __sub: (other) =>/;"	f	language:moon class:Vec2d
+__tostring	./lovekit/geometry.moon	/^  __tostring: =>/;"	f	language:moon class:Box
+__tostring	./lovekit/geometry.moon	/^  __tostring: =>/;"	f	language:moon class:Vec2d
+__tostring	./lovekit/tilemap.moon	/^  __tostring: =>/;"	f	language:moon class:SlopeTopTile
+__tostring	./lovekit/viewport.moon	/^  __tostring: =>/;"	f	language:moon class:Viewport
+_append	./lovekit/lists.moon	/^  _append: (b) =>/;"	f	language:moon class:ReuseList
+_get_tid	./lovekit/tilemap.moon	/^  _get_tid: (map) =>/;"	f	language:moon class:AnimatedTile
+_insert_after	./lovekit/lists.moon	/^  _insert_after: (node, after_node) =>/;"	f	language:moon class:List
+_node	./lovekit/lists.moon	/^  _node: (item) =>/;"	f	language:moon class:List
+_quad_dimensions	./lovekit/spriter.moon	/^  _quad_dimensions: (i) =>/;"	f	language:moon class:Spriter
+_remove	./lovekit/lists.moon	/^  _remove: (node) =>/;"	f	language:moon class:List
+_set_size	./lovekit/ui.moon	/^  _set_size: (text) =>/;"	f	language:moon class:Label
+_update_from_fun	./lovekit/ui.moon	/^  _update_from_fun: =>/;"	f	language:moon class:Label
+above_of	./lovekit/geometry.moon	/^  above_of: (box) =>/;"	f	language:moon class:Box
+active	./enemy.moon	/^  active: =>/;"	f	language:moon class:Enemy
+ad_curve	./lovekit/support.moon	/^ad_curve = (t, start, attack, decay, stop=1) ->/;"	f	language:moon
+add	./lovekit/geometry.moon	/^  add: (box, value=box) =>/;"	f	language:moon class:UniformGrid
+add	./lovekit/geometry.moon	/^  add: (item, value) =>/;"	f	language:moon class:SetList
+add	./lovekit/lists.moon	/^  add: (cls, \.\.\.) =>/;"	f	language:moon class:ReuseList
+add	./lovekit/lists.moon	/^  add: (effect) =>/;"	f	language:moon class:EffectList
+add	./lovekit/lists.moon	/^  add: (item) =>/;"	f	language:moon class:DrawList
+add	./lovekit/lists.moon	/^  add: (item) =>/;"	f	language:moon class:EntityList
+add	./lovekit/paths.moon	/^  add: (x,y) =>/;"	f	language:moon class:CatmullRomPath
+add	./lovekit/tilemap.moon	/^  add: (batch, sprite, map) =>/;"	f	language:moon class:AnimatedTile
+add	./lovekit/tilemap.moon	/^  add: (batch, sprite, map) =>/;"	f	language:moon class:Tile
+add_all	./lovekit/lists.moon	/^  add_all: (items) =>/;"	f	language:moon class:DrawList
+add_box	./lovekit/geometry.moon	/^  add_box: (other) =>/;"	f	language:moon class:Box
+add_mapping	./lovekit/input.moon	/^  add_mapping: (mapping) =>/;"	f	language:moon class:Controller
+add_particle	./lovekit/particles.moon	/^  add_particle: =>/;"	f	language:moon class:Emitter
+add_seq	./lovekit/mixins.moon	/^  add_seq: (seq) =>/;"	f	language:moon class:Sequenced
+add_tiles	./lovekit/tilemap.moon	/^  add_tiles: (tiles) =>/;"	f	language:moon class:TileMap
+adjust	./lovekit/geometry.moon	/^  adjust: (dx, dy) =>/;"	f	language:moon class:Vec2d
+after	./lovekit/effects.moon	/^  after: (object) =>/;"	f	language:moon class:BlowOutEffect
+after	./lovekit/effects.moon	/^  after: (object) =>/;"	f	language:moon class:Effect
+after	./lovekit/effects.moon	/^  after: (object) =>/;"	f	language:moon class:ScaleEffect
+after	./lovekit/effects.moon	/^  after: =>/;"	f	language:moon class:ColorEffect
+after	./lovekit/effects.moon	/^  after: =>/;"	f	language:moon class:FadeInEffect
+after	./lovekit/effects.moon	/^  after: =>/;"	f	language:moon class:FadeOutEffect
+after	./lovekit/effects.moon	/^  after: =>/;"	f	language:moon class:ShakeEffect
+after	./lovekit/lists.moon	/^  after: (\.\.\.) =>/;"	f	language:moon class:EffectList
+after	./lovekit/sequence.moon	/^  @after: (time, fn) =>/;"	f	language:moon class:Sequence
+angle	./lovekit/geometry.moon	/^  angle: =>/;"	f	language:moon class:Vec2d
+animated_tile	./lovekit/tilemap.moon	/^animated_tile = (frames=error"expecting table") ->/;"	f	language:moon
+apply	./lovekit/color.moon	/^  apply: =>/;"	f	language:moon class:ColorStack
+apply	./lovekit/lists.moon	/^  apply: (fn) =>/;"	f	language:moon class:EffectList
+apply	./lovekit/viewport.moon	/^  apply: (scale=true)=>/;"	f	language:moon class:Viewport
+apply	./lovekit/viewport.moon	/^  apply: =>/;"	f	language:moon class:EffectViewport
+approach	./lovekit/support.moon	/^approach = (val, target, amount) ->/;"	f	language:moon
+attach	./lovekit/particles.moon	/^  attach: (fn) =>/;"	f	language:moon class:Emitter
+before	./lovekit/effects.moon	/^  before: (object) =>/;"	f	language:moon class:BlowOutEffect
+before	./lovekit/effects.moon	/^  before: (object) =>/;"	f	language:moon class:Effect
+before	./lovekit/effects.moon	/^  before: (object) =>/;"	f	language:moon class:ScaleEffect
+before	./lovekit/effects.moon	/^  before: =>/;"	f	language:moon class:ColorEffect
+before	./lovekit/effects.moon	/^  before: =>/;"	f	language:moon class:FadeInEffect
+before	./lovekit/effects.moon	/^  before: =>/;"	f	language:moon class:FadeOutEffect
+before	./lovekit/effects.moon	/^  before: =>/;"	f	language:moon class:ShakeEffect
+before	./lovekit/lists.moon	/^  before: (\.\.\.) =>/;"	f	language:moon class:EffectList
+bench	./lovekit/support.moon	/^bench = (name, fn) ->/;"	f	language:moon
+bigger	./lovekit/viewport.moon	/^  bigger: =>/;"	f	language:moon class:Viewport
+bind	./lovekit/reloader.moon	/^bind = (g=_G) ->/;"	f	language:moon
+bind	./lovekit/state.moon	/^  bind: (love) =>/;"	f	language:moon class:Dispatcher
+bottom	./lovekit/viewport.moon	/^  bottom: (offset=0) =>/;"	f	language:moon class:Viewport
+bucket_for_pt	./lovekit/geometry.moon	/^  bucket_for_pt: (x,y, insert=false) =>/;"	f	language:moon class:UniformGrid
+buckets_for_box	./lovekit/geometry.moon	/^  buckets_for_box: (box, insert=false) =>/;"	f	language:moon class:UniformGrid
+cap	./lovekit/geometry.moon	/^  cap: (len) =>/;"	f	language:moon class:Vec2d
+ceil	./lovekit/geometry.moon	/^ceil = (n) ->/;"	f	language:moon
+center	./lovekit/geometry.moon	/^  center: =>/;"	f	language:moon class:Box
+center_on	./lovekit/viewport.moon	/^  center_on: (thing, \.\.\.) =>/;"	f	language:moon class:Viewport
+center_on_pt	./lovekit/viewport.moon	/^  center_on_pt: (cx, cy, map_box, dt) =>/;"	f	language:moon class:Viewport
+chance	./lovekit/support.moon	/^chance = (p) ->/;"	f	language:moon
+check_lock	./player.moon	/^  check_lock: (world, grid) =>/;"	f	language:moon class:Player
+clamp_vector	./lovekit/geometry.moon	/^  clamp_vector: (vec) =>/;"	f	language:moon class:Box
+clear	./lovekit/geometry.moon	/^  clear: =>/;"	f	language:moon class:UniformGrid
+clear	./lovekit/lists.moon	/^  clear: =>/;"	f	language:moon class:EffectList
+clear	./lovekit/lists.moon	/^  clear: =>/;"	f	language:moon class:ImpulseSet
+clear	./lovekit/lists.moon	/^  clear: =>/;"	f	language:moon class:List
+clear_x	./lovekit/lists.moon	/^  clear_x: =>/;"	f	language:moon class:ImpulseSet
+clear_y	./lovekit/lists.moon	/^  clear_y: =>/;"	f	language:moon class:ImpulseSet
+collides	./lovekit/tilemap.moon	/^  collides: (x1, y1, x2, y2) =>/;"	f	language:moon class:TileMap
+collides	./lovekit/tilemap.moon	/^  collides: (x1,y1, x2,y2) =>/;"	f	language:moon class:SlopeTopTile
+collides_all	./lovekit/tilemap.moon	/^  collides_all: (thing) =>/;"	f	language:moon class:TileMap
+collides_pt	./lovekit/tilemap.moon	/^  collides_pt: (x, y) =>/;"	f	language:moon class:TileMap
+contains_box	./lovekit/geometry.moon	/^  contains_box: (o) =>/;"	f	language:moon class:Box
+count	./lovekit/profile.moon	/^  count: (label) =>/;"	f	language:moon class:Counter
+count_func	./lovekit/profile.moon	/^  count_func: (obj, func_name, label=func_name) =>/;"	f	language:moon class:Counter
+count_garbage_collections	./lovekit/support.moon	/^count_garbage_collections = ->/;"	f	language:moon
+create	./lovekit/sequence.moon	/^  create: (\.\.\.) =>/;"	f	language:moon class:Sequence
+create_ui	./game.moon	/^  create_ui: =>/;"	f	language:moon class:Game
+cross	./lovekit/geometry.moon	/^  cross: =>/;"	f	language:moon class:Vec2d
+cubic_bez	./lovekit/support.moon	/^cubic_bez = (p0, p1, p2, p3, t) ->/;"	f	language:moon
+current	./lovekit/color.moon	/^  current: =>/;"	f	language:moon class:ColorStack
+dampen	./lovekit/support.moon	/^dampen = (val, amount, min=0) ->/;"	f	language:moon
+dampen_vector	./lovekit/support.moon	/^dampen_vector = (vec, amount, min) ->/;"	f	language:moon
+default	./lovekit/input.moon	/^  @default: =>/;"	f	language:moon class:Controller
+direction_is_down	./lovekit/input.moon	/^  direction_is_down: (name) =>/;"	f	language:moon class:Controller
+direction_name	./lovekit/entity.moon	/^  direction_name: (default_dir="down", v=@vel) =>/;"	f	language:moon class:Entity
+double_tapped	./lovekit/input.moon	/^  double_tapped: (key, \.\.\.) =>/;"	f	language:moon class:Controller
+downed	./lovekit/input.moon	/^  downed: (key) =>/;"	f	language:moon class:Controller
+draw	./enemy.moon	/^  draw: (world) =>/;"	f	language:moon class:Enemy
+draw	./enemy.moon	/^  draw: (world) =>/;"	f	language:moon class:EnemyBullet
+draw	./game.moon	/^  draw: =>/;"	f	language:moon class:Game
+draw	./game_over.moon	/^  draw: =>/;"	f	language:moon class:GameOver
+draw	./lovekit/geometry.moon	/^  draw: (color=nil) =>/;"	f	language:moon class:Box
+draw	./lovekit/geometry.moon	/^  draw: =>/;"	f	language:moon class:BoxSelector
+draw	./lovekit/geometry.moon	/^  draw: =>/;"	f	language:moon class:UniformGrid
+draw	./lovekit/geometry.moon	/^  draw: =>/;"	f	language:moon class:VectorSelector
+draw	./lovekit/image.moon	/^  draw: (\.\.\.) =>/;"	f	language:moon class:Image
+draw	./lovekit/lists.moon	/^  draw: (\.\.\.) =>/;"	f	language:moon class:DrawList
+draw	./lovekit/lists.moon	/^  draw: (\.\.\.) =>/;"	f	language:moon class:EntityList
+draw	./lovekit/lists.moon	/^  draw: =>/;"	f	language:moon class:ReuseList
+draw	./lovekit/mixins.moon	/^  draw: =>/;"	f	language:moon class:HasEffects
+draw	./lovekit/particles.moon	/^  draw: =>/;"	f	language:moon class:Emitter
+draw	./lovekit/particles.moon	/^  draw: =>/;"	f	language:moon class:ImageParticle
+draw	./lovekit/particles.moon	/^  draw: =>/;"	f	language:moon class:Particle
+draw	./lovekit/particles.moon	/^  draw: =>/;"	f	language:moon class:PixelParticle
+draw	./lovekit/particles.moon	/^  draw: =>/;"	f	language:moon class:TextParticle
+draw	./lovekit/paths.moon	/^  draw: =>/;"	f	language:moon class:CatmullRomPath
+draw	./lovekit/profile.moon	/^  draw: (x=0,y=0, reset=true) =>/;"	f	language:moon class:Counter
+draw	./lovekit/sequence.moon	/^  draw: =>/;"	f	language:moon class:Sequence
+draw	./lovekit/spriter.moon	/^  draw: (i,\.\.\.) =>/;"	f	language:moon class:Spriter
+draw	./lovekit/spriter.moon	/^  draw: (x, y) =>/;"	f	language:moon class:Animator
+draw	./lovekit/spriter.moon	/^  draw: (x,y) =>/;"	f	language:moon class:StateAnim
+draw	./lovekit/state.moon	/^  draw: =>/;"	f	language:moon class:Dispatcher
+draw	./lovekit/state.moon	/^  draw: =>/;"	f	language:moon class:FadeTransition
+draw	./lovekit/state.moon	/^  draw: =>/;"	f	language:moon class:Transition
+draw	./lovekit/tilemap.moon	/^  draw: (sprite, map) =>/;"	f	language:moon class:AnimatedTile
+draw	./lovekit/tilemap.moon	/^  draw: (sprite, map) =>/;"	f	language:moon class:Tile
+draw	./lovekit/tilemap.moon	/^  draw: (viewport, min_layer=@min_layer, max_layer=@max_layer) =>/;"	f	language:moon class:TileMap
+draw	./lovekit/ui.moon	/^  draw: (\.\.\.) =>/;"	f	language:moon class:Group
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:Anchor
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:AnimatedLabel
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:Bin
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:BlinkingLabel
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:Border
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:Frame
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:HList
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:Label
+draw	./lovekit/ui.moon	/^  draw: =>/;"	f	language:moon class:VList
+draw	./lovekit/viewport.moon	/^  draw: (ox, oy)=>/;"	f	language:moon class:TiledBackground
+draw	./particle.moon	/^  draw: (world) =>/;"	f	language:moon class:Flame
+draw	./particle.moon	/^  draw: (world) =>/;"	f	language:moon class:ZImageParticle
+draw	./particle.moon	/^  draw: (world) =>/;"	f	language:moon class:ZParticle
+draw	./player.moon	/^  draw: (world) =>/;"	f	language:moon class:Bullet
+draw	./player.moon	/^  draw: (world) =>/;"	f	language:moon class:Missile
+draw	./player.moon	/^  draw: (world) =>/;"	f	language:moon class:Player
+draw	./title.moon	/^  draw: =>/;"	f	language:moon class:Title
+draw	./ui.moon	/^  draw: =>/;"	f	language:moon class:HBar
+draw_at_z	./game_space.moon	/^  draw_at_z: (z, fn) =>/;"	f	language:moon class:GameSpace
+draw_cell	./lovekit/spriter.moon	/^  draw_cell: (i, x, y, flip_x=false, flip_y=false) =>/;"	f	language:moon class:Spriter
+draw_center	./lovekit/image.moon	/^  draw_center: (x=0, y=0, \.\.\.)=>/;"	f	language:moon class:Image
+draw_cursor	./lovekit/geometry.moon	/^  draw_cursor: =>/;"	f	language:moon class:Selector
+draw_hud	./player.moon	/^  draw_hud: (world) =>/;"	f	language:moon class:Player
+draw_inner	./lovekit/mixins.moon	/^  draw_inner: =>/;"	f	language:moon class:HasParticles
+draw_layer	./lovekit/tilemap.moon	/^  draw_layer: (l, viewport) =>/;"	f	language:moon class:TileMap
+draw_pair	./lovekit/paths.moon	/^  draw_pair: (i) =>/;"	f	language:moon class:CatmullRomPath
+draw_sized	./lovekit/spriter.moon	/^  draw_sized: (i, x,y, w,h) =>/;"	f	language:moon class:Spriter
+draw_sorted	./lovekit/lists.moon	/^  draw_sorted: (sort_fn=box_sort, \.\.\.)=>/;"	f	language:moon class:DrawList
+draw_sorted	./lovekit/lists.moon	/^  draw_sorted: =>/;"	f	language:moon class:EntityList
+draw_sprite_cell	./enemy.moon	/^  draw_sprite_cell: (frame) =>/;"	f	language:moon class:Enemy
+drawt	./lovekit/spriter.moon	/^  drawt: (t, x, y) =>/;"	f	language:moon class:Animator
+dup	./lovekit/geometry.moon	/^  dup: =>/;"	f	language:moon class:Box
+dup	./lovekit/geometry.moon	/^  dup: =>/;"	f	language:moon class:Vec2d
+duty_on	./lovekit/support.moon	/^duty_on = (rate=1\.2, duty=0\.6, start_time=0) ->/;"	f	language:moon
+each	./lovekit/lists.moon	/^  each: =>/;"	f	language:moon class:List
+each_pt	./lovekit/paths.moon	/^  each_pt: (rate=1) =>/;"	f	language:moon class:CatmullRomPath
+each_xyt	./lovekit/tilemap.moon	/^  each_xyt: (tiles=@tiles)=>/;"	f	language:moon class:TileMap
+enemy	./wave.moon	/^  enemy: (x, y) =>/;"	f	language:moon class:Wave
+escape_patt	./lovekit/support.moon	/^escape_patt = (str) ->/;"	f	language:moon
+explode	./enemy.moon	/^  explode: (world) =>/;"	f	language:moon class:Enemy
+explode	./player.moon	/^  explode: (world) =>/;"	f	language:moon class:Player
+extend	./lovekit/sequence.moon	/^  @extend: (tbl) =>/;"	f	language:moon class:Sequence
+extend	./lovekit/support.moon	/^extend = (\.\.\.) ->/;"	f	language:moon
+fade_in	./lovekit/particles.moon	/^  fade_in: (before=0\.5) =>/;"	f	language:moon class:Particle
+fade_music	./lovekit/audio.moon	/^  fade_music: (t=1\.0, callback_fn) =>/;"	f	language:moon class:Audio
+fade_out	./lovekit/particles.moon	/^  fade_out: (after=0\.5) =>/;"	f	language:moon class:Particle
+find_local	./lovekit/support.moon	/^find_local = (name, level=1) ->/;"	f	language:moon
+fire_lock_ons	./player.moon	/^  fire_lock_ons: (world) =>/;"	f	language:moon class:Player
+fit_move	./lovekit/entity.moon	/^  fit_move: (dx, dy, world, box=@) =>/;"	f	language:moon class:Entity
+fit_move	./lovekit/tilemap.moon	/^  fit_move: (box, dx, dy, world) =>/;"	f	language:moon class:SlopeTopTile
+fix	./lovekit/geometry.moon	/^  fix: =>/;"	f	language:moon class:Box
+flip	./lovekit/geometry.moon	/^  flip: =>/;"	f	language:moon class:Vec2d
+floor	./lovekit/geometry.moon	/^floor = (n) ->/;"	f	language:moon
+format_message	./lovekit/profile.moon	/^  format_message: (n=10) =>/;"	f	language:moon class:Counter
+from_tex	./lovekit/image.moon	/^  @from_tex: (tex) =>/;"	f	language:moon class:Image
+get_closest_enemy	./game.moon	/^  get_closest_enemy: (z) =>/;"	f	language:moon class:Game
+get_height	./lovekit/spriter.moon	/^  get_height: =>/;"	f	language:moon class:Animator
+get_local	./lovekit/support.moon	/^get_local = (search_name, level=1) ->/;"	f	language:moon
+get_rotation	./player.moon	/^  get_rotation: =>/;"	f	language:moon class:Player
+get_source	./lovekit/audio.moon	/^  get_source: (name, ext, source_type="static") =>/;"	f	language:moon class:Audio
+get_touching	./lovekit/geometry.moon	/^  get_touching: (query_box) =>/;"	f	language:moon class:UniformGrid
+get_touching_pt	./lovekit/geometry.moon	/^  get_touching_pt: (x, y) =>/;"	f	language:moon class:UniformGrid
+get_width	./lovekit/spriter.moon	/^  get_width: =>/;"	f	language:moon class:Animator
+hash_color	./lovekit/support.moon	/^hash_color = (r,g,b,a) ->/;"	f	language:moon
+hash_pt	./lovekit/geometry.moon	/^hash_pt = (x,y) ->/;"	f	language:moon
+hash_to_color	./lovekit/color.moon	/^hash_to_color = (str, s=60, l=60) ->/;"	f	language:moon
+health_p	./player.moon	/^  health_p: =>/;"	f	language:moon class:Player
+height	./lovekit/image.moon	/^  height: =>/;"	f	language:moon class:Image
+height_for_pt	./lovekit/tilemap.moon	/^  height_for_pt: (x) =>/;"	f	language:moon class:SlopeTopTile
+hsl_to_rgb	./lovekit/color.moon	/^hsl_to_rgb = (h,s,l) ->/;"	f	language:moon
+imgfy	./lovekit/image.moon	/^imgfy = (img) ->/;"	f	language:moon
+insert	./lovekit/state.moon	/^  insert: (state, pos=#@stack) =>/;"	f	language:moon class:Dispatcher
+instance_of	./lovekit/support.moon	/^instance_of = (object, cls) ->/;"	f	language:moon
+interpolate	./lovekit/paths.moon	/^  interpolate: (i, t) =>/;"	f	language:moon class:CatmullRomPath
+interpolation_parts	./lovekit/paths.moon	/^  interpolation_parts: (i) =>/;"	f	language:moon class:CatmullRomPath
+is_dead	./lovekit/sequence.moon	/^  is_dead: =>/;"	f	language:moon class:Sequence
+is_down	./lovekit/input.moon	/^  is_down: (name, \.\.\.) =>/;"	f	language:moon class:Controller
+is_zero	./lovekit/geometry.moon	/^  is_zero: =>/;"	f	language:moon class:Vec2d
+joystick_deadzone_normalize	./lovekit/input.moon	/^joystick_deadzone_normalize = (vec, min_amount=\.2, max_amount=0\.95) ->/;"	f	language:moon
+joystick_is_down	./lovekit/input.moon	/^  joystick_is_down: (name) =>/;"	f	language:moon class:Controller
+joystickpressed	./lovekit/state.moon	/^  joystickpressed: (\.\.\.) =>/;"	f	language:moon class:Dispatcher
+keypressed	./lovekit/state.moon	/^  keypressed: (key, code) =>/;"	f	language:moon class:Dispatcher
+lazy	./lovekit/support.moon	/^lazy = (props) ->/;"	f	language:moon
+lazy_tbl	./lovekit/support.moon	/^lazy_tbl = (tbl) ->/;"	f	language:moon
+lazy_value	./lovekit/support.moon	/^lazy_value = (cls, key, fn) ->/;"	f	language:moon
+left	./lovekit/geometry.moon	/^  left: =>/;"	f	language:moon class:Vec2d
+left	./lovekit/viewport.moon	/^  left: (offset=0) =>/;"	f	language:moon class:Viewport
+left_of	./lovekit/geometry.moon	/^  left_of: (box) =>/;"	f	language:moon class:Box
+len	./lovekit/geometry.moon	/^  len: =>/;"	f	language:moon class:Vec2d
+lerp	./lovekit/support.moon	/^lerp = (a,b,t) ->/;"	f	language:moon
+load	./lovekit/lists.moon	/^  @load: (tbl) =>/;"	f	language:moon class:EntityList
+loc	./lovekit/entity.moon	/^  loc: =>/;"	f	language:moon class:Entity
+make_joystick_mover	./lovekit/input.moon	/^make_joystick_mover = (joystick=1, xaxis="leftx", yaxis="lefty") ->/;"	f	language:moon
+make_mover	./lovekit/input.moon	/^  make_mover: =>/;"	f	language:moon class:Controller
+make_mover	./lovekit/input.moon	/^make_mover = (up, down, left, right) ->/;"	f	language:moon
+make_particle	./lovekit/particles.moon	/^  make_particle: (\.\.\.) =>/;"	f	language:moon class:TextEmitter
+make_particle	./lovekit/particles.moon	/^  make_particle: =>/;"	f	language:moon class:Emitter
+make_particle	./particle.moon	/^  make_particle: (x, y) =>/;"	f	language:moon class:Explosion
+merge	./lovekit/support.moon	/^merge = (first, second, \.\.\.) ->/;"	f	language:moon
+merge_angle	./lovekit/geometry.moon	/^  merge_angle: (other, p=0\.5) =>/;"	f	language:moon class:Vec2d
+merge_methods	./lovekit/mixins.moon	/^  @merge_methods: (name, existing, new) =>/;"	f	language:moon class:HasEffects
+mixin_object	./lovekit/support.moon	/^mixin_object = (object, methods) =>/;"	f	language:moon
+mousemoved	./lovekit/state.moon	/^  mousemoved: (\.\.\.) =>/;"	f	language:moon class:Dispatcher
+mousepressed	./lovekit/state.moon	/^  mousepressed: (\.\.\.) =>/;"	f	language:moon class:Dispatcher
+mousereleased	./lovekit/state.moon	/^  mousereleased: (\.\.\.) =>/;"	f	language:moon class:Dispatcher
+move	./lovekit/geometry.moon	/^  move: (dx, dy ) =>/;"	f	language:moon class:Vec2d
+move	./lovekit/geometry.moon	/^  move: (x, y) =>/;"	f	language:moon class:Box
+move_aim	./player.moon	/^  move_aim: (space, dx, dy) =>/;"	f	language:moon class:Player
+move_center	./lovekit/geometry.moon	/^  move_center: (x,y) =>/;"	f	language:moon class:Box
+movement_vector	./lovekit/input.moon	/^  movement_vector: =>/;"	f	language:moon class:Controller
+new	./enemy.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:LaserParticle
+new	./enemy.moon	/^  new: (world, x, y) =>/;"	f	language:moon class:Enemy
+new	./enemy.moon	/^  new: (world, x, y, @z) =>/;"	f	language:moon class:EnemyBullet
+new	./game.moon	/^  new: =>/;"	f	language:moon class:Game
+new	./game_over.moon	/^  new: (@game) =>/;"	f	language:moon class:GameOver
+new	./game_space.moon	/^  new: (@viewport) =>/;"	f	language:moon class:GameSpace
+new	./lovekit/audio.moon	/^  new: (@dir="audio", @ext="wav") =>/;"	f	language:moon class:Audio
+new	./lovekit/color.moon	/^  new: =>/;"	f	language:moon class:ColorStack
+new	./lovekit/effects.moon	/^  new: (@duration=1, @callback) =>/;"	f	language:moon class:Effect
+new	./lovekit/effects.moon	/^  new: (duration, @speed=5, @amount=1, \.\.\.) =>/;"	f	language:moon class:ShakeEffect
+new	./lovekit/effects.moon	/^  new: (duration, callback) =>/;"	f	language:moon class:BlowOutEffect
+new	./lovekit/effects.moon	/^  new: (duration, callback) =>/;"	f	language:moon class:PopinEffect
+new	./lovekit/effects.moon	/^  new: (duration=0\.2, color={255,100,100}, @callback) =>/;"	f	language:moon class:FlashEffect
+new	./lovekit/entity.moon	/^  new: (@world, x, y) =>/;"	f	language:moon class:PlatformEntity
+new	./lovekit/entity.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:Entity
+new	./lovekit/geometry.moon	/^  new: (@cell_size=10) =>/;"	f	language:moon class:UniformGrid
+new	./lovekit/geometry.moon	/^  new: (@viewport) =>/;"	f	language:moon class:Selector
+new	./lovekit/geometry.moon	/^  new: (@x, @y, @w, @h) =>/;"	f	language:moon class:Box
+new	./lovekit/geometry.moon	/^  new: =>/;"	f	language:moon class:SetList
+new	./lovekit/image.moon	/^  new: (@fname) =>/;"	f	language:moon class:Image
+new	./lovekit/input.moon	/^  new: (mapping, @joystick) =>/;"	f	language:moon class:Controller
+new	./lovekit/lists.moon	/^  new: (@obj) =>/;"	f	language:moon class:EffectList
+new	./lovekit/lists.moon	/^  new: =>/;"	f	language:moon class:DrawList
+new	./lovekit/lists.moon	/^  new: =>/;"	f	language:moon class:EntityList
+new	./lovekit/lists.moon	/^  new: =>/;"	f	language:moon class:List
+new	./lovekit/lists.moon	/^  new: =>/;"	f	language:moon class:ReuseList
+new	./lovekit/mixins.moon	/^  new: =>/;"	f	language:moon class:HasEffects
+new	./lovekit/mixins.moon	/^  new: =>/;"	f	language:moon class:HasParticles
+new	./lovekit/particles.moon	/^  new: (@str, \.\.\.) =>/;"	f	language:moon class:TextEmitter
+new	./lovekit/particles.moon	/^  new: (@str, \.\.\.) =>/;"	f	language:moon class:TextParticle
+new	./lovekit/particles.moon	/^  new: (@world, @x, @y, @duration, @count, @make_particle, callback) =>/;"	f	language:moon class:Emitter
+new	./lovekit/particles.moon	/^  new: (@world, @x, @y, @rate, @make_particle) =>/;"	f	language:moon class:ForeverEmitter
+new	./lovekit/particles.moon	/^  new: (@x, @y, @vel=Vec2d(0,0), @accel=Vec2d(0,0)) =>/;"	f	language:moon class:Particle
+new	./lovekit/particles.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:ImageParticle
+new	./lovekit/paths.moon	/^  new: (@points, @speed) =>/;"	f	language:moon class:PathWalker
+new	./lovekit/paths.moon	/^  new: =>/;"	f	language:moon class:CatmullRomPath
+new	./lovekit/profile.moon	/^  new: =>/;"	f	language:moon class:Counter
+new	./lovekit/screen_snap.moon	/^  new: (@rate=3, @dir="snapshots_"\.\.os\.time!) =>/;"	f	language:moon class:ScreenSnap
+new	./lovekit/sequence.moon	/^  new: (fn, scope, \.\.\.) =>/;"	f	language:moon class:Sequence
+new	./lovekit/shaders.moon	/^  new: (@viewport) =>/;"	f	language:moon class:FullScreenShader
+new	./lovekit/spriter.moon	/^  new: (@img, @cell_w=0, @cell_h=cell_w, @width=nil) =>/;"	f	language:moon class:Spriter
+new	./lovekit/spriter.moon	/^  new: (@sprite, @sequence, @rate=0, @flip_x=false, @flip_y=false) =>/;"	f	language:moon class:Animator
+new	./lovekit/spriter.moon	/^  new: (initial, @states) =>/;"	f	language:moon class:StateAnim
+new	./lovekit/state.moon	/^  new: (@before, @after) =>/;"	f	language:moon class:FadeTransition
+new	./lovekit/state.moon	/^  new: (@before, @after) =>/;"	f	language:moon class:Transition
+new	./lovekit/state.moon	/^  new: (initial) =>/;"	f	language:moon class:Dispatcher
+new	./lovekit/tilemap.moon	/^  new: (@frames, @delay, \.\.\.) =>/;"	f	language:moon class:AnimatedTile
+new	./lovekit/tilemap.moon	/^  new: (@tid, @left, @right, \.\.\.) =>/;"	f	language:moon class:SlopeTopTile
+new	./lovekit/tilemap.moon	/^  new: (@tid, \.\.\.) =>/;"	f	language:moon class:Tile
+new	./lovekit/tilemap.moon	/^  new: (@width, @height, tiles=nil) =>/;"	f	language:moon class:TileMap
+new	./lovekit/ui.moon	/^  new: (@item, props) =>/;"	f	language:moon class:Border
+new	./lovekit/ui.moon	/^  new: (@items={}) =>/;"	f	language:moon class:Group
+new	./lovekit/ui.moon	/^  new: (@sprite, \.\.\.) =>/;"	f	language:moon class:Frame
+new	./lovekit/ui.moon	/^  new: (@x, @y, @item, @xalign, @yalign=xalign) =>/;"	f	language:moon class:Anchor
+new	./lovekit/ui.moon	/^  new: (@x, @y, @items={}) =>/;"	f	language:moon class:BaseList
+new	./lovekit/ui.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:AnimatedLabel
+new	./lovekit/ui.moon	/^  new: (text, @x, @y, fn) =>/;"	f	language:moon class:RevealLabel
+new	./lovekit/ui.moon	/^  new: (text, @x=0, @y=0) =>/;"	f	language:moon class:Label
+new	./lovekit/ui.moon	/^  new: (x,y, item) =>/;"	f	language:moon class:CenterAnchor
+new	./lovekit/ui.moon	/^  new: (x,y,w,h, @item, @xalign, @yalign) =>/;"	f	language:moon class:Bin
+new	./lovekit/viewport.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:EffectViewport
+new	./lovekit/viewport.moon	/^  new: (image, viewport) =>/;"	f	language:moon class:TiledBackground
+new	./lovekit/viewport.moon	/^  new: (opts={}) =>/;"	f	language:moon class:Viewport
+new	./particle.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:Smoke
+new	./particle.moon	/^  new: (\.\.\.) =>/;"	f	language:moon class:Spark
+new	./particle.moon	/^  new: (world, @z, @x, @y) =>/;"	f	language:moon class:Flame
+new	./particle.moon	/^  new: (world, @z, \.\.\.) =>/;"	f	language:moon class:ZImageParticle
+new	./particle.moon	/^  new: (world, @z, x, y) =>/;"	f	language:moon class:Explosion
+new	./particle.moon	/^  new: (world, @z, x, y)=>/;"	f	language:moon class:ZParticle
+new	./player.moon	/^  new: (x, y, @z) =>/;"	f	language:moon class:Bullet
+new	./player.moon	/^  new: (x,y, @z, @target, world) =>/;"	f	language:moon class:Missile
+new	./player.moon	/^  new: =>/;"	f	language:moon class:Player
+new	./shader.moon	/^  new: (@lookup_image) =>/;"	f	language:moon class:LutShader
+new	./title.moon	/^  new: =>/;"	f	language:moon class:Title
+new	./wave.moon	/^  new: (@world) =>/;"	f	language:moon class:BankWave
+new	./wave.moon	/^  new: (@world) =>/;"	f	language:moon class:ForeverWave
+new	./wave.moon	/^  new: (@world) =>/;"	f	language:moon class:TestWave
+new	./wave.moon	/^  new: (@world) =>/;"	f	language:moon class:TunnelWave
+new	./wave.moon	/^  new: (fn) =>/;"	f	language:moon class:Wave
+new	./waves/forever.moon	/^  new: (@world) =>/;"	f	language:moon class:ForeverWave
+new	./waves/tutorial.moon	/^  new: (@world) =>/;"	f	language:moon class:TutorialWave
+next_name	./lovekit/screen_snap.moon	/^  next_name: (ext) =>/;"	f	language:moon class:ScreenSnap
+normalized	./lovekit/geometry.moon	/^  normalized: =>/;"	f	language:moon class:Vec2d
+notarget	./player.moon	/^  notarget: =>/;"	f	language:moon class:Player
+on_bottom	./lovekit/viewport.moon	/^  on_bottom: (size, margin=0) =>/;"	f	language:moon class:Viewport
+on_hit_by	./enemy.moon	/^  on_hit_by: (bullet, world) =>/;"	f	language:moon class:Enemy
+on_hit_by	./player.moon	/^  on_hit_by: (bullet, world) =>/;"	f	language:moon class:Player
+on_right	./lovekit/viewport.moon	/^  on_right: (size, margin=0) =>/;"	f	language:moon class:Viewport
+on_show	./game_over.moon	/^  on_show: =>/;"	f	language:moon class:GameOver
+on_show	./title.moon	/^  on_show: =>/;"	f	language:moon class:Title
+on_stuck	./lovekit/entity.moon	/^  on_stuck: =>/;"	f	language:moon class:Entity
+outline	./lovekit/geometry.moon	/^  outline: (color=nil) =>/;"	f	language:moon class:Box
+p	./lovekit/effects.moon	/^  p: =>/;"	f	language:moon class:Effect
+p	./lovekit/particles.moon	/^  p: =>/;"	f	language:moon class:Particle
+pad	./lovekit/geometry.moon	/^  pad: (amount) =>/;"	f	language:moon class:Box
+parent	./lovekit/state.moon	/^  parent: =>/;"	f	language:moon class:Dispatcher
+pick_dist	./lovekit/support.moon	/^pick_dist = (t) ->/;"	f	language:moon
+pick_one	./lovekit/support.moon	/^pick_one = (\.\.\.) ->/;"	f	language:moon
+play	./lovekit/audio.moon	/^  play: (name) =>/;"	f	language:moon class:Audio
+play_music	./lovekit/audio.moon	/^  play_music: (name, looping=true) =>/;"	f	language:moon class:Audio
+pop	./lovekit/color.moon	/^  pop: (n=1) =>/;"	f	language:moon class:ColorStack
+pop	./lovekit/paths.moon	/^  pop: =>/;"	f	language:moon class:CatmullRomPath
+pop	./lovekit/state.moon	/^  pop: (n=1, transition=@default_transition) =>/;"	f	language:moon class:Dispatcher
+pop	./lovekit/viewport.moon	/^  pop: =>/;"	f	language:moon class:EffectViewport
+pop	./lovekit/viewport.moon	/^  pop: =>/;"	f	language:moon class:Viewport
+pop_in	./lovekit/support.moon	/^pop_in = (t, time=0\.1, amount=1\.1, decay=1) ->/;"	f	language:moon
+pop_key_repeat	./lovekit/mixins.moon	/^  pop_key_repeat: =>/;"	f	language:moon class:KeyRepeat
+pos	./lovekit/geometry.moon	/^  pos: =>/;"	f	language:moon class:Box
+pos_for_i	./lovekit/tilemap.moon	/^  pos_for_i: (i) =>/;"	f	language:moon class:TileMap
+pos_for_xy	./lovekit/tilemap.moon	/^  pos_for_xy: (x, y) =>/;"	f	language:moon class:TileMap
+pow_step	./lovekit/support.moon	/^pow_step = (a, b, t) ->/;"	f	language:moon
+preload	./lovekit/audio.moon	/^  preload: (names) =>/;"	f	language:moon class:Audio
+primary_direction	./lovekit/geometry.moon	/^  primary_direction: =>/;"	f	language:moon class:Vec2d
+project	./game_space.moon	/^  project: (x, y, z) =>/;"	f	language:moon class:GameSpace
+project	./lovekit/viewport.moon	/^  project: (x,y) =>/;"	f	language:moon class:Viewport
+push	./lovekit/color.moon	/^  push: (r,g,b,a) =>/;"	f	language:moon class:ColorStack
+push	./lovekit/lists.moon	/^  push: (item) =>/;"	f	language:moon class:List
+push	./lovekit/state.moon	/^  push: (state, transition=@default_transition) =>/;"	f	language:moon class:Dispatcher
+push_key_repeat	./lovekit/mixins.moon	/^  push_key_repeat: (\.\.\.) =>/;"	f	language:moon class:KeyRepeat
+pusha	./lovekit/color.moon	/^  pusha: (a) =>/;"	f	language:moon class:ColorStack
+quad_for	./lovekit/spriter.moon	/^  quad_for: (i) =>/;"	f	language:moon class:Spriter
+radians	./lovekit/geometry.moon	/^  radians: =>/;"	f	language:moon class:Vec2d
+rand	./lovekit/support.moon	/^rand = (min, max) ->/;"	f	language:moon
+random_heading	./lovekit/geometry.moon	/^  random_heading: (spread=10, r=random!) =>/;"	f	language:moon class:Vec2d
+random_normal	./lovekit/support.moon	/^random_normal = ->/;"	f	language:moon
+random_point	./lovekit/geometry.moon	/^  random_point: =>/;"	f	language:moon class:Box
+reload	./lovekit/image.moon	/^  reload: =>/;"	f	language:moon class:Image
+remove	./lovekit/lists.moon	/^  remove: (item) =>/;"	f	language:moon class:List
+remove	./lovekit/lists.moon	/^  remove: (thing) =>/;"	f	language:moon class:DrawList
+render	./lovekit/shaders.moon	/^  render: (fn) =>/;"	f	language:moon class:FullScreenShader
+render	./shader.moon	/^  render: (fn) =>/;"	f	language:moon class:LutShader
+replace	./lovekit/effects.moon	/^  replace: (other) =>/;"	f	language:moon class:ColorEffect
+replace	./lovekit/effects.moon	/^  replace: (other) =>/;"	f	language:moon class:Effect
+replace	./lovekit/state.moon	/^  replace: (state, \.\.\.) =>/;"	f	language:moon class:Dispatcher
+reset	./lovekit/paths.moon	/^  reset: (@i=1, @t=0) =>/;"	f	language:moon class:PathWalker
+reset	./lovekit/profile.moon	/^  reset: =>/;"	f	language:moon class:Counter
+reset	./lovekit/spriter.moon	/^  reset: (\.\.\.) =>/;"	f	language:moon class:StateAnim
+reset	./lovekit/spriter.moon	/^  reset: (frame=1) =>/;"	f	language:moon class:Animator
+reset	./lovekit/state.moon	/^  reset: (initial) =>/;"	f	language:moon class:Dispatcher
+respond	./lovekit/sequence.moon	/^  respond: =>/;"	f	language:moon class:Sequence
+reverse	./lovekit/support.moon	/^reverse = (array) ->/;"	f	language:moon
+rgb_to_hsl	./lovekit/color.moon	/^rgb_to_hsl = (r,g,b) ->/;"	f	language:moon
+right	./lovekit/geometry.moon	/^  right: =>/;"	f	language:moon class:Vec2d
+right	./lovekit/viewport.moon	/^  right: (offset=0) =>/;"	f	language:moon class:Viewport
+rotate	./lovekit/geometry.moon	/^  rotate: (rads) =>/;"	f	language:moon class:Vec2d
+scale	./lovekit/geometry.moon	/^  scale: (sx=1, sy=sx, center=false) =>/;"	f	language:moon class:Box
+scale_factor	./game_space.moon	/^  scale_factor: (z) =>/;"	f	language:moon class:GameSpace
+send	./lovekit/shaders.moon	/^  send: =>/;"	f	language:moon class:FullScreenShader
+send	./lovekit/state.moon	/^  send: (event, \.\.\.) =>/;"	f	language:moon class:Dispatcher
+send	./shader.moon	/^  send: =>/;"	f	language:moon class:LutShader
+send_time	./lovekit/sequence.moon	/^  send_time: (dt) =>/;"	f	language:moon class:Sequence
+seq	./lovekit/spriter.moon	/^  seq: (\.\.\.) =>/;"	f	language:moon class:Spriter
+set	./lovekit/color.moon	/^  set: (\.\.\.) =>/;"	f	language:moon class:ColorStack
+set_max_width	./lovekit/ui.moon	/^  set_max_width: (max_width, @align) =>/;"	f	language:moon class:Label
+set_pos	./lovekit/geometry.moon	/^  set_pos: (@x, @y) =>/;"	f	language:moon class:Box
+set_state	./lovekit/spriter.moon	/^  set_state: (name, \.\.\.) =>/;"	f	language:moon class:StateAnim
+set_text	./lovekit/ui.moon	/^  set_text: (@text) =>/;"	f	language:moon class:Label
+set_wave	./game.moon	/^  set_wave: (wave_cls) =>/;"	f	language:moon class:Game
+set_wrap	./lovekit/image.moon	/^  set_wrap: (\.\.\.) =>/;"	f	language:moon class:Image
+setfenv	./lovekit/sequence.moon	/^  @setfenv: (fn, scope=@default_scope) =>/;"	f	language:moon class:Sequence
+shader	./lovekit/shaders.moon	/^  shader: =>/;"	f	language:moon class:FullScreenShader
+shake	./lovekit/viewport.moon	/^  shake: (dur=0\.4, \.\.\.) =>/;"	f	language:moon class:EffectViewport
+shift	./lovekit/lists.moon	/^  shift: (item) =>/;"	f	language:moon class:List
+shoot	./enemy.moon	/^  shoot: (world, target) =>/;"	f	language:moon class:Enemy
+shoot	./player.moon	/^  shoot: (world) =>/;"	f	language:moon class:Player
+shoot_missile	./player.moon	/^  shoot_missile: (world, target) =>/;"	f	language:moon class:Player
+show_grid	./lovekit/support.moon	/^show_grid = (v, step=1) ->/;"	f	language:moon
+show_touching	./lovekit/tilemap.moon	/^  show_touching: (thing) =>/;"	f	language:moon class:TileMap
+shrink	./lovekit/geometry.moon	/^  shrink: (dx=1, dy=dx) =>/;"	f	language:moon class:Box
+shuffle	./lovekit/support.moon	/^shuffle = (array) ->/;"	f	language:moon
+smooth_approach	./lovekit/support.moon	/^smooth_approach = (val, target, amount) ->/;"	f	language:moon
+smoothstep	./lovekit/support.moon	/^smoothstep = (a, b, t) ->/;"	f	language:moon
+splice_states	./lovekit/spriter.moon	/^  splice_states: (idx, fn) =>/;"	f	language:moon class:StateAnim
+split	./lovekit/support.moon	/^split = (str, delim using nil) ->/;"	f	language:moon
+sqrt_step	./lovekit/support.moon	/^sqrt_step = (a, b, t) ->/;"	f	language:moon
+start	./lovekit/sequence.moon	/^  start: (\.\.\.) =>/;"	f	language:moon class:Sequence
+state_duration	./lovekit/spriter.moon	/^  state_duration: (name) =>/;"	f	language:moon class:StateAnim
+sum	./lovekit/lists.moon	/^  sum: =>/;"	f	language:moon class:ImpulseSet
+take_screenshot	./lovekit/screen_snap.moon	/^  take_screenshot: =>/;"	f	language:moon class:ScreenSnap
+tapped	./lovekit/input.moon	/^  tapped: (key, \.\.\.) =>/;"	f	language:moon class:Controller
+tick	./lovekit/screen_snap.moon	/^  tick:  =>/;"	f	language:moon class:ScreenSnap
+tile_for_point	./lovekit/tilemap.moon	/^  tile_for_point: (x,y, layer=@solid_layer) =>/;"	f	language:moon class:TileMap
+tiles_for_box	./lovekit/tilemap.moon	/^  tiles_for_box: (box) =>/;"	f	language:moon class:TileMap
+to_box	./lovekit/tilemap.moon	/^  to_box: =>/;"	f	language:moon class:TileMap
+to_i	./lovekit/tilemap.moon	/^  to_i: (x,y) =>/;"	f	language:moon class:TileMap
+to_xy	./lovekit/tilemap.moon	/^  to_xy: (i) =>/;"	f	language:moon class:TileMap
+top	./lovekit/state.moon	/^  top: =>/;"	f	language:moon class:Dispatcher
+top	./lovekit/viewport.moon	/^  top: (offset=0) =>/;"	f	language:moon class:Viewport
+touches_box	./lovekit/geometry.moon	/^  touches_box: (o) =>/;"	f	language:moon class:Box
+touches_pt	./lovekit/geometry.moon	/^  touches_pt: (x, y) =>/;"	f	language:moon class:Box
+truncate	./lovekit/geometry.moon	/^  truncate: (max_len) =>/;"	f	language:moon class:Vec2d
+tunnel_bend	./game_space.moon	/^  tunnel_bend: (z) =>/;"	f	language:moon class:GameSpace
+unpack	./lovekit/geometry.moon	/^  unpack: =>/;"	f	language:moon class:Box
+unpack2	./lovekit/geometry.moon	/^  unpack2: =>/;"	f	language:moon class:Box
+unproject	./lovekit/viewport.moon	/^  unproject: (x,y) =>/;"	f	language:moon class:Viewport
+unproject_rot	./game_space.moon	/^  unproject_rot: (x,y) =>/;"	f	language:moon class:GameSpace
+update	./enemy.moon	/^  update: (dt) =>/;"	f	language:moon class:EnemyBullet
+update	./enemy.moon	/^  update: (dt, world) =>/;"	f	language:moon class:Enemy
+update	./game.moon	/^  update: (dt) =>/;"	f	language:moon class:Game
+update	./game_over.moon	/^  update: (dt) =>/;"	f	language:moon class:GameOver
+update	./game_space.moon	/^  update: (dt) =>/;"	f	language:moon class:GameSpace
+update	./lovekit/effects.moon	/^  update: (\.\.\.) =>/;"	f	language:moon class:ColorEffect
+update	./lovekit/effects.moon	/^  update: (dt) =>/;"	f	language:moon class:Effect
+update	./lovekit/entity.moon	/^  update: (dt) =>/;"	f	language:moon class:PlatformEntity
+update	./lovekit/entity.moon	/^  update: (dt, world) =>/;"	f	language:moon class:Entity
+update	./lovekit/geometry.moon	/^  update: (dt) =>/;"	f	language:moon class:BoxSelector
+update	./lovekit/geometry.moon	/^  update: (dt) =>/;"	f	language:moon class:VectorSelector
+update	./lovekit/geometry.moon	/^  update: (x, y) =>/;"	f	language:moon class:Vec2d
+update	./lovekit/lists.moon	/^  update: (\.\.\.) =>/;"	f	language:moon class:EntityList
+update	./lovekit/lists.moon	/^  update: (dt) =>/;"	f	language:moon class:EffectList
+update	./lovekit/lists.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:DrawList
+update	./lovekit/lists.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:ReuseList
+update	./lovekit/mixins.moon	/^  update: (dt) =>/;"	f	language:moon class:HasEffects
+update	./lovekit/mixins.moon	/^  update: (dt) =>/;"	f	language:moon class:HasParticles
+update	./lovekit/mixins.moon	/^  update: (dt) =>/;"	f	language:moon class:Sequenced
+update	./lovekit/particles.moon	/^  update: (dt) =>/;"	f	language:moon class:Emitter
+update	./lovekit/particles.moon	/^  update: (dt) =>/;"	f	language:moon class:Particle
+update	./lovekit/particles.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:ImageParticle
+update	./lovekit/particles.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:TextParticle
+update	./lovekit/paths.moon	/^  update: (dt) =>/;"	f	language:moon class:PathWalker
+update	./lovekit/reloader.moon	/^update = ->/;"	f	language:moon
+update	./lovekit/sequence.moon	/^  update: (dt) =>/;"	f	language:moon class:Sequence
+update	./lovekit/spriter.moon	/^  update: (dt) =>/;"	f	language:moon class:Animator
+update	./lovekit/spriter.moon	/^  update: (dt) =>/;"	f	language:moon class:StateAnim
+update	./lovekit/state.moon	/^  update: (dt) =>/;"	f	language:moon class:Dispatcher
+update	./lovekit/state.moon	/^  update: (dt) =>/;"	f	language:moon class:FadeTransition
+update	./lovekit/state.moon	/^  update: =>/;"	f	language:moon class:Transition
+update	./lovekit/tilemap.moon	/^  update: (dt) =>/;"	f	language:moon class:TileMap
+update	./lovekit/ui.moon	/^  update: (\.\.\.) =>/;"	f	language:moon class:Anchor
+update	./lovekit/ui.moon	/^  update: (\.\.\.) =>/;"	f	language:moon class:Bin
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:AnimatedLabel
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:BlinkingLabel
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:Border
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:Group
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:Label
+update	./lovekit/ui.moon	/^  update: (dt) =>/;"	f	language:moon class:RevealLabel
+update	./lovekit/ui.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:BaseList
+update	./lovekit/viewport.moon	/^  update: (dt) =>/;"	f	language:moon class:EffectViewport
+update	./lovekit/viewport.moon	/^  update: (dt) =>/;"	f	language:moon class:Viewport
+update	./particle.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:ZImageParticle
+update	./particle.moon	/^  update: (dt, \.\.\.) =>/;"	f	language:moon class:ZParticle
+update	./player.moon	/^  update: (dt) =>/;"	f	language:moon class:Bullet
+update	./player.moon	/^  update: (dt) =>/;"	f	language:moon class:Missile
+update	./player.moon	/^  update: (dt, world) =>/;"	f	language:moon class:Player
+update	./title.moon	/^  update: (dt) =>/;"	f	language:moon class:Title
+update	./wave.moon	/^  update: (\.\.\.) =>/;"	f	language:moon class:Wave
+update_mouse	./lovekit/geometry.moon	/^  update_mouse: =>/;"	f	language:moon class:Selector
+update_size	./lovekit/ui.moon	/^  update_size: =>/;"	f	language:moon class:HList
+update_size	./lovekit/ui.moon	/^  update_size: =>/;"	f	language:moon class:VList
+vector_to	./lovekit/geometry.moon	/^  vector_to: (other) =>/;"	f	language:moon class:Box
+wait_for	./lovekit/input.moon	/^  wait_for: =>/;"	f	language:moon class:Controller
+walker	./lovekit/paths.moon	/^  walker: (speed) =>/;"	f	language:moon class:CatmullRomPath
+watch	./lovekit/reloader.moon	/^watch = (fname, action) ->/;"	f	language:moon
+watch_class	./lovekit/reloader.moon	/^watch_class = (cls) ->/;"	f	language:moon
+width	./lovekit/image.moon	/^  width: =>/;"	f	language:moon class:Image
+write	./lovekit/screen_snap.moon	/^  write: (format="png") =>/;"	f	language:moon class:ScreenSnap

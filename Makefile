@@ -14,3 +14,6 @@ deploy:
 	lovekit-bin.sh depthgun
 	butler push depthgun-win32.zip leafo/depth-gun:win32
 	butler push depthgun-osx.zip leafo/depth-gun:osx
+
+tags:
+	moon-tags $$(find -L . -type f -name "*.moon") > $@
