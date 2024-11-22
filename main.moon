@@ -7,9 +7,9 @@ require "lovekit.all"
 
 export DEBUG = false
 
-load_font = (img, chars)->
-  font_image = imgfy img
-  g.newImageFont font_image.tex, chars
+load_font = (img_path, chars) ->
+  with g.newImageFont img_path, chars
+    \setFilter "nearest", "nearest"
 
 import Game from require "game"
 import Title from require "title"
