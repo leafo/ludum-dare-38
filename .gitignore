@@ -2,3 +2,4 @@
 lovekit
 *.zip
 *.love
+build/
